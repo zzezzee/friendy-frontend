@@ -1,0 +1,56 @@
+import { useNavigate } from 'react-router-dom';
+import useLoginFormStore from '../hooks/useLoginFormStore';
+
+export default function LoginForm() {
+  const navigate = useNavigate();
+  const loginFormStore = useLoginFormStore();
+
+  const handleChangeUsername = (e) => {
+    loginFormStore.changeUsername(e.target.value);
+  };
+
+  const handleChangePassword = (e) => {
+    loginFormStore.changePassword(e.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    loginFormStore.validate();
+
+    if (loginFormStore.validateFailed()) {
+      return;
+    }
+
+    navigate('/');
+  };
+
+  return ((
+    <div>
+      <h1>LOGIN</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          id="input-username"
+          type="text"
+          name="username"
+          placeholder="아이디"
+          value={loginFormStore.username}
+          onChange={handleChangeUsername}
+        />
+        <input
+          id="input-password"
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          value={loginFormStore.password}
+          onChange={handleChangePassword}
+        />
+        {loginFormStore.errors
+          ? loginFormStore.errors
+          : null}
+        <button type="submit">로그인</button>
+      </form>
+      <a href="/">회원가입</a>
+    </div>
+  ));
+}
