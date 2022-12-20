@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from 'usehooks-ts';
 import useLoginFormStore from '../hooks/useLoginFormStore';
+import useUserStore from '../hooks/useUserStore';
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const loginFormStore = useLoginFormStore();
+  const userStore = useUserStore();
+
+  const [, setAccessToken] = useLocalStorage('accessToken', '');
 
   const handleChangeUsername = (e) => {
     loginFormStore.changeUsername(e.target.value);
@@ -21,6 +26,12 @@ export default function LoginForm() {
     if (loginFormStore.validateFailed()) {
       return;
     }
+
+    const { username, password, nickname } = loginFormStore;
+
+    const accessToken = await userStore.login({ username, password });
+
+    setAccessToken(accessToken);
 
     navigate('/');
   };
