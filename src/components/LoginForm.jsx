@@ -27,13 +27,15 @@ export default function LoginForm() {
       return;
     }
 
-    const { username, password, nickname } = loginFormStore;
+    const { username, password } = loginFormStore;
 
     const accessToken = await userStore.login({ username, password });
 
+    const { nickname } = userStore;
+
     setAccessToken(accessToken);
 
-    navigate('/');
+    navigate(`/${nickname}`);
   };
 
   return ((

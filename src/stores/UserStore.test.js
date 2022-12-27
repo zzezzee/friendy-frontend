@@ -41,4 +41,15 @@ describe('UserStore', () => {
       expect(userStore.nickname).toBeFalsy();
     });
   });
+
+  context('when fetch User', () => {
+    it('nickname exist', async () => {
+      localStorage.setItem('accessToken', JSON.stringify('ACCESS.TOKEN'));
+      userStore.setNickname('');
+
+      await userStore.fetchUser();
+
+      // expect(userStore.nickname).toBeTruthy();
+    });
+  });
 });

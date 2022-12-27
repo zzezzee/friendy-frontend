@@ -25,6 +25,10 @@ const server = setupServer(
       ctx.status(400),
     );
   }),
+
+  rest.get(`${baseURL}/users/me`, async (req, res, ctx) => res(ctx.json({
+    amount: 50000,
+  }))),
 );
 
 export default server;

@@ -8,10 +8,15 @@ export default class UserStore extends Store {
     this.nickname = '';
   }
 
-  async fetchUser() {
-    const { amount } = await userApiService.fetchUser();
+  setNickname(nickname) {
+    this.nickname = nickname;
+    this.publish();
+  }
 
-    this.amount = amount;
+  async fetchUser() {
+    const { nickname } = await userApiService.fetchUser();
+
+    this.nickname = nickname;
 
     this.publish();
   }
