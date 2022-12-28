@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 import useLoginFormStore from '../hooks/useLoginFormStore';
 import useUserStore from '../hooks/useUserStore';
+import { miniHomepageApiService } from '../services/MiniHomepageApiService';
+import { userApiService } from '../services/UserApiService';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -31,9 +33,12 @@ export default function LoginForm() {
 
     const accessToken = await userStore.login({ username, password });
 
-    const { nickname } = userStore;
-
     setAccessToken(accessToken);
+
+    miniHomepageApiService.setAccessToken(accessToken);
+    userApiService.setAccessToken(accessToken);
+
+    const { nickname } = userStore;
 
     navigate(`/${nickname}`);
   };

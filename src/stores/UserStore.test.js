@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import UserStore from './UserStore';
 
 const context = describe;
@@ -44,12 +45,9 @@ describe('UserStore', () => {
 
   context('when fetch User', () => {
     it('nickname exist', async () => {
-      localStorage.setItem('accessToken', JSON.stringify('ACCESS.TOKEN'));
-      userStore.setNickname('');
-
       await userStore.fetchUser();
 
-      // expect(userStore.nickname).toBeTruthy();
+      expect(userStore.nickname).toBeTruthy();
     });
   });
 });

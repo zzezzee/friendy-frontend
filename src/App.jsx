@@ -2,15 +2,14 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
-import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import Navigator from './components/Navigator';
+import useUserStore from './hooks/useUserStore';
 import AdditionalPage from './pages/AdditionalPage';
-import ExplorePage from './pages/explorePage';
+import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import MiniHomepagePage from './pages/MiniHomepagePage';
-import { userApiService } from './services/UserApiService';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 
@@ -30,11 +29,11 @@ const Main = styled.main`
 `;
 
 export default function App() {
-  const [accessToken] = useLocalStorage('accessToken', '');
+  const userStore = useUserStore();
 
   useEffect(() => {
-    userApiService.setAccessToken(accessToken);
-  }, [accessToken]);
+    userStore.fetchUser();
+  }, []);
 
   return ((
     <div>

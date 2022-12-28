@@ -8,8 +8,15 @@ export default class UserStore extends Store {
     this.nickname = '';
   }
 
+  reset() {
+    this.nickname = '';
+
+    this.publish();
+  }
+
   setNickname(nickname) {
     this.nickname = nickname;
+    
     this.publish();
   }
 

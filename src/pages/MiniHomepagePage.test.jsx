@@ -3,9 +3,13 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../styles/Theme';
 import MiniHomepagePage from './MiniHomepagePage';
 
+const location = jest.fn();
 const navigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
+  useLocation() {
+    return location;
+  },
   useNavigate() {
     return navigate;
   },

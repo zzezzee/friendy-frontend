@@ -18,19 +18,17 @@ describe('LoginForm', () => {
     jest.clearAllMocks();
   });
 
-  function renderMiniHomepage(location) {
+  function renderMiniHomepage() {
     render((
       <ThemeProvider theme={theme}>
-        <MiniHomepage location={location} />
+        <MiniHomepage />
       </ThemeProvider>
     ));
   }
 
   context('when into My miniHomepage', () => {
-    it('see button +', () => {
+    it('see introduction', () => {
       renderMiniHomepage();
-
-      // screen.getByRole('button', { name: '+' });
     });
   });
 });

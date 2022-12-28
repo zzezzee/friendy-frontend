@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
 import useUserStore from '../hooks/useUserStore';
+import GuestBook from './GuestBook';
+import PhotoBook from './PhotoBook';
 
 const Container = styled.div`
   width: 100%;
@@ -16,9 +19,9 @@ const Information = styled.header`
 `;
 
 export default function MiniHomepage() {
-  const userStore = useUserStore();
+  const miniHomepageStore = useMiniHomepageStore();
 
-  const { nickname } = userStore;
+  const { nickname, profileImage, introduction } = miniHomepageStore;
 
   return ((
     <Container>
@@ -27,16 +30,14 @@ export default function MiniHomepage() {
           {nickname}
           의 미니홈피
         </Title>
-        <img src="" alt="프로필사진" />
-        <p>미니홈피 소개</p>
+        <img src={profileImage} alt="프로필사진" height="150px" />
+        <p>{introduction}</p>
         <button type="button">수정</button>
-        <p>일촌 목록</p>
-        <p>즐겨찾기 목록</p>
+        <p>일촌: 30</p>
+        <p>즐겨찾기: 30</p>
       </Information>
-      <p>사진첩</p>
-      <button type="button">추가</button>
-      <p>방명록</p>
-      <button type="button">추가</button>
+      <PhotoBook />
+      <GuestBook />
     </Container>
   ));
 }

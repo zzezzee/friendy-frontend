@@ -27,7 +27,13 @@ const server = setupServer(
   }),
 
   rest.get(`${baseURL}/users/me`, async (req, res, ctx) => res(ctx.json({
-    amount: 50000,
+    nickname: 'zzezze',
+  }))),
+
+  rest.get(`${baseURL}/miniHomepages`, async (req, res, ctx) => res(ctx.json({
+    nickname: 'zzezze',
+    profileImage: 'image',
+    introduction: '미니홈피 소개입니다',
   }))),
 );
 
