@@ -29,12 +29,6 @@ const Main = styled.main`
 `;
 
 export default function App() {
-  const userStore = useUserStore();
-
-  useEffect(() => {
-    userStore.fetchUser();
-  }, []);
-
   return ((
     <div>
       <ThemeProvider theme={theme}>

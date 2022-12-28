@@ -3,6 +3,17 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../styles/Theme';
 import PhotoBook from './PhotoBook';
 
+jest.mock('react-router-dom', () => ({
+  // eslint-disable-next-line react/prop-types
+  Link({ children, to }) {
+    return (
+      <a href={to}>
+        {children}
+      </a>
+    );
+  },
+}));
+
 const context = describe;
 
 describe('PhotoBook', () => {

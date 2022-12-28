@@ -36,7 +36,7 @@ export default function MiniHomepage() {
         <p>일촌: 30</p>
         <p>즐겨찾기: 30</p>
       </Information>
-      <PhotoBook />
+      <PhotoBook nickname={nickname} />
       <GuestBook />
     </Container>
   ));

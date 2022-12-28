@@ -35,6 +35,21 @@ const server = setupServer(
     profileImage: 'image',
     introduction: '미니홈피 소개입니다',
   }))),
+
+  rest.get(`${baseURL}/photo-books`, async (req, res, ctx) => res(ctx.json({
+    photoBook: [
+      {
+        id: 1,
+        image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
+        explanation: '사진 설명입니다',
+      },
+      {
+        id: 2,
+        image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo2.avif',
+        explanation: '사진 설명입니다',
+      },
+    ],
+  }))),
 );
 
 export default server;

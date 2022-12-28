@@ -16,7 +16,7 @@ export default class UserStore extends Store {
 
   setNickname(nickname) {
     this.nickname = nickname;
-    
+
     this.publish();
   }
 
