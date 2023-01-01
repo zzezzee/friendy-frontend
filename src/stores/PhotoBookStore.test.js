@@ -12,11 +12,9 @@ describe('UserStore', () => {
 
   context('when fetch photos', () => {
     it('set photos', async () => {
-      await photoBookStore.fetchPhotoBook();
+      await photoBookStore.fetchPhotoBook('zzezze');
 
-      await waitFor(() => {
-        expect(photoBookStore.photoBook).toBeTruthy();
-      });
+      expect(photoBookStore.photoBook).toBeTruthy();
     });
   });
 });

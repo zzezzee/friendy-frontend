@@ -6,19 +6,6 @@ export default function PhotoBook({ nickname }) {
 
   const { photoBook } = photoBookStore;
 
-  // const photoBook = [
-  //   {
-  //     id: 1,
-  //     image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
-  //     explanation: '사진 설명입니다',
-  //   },
-  //   {
-  //     id: 2,
-  //     image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo2.avif',
-  //     explanation: '사진 설명입니다',
-  //   },
-  // ];
-
   if (!photoBook) {
     return <p>loading...</p>;
   }
@@ -39,7 +26,7 @@ export default function PhotoBook({ nickname }) {
           </li>
         ))}
       </ul>
-      <button type="button">추가</button>
+      <Link to="/photos/write">추가</Link>
     </div>
   ));
 }

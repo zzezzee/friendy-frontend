@@ -23,6 +23,32 @@ export default class MiniHomepageApiService {
 
     return data;
   }
+
+  async upload(formData) {
+    const url = `${baseURL}/upload`;
+    const { data } = await axios.post(url, formData);
+
+    return data;
+  }
+
+  async patch(profileImage, introduction) {
+    const url = `${baseURL}/miniHomepages`;
+
+    const { data } = await axios.patch(
+      url,
+      {
+        profileImage,
+        introduction,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
 }
 
 export const miniHomepageApiService = new MiniHomepageApiService();

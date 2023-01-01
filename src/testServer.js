@@ -36,19 +36,36 @@ const server = setupServer(
     introduction: '미니홈피 소개입니다',
   }))),
 
-  rest.get(`${baseURL}/photo-books`, async (req, res, ctx) => res(ctx.json({
-    photoBook: [
-      {
-        id: 1,
-        image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
-        explanation: '사진 설명입니다',
-      },
-      {
-        id: 2,
-        image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo2.avif',
-        explanation: '사진 설명입니다',
-      },
-    ],
+  rest.patch(`${baseURL}/miniHomepages`, async (req, res, ctx) => res(ctx.json({
+    profileImage: 'image',
+    explanation: '미니홈피 소개입니다',
+  }))),
+
+  rest.get(`${baseURL}/photo-books`, async (req, res, ctx) => {
+    const param = req.url.searchParams.get('nickname');
+
+    if (param === 'zzezze') {
+      return res(ctx.json({
+        photos: [
+          {
+            id: 1,
+            image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
+            explanation: '사진 설명입니다',
+          },
+          {
+            id: 2,
+            image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo2.avif',
+            explanation: '사진 설명입니다',
+          },
+        ],
+      }));
+    }
+
+    return res.status(400);
+  }),
+
+  rest.post(`${baseURL}/upload`, async (req, res, ctx) => res(ctx.json({
+    profileImage: 'image_address',
   }))),
 );
 

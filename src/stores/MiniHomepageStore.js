@@ -29,6 +29,14 @@ export default class MiniHomepageStore extends Store {
 
     this.publish();
   }
+
+  async patch(formData, explanation) {
+    const profileImage = await miniHomepageApiService.upload(formData);
+
+    await miniHomepageApiService.patch(profileImage, explanation);
+
+    this.publish();
+  }
 }
 
 export const miniHomepageStore = new MiniHomepageStore();

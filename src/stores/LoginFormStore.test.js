@@ -48,7 +48,7 @@ describe('LoginFormStore', () => {
   });
 
   context('when login with blank username and password', () => {
-    it('change errors', () => {
+    it('change errors', () => {6777
       loginFormStore.changeUsername('');
       loginFormStore.changePassword('');
 

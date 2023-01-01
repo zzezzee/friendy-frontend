@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
 import useUserStore from '../hooks/useUserStore';
@@ -32,7 +33,7 @@ export default function MiniHomepage() {
         </Title>
         <img src={profileImage} alt="프로필사진" height="150px" />
         <p>{introduction}</p>
-        <button type="button">수정</button>
+        <Link to="/change-profile">수정</Link>
         <p>일촌: 30</p>
         <p>즐겨찾기: 30</p>
       </Information>

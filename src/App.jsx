@@ -10,6 +10,8 @@ import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import MiniHomepagePage from './pages/MiniHomepagePage';
+import PhotoRegistrationPage from './pages/PhotoRegistrationPage';
+import ProfileChangePage from './pages/ProfileChangePage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 
@@ -42,6 +44,8 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/additional" element={<AdditionalPage />} />
+            <Route path="/photos/write" element={<PhotoRegistrationPage />} />
+            <Route path="/change-profile" element={<ProfileChangePage />} />
           </Routes>
           <div>
             <Navigator />

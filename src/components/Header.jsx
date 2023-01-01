@@ -28,6 +28,7 @@ export default function Header() {
     miniHomepageStore.reset();
     navigate('/');
   };
+  
   return ((
     <Container>
       <Title>friendy</Title>

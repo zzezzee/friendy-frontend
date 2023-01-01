@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/Theme';
-import MiniHomepagePage from './MiniHomepagePage';
+import ProfileChangePage from './ProfileChangePage';
 
-const location = jest.fn();
 const navigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
@@ -15,20 +14,14 @@ jest.mock('react-router-dom', () => ({
       </a>
     );
   },
-  useLocation() {
-    return location;
-  },
   useNavigate() {
     return navigate;
   },
 }));
 
-test('MiniHomepagePage', async () => {
+test('ProfileChangePage', () => {
   render((
     <ThemeProvider theme={theme}>
-      <MiniHomepagePage />
+      <ProfileChangePage />
     </ThemeProvider>));
-
-  screen.getByText('사진첩');
-  screen.getByText('방명록');
 });
