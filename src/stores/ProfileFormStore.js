@@ -10,7 +10,6 @@ export default class ProfileFormStore extends Store {
   changeProfileImage(profileImage) {
     this.profileImage = profileImage;
 
-    console.log(profileImage);
     this.publish();
   }
 

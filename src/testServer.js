@@ -67,6 +67,19 @@ const server = setupServer(
   rest.post(`${baseURL}/upload`, async (req, res, ctx) => res(ctx.json({
     profileImage: 'image_address',
   }))),
+
+  rest.post(`${baseURL}/photo-books`, async (req, res, ctx) => res(ctx.json({
+    photo:
+      {
+        id: 1,
+        image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
+        explanation: '사진 설명입니다',
+      },
+  }))),
+
+  rest.post(`${baseURL}/upload-photo`, async (req, res, ctx) => res(ctx.json({
+    profileImage: 'image_address',
+  }))),
 );
 
 export default server;

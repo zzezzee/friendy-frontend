@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
-import useUserStore from '../hooks/useUserStore';
 import GuestBook from './GuestBook';
 import PhotoBook from './PhotoBook';
 
@@ -22,6 +21,7 @@ const Information = styled.header`
 export default function MiniHomepage() {
   const miniHomepageStore = useMiniHomepageStore();
 
+  console.log('miniHomepage');
   const { nickname, profileImage, introduction } = miniHomepageStore;
 
   return ((
@@ -34,10 +34,11 @@ export default function MiniHomepage() {
         <img src={profileImage} alt="프로필사진" height="150px" />
         <p>{introduction}</p>
         <Link to="/change-profile">수정</Link>
+        <p />
         <p>일촌: 30</p>
         <p>즐겨찾기: 30</p>
       </Information>
-      <PhotoBook nickname={nickname} />
+      <PhotoBook />
       <GuestBook />
     </Container>
   ));

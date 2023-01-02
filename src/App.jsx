@@ -2,16 +2,20 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
+import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import Navigator from './components/Navigator';
-import useUserStore from './hooks/useUserStore';
 import AdditionalPage from './pages/AdditionalPage';
 import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import MiniHomepagePage from './pages/MiniHomepagePage';
-import PhotoRegistrationPage from './pages/PhotoRegistrationPage';
+import PhotoDetailPage from './pages/PhotoDetailPage';
+import PhotoRegistrationPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
+import { miniHomepageApiService } from './services/MiniHomepageApiService';
+import { photoBookApiService } from './services/PhotoBookApiService';
+import { userApiService } from './services/UserApiService';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 
@@ -31,6 +35,16 @@ const Main = styled.main`
 `;
 
 export default function App() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
+  console.log('App.jsx');
+
+  useEffect(() => {
+    userApiService.setAccessToken(accessToken);
+    photoBookApiService.setAccessToken(accessToken);
+    miniHomepageApiService.setAccessToken(accessToken);
+  });
+
   return ((
     <div>
       <ThemeProvider theme={theme}>
@@ -46,6 +60,7 @@ export default function App() {
             <Route path="/additional" element={<AdditionalPage />} />
             <Route path="/photos/write" element={<PhotoRegistrationPage />} />
             <Route path="/change-profile" element={<ProfileChangePage />} />
+            <Route path="/:nickname/photos/:id" element={<PhotoDetailPage />} />
           </Routes>
           <div>
             <Navigator />

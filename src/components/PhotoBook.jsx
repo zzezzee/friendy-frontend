@@ -1,7 +1,23 @@
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import usePhotoBookStore from '../hooks/usePhotoBookStore';
 
-export default function PhotoBook({ nickname }) {
+const Container = styled.div`
+  padding: 1em;
+`;
+
+const Image = styled.img`
+  width: 170px;
+  height: 170px;
+  object-fit: fill;
+`;
+
+const List = styled.ul`
+  display: flex;
+  gap: 1em;
+`;
+
+export default function PhotoBook() {
   const photoBookStore = usePhotoBookStore();
 
   const { photoBook } = photoBookStore;
@@ -11,13 +27,13 @@ export default function PhotoBook({ nickname }) {
   }
 
   return ((
-    <div>
+    <Container>
       <p>사진첩</p>
-      <ul>
+      <List>
         {photoBook.map((photo) => (
           <li key={photo.id}>
-            <Link to={`/photos/${photo.id}`}>
-              <img
+            <Link to={`photos/${photo.id}`}>
+              <Image
                 src={photo.image}
                 alt="사진"
                 height="150px"
@@ -25,8 +41,8 @@ export default function PhotoBook({ nickname }) {
             </Link>
           </li>
         ))}
-      </ul>
+      </List>
       <Link to="/photos/write">추가</Link>
-    </div>
+    </Container>
   ));
 }

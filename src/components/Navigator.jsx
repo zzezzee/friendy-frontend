@@ -9,10 +9,6 @@ const Container = styled.div`
   margin-top: 15em;
 `;
 
-const Title = styled.h1`
-
-`;
-
 const List = styled.ul`
   display: flex;
   flex-direction: row;
@@ -36,9 +32,9 @@ export default function Navigator() {
           </Link>
         </li>
         <li>
-          <Link to={`/${nickname}`}>
+          <a href={`/${nickname}`}>
             미니홈피
-          </Link>
+          </a>
         </li>
         <li>
           <Link to="/explore">

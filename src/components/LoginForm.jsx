@@ -3,6 +3,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import useLoginFormStore from '../hooks/useLoginFormStore';
 import useUserStore from '../hooks/useUserStore';
 import { miniHomepageApiService } from '../services/MiniHomepageApiService';
+import { photoBookApiService } from '../services/PhotoBookApiService';
 import { userApiService } from '../services/UserApiService';
 
 export default function LoginForm() {
@@ -35,12 +36,13 @@ export default function LoginForm() {
 
     setAccessToken(accessToken);
 
-    miniHomepageApiService.setAccessToken(accessToken);
-    userApiService.setAccessToken(accessToken);
+    // miniHomepageApiService.setAccessToken(accessToken);
+    // photoBookApiService.setAccessToken(accessToken);
+    // userApiService.setAccessToken(accessToken);
 
     const { nickname } = userStore;
 
-    navigate(`/${nickname}`);
+    navigate('/');
   };
 
   return ((

@@ -1,14 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import PhotoRegistration from '../components/PhotoRegistration';
 import theme from '../styles/Theme';
+import PhotoRegistrationFromPage from './PhotoRegistrationFromPage';
+
+const location = jest.fn();
+const navigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
+  useLocation() {
+    return location;
+  },
+  useNavigate() {
+    return navigate;
+  },
 }));
 
-test('PhotoRegistration', () => {
+test('PhotoRegistrationFormPage', () => {
   render((
     <ThemeProvider theme={theme}>
-      <PhotoRegistration />
+      <PhotoRegistrationFromPage />
     </ThemeProvider>));
 });
