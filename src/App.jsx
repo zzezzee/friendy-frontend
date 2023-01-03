@@ -37,8 +37,6 @@ const Main = styled.main`
 export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
 
-  console.log('App.jsx');
-
   useEffect(() => {
     userApiService.setAccessToken(accessToken);
     photoBookApiService.setAccessToken(accessToken);

@@ -19,6 +19,12 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
+jest.mock('../hooks/useMiniHomepageStore', () => () => ({
+  nickname: 'zzezze',
+  profileImage: 'image_address',
+  introduction: '미니홈피 소개',
+}));
+
 const context = describe;
 
 describe('LoginForm', () => {
@@ -35,8 +41,22 @@ describe('LoginForm', () => {
   }
 
   context('when into My miniHomepage', () => {
+    it('see nickname', () => {
+      renderMiniHomepage();
+
+      screen.getByText(/zzezze/);
+    });
+
+    it('see profileImage', () => {
+      renderMiniHomepage();
+
+      screen.getByAltText('프로필사진');
+    });
+
     it('see introduction', () => {
       renderMiniHomepage();
+
+      screen.getByText('미니홈피 소개');
     });
   });
 });

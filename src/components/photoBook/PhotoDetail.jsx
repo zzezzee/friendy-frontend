@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import usePhotoBookStore from '../hooks/usePhotoBookStore';
+import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 
 const Image = styled.img`
   width: 520px;
@@ -17,6 +17,7 @@ export default function PhotoDetail() {
   const navigate = useNavigate();
 
   const location = useLocation();
+
   const id = parseInt(location.pathname?.split('/')[3] || '', 10);
 
   const { photoBook } = photoBookStore;

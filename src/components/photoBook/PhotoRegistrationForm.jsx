@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
-import useProfileFormStore from '../hooks/useProfileFormStore';
+import usePhotoBookStore from '../../hooks/usePhotoBookStore';
+import usePhotoRegistrationFormStore from '../../hooks/usePhotoRegistrationFormStore';
 
-export default function ProfileForm() {
+export default function PhotoRegistrationForm() {
   const navigate = useNavigate();
 
-  const profileFormStore = useProfileFormStore();
-  const miniHomepageStore = useMiniHomepageStore();
+  const photoRegistrationFormStore = usePhotoRegistrationFormStore();
+  const photoBookStore = usePhotoBookStore();
 
   const [showImages, setShowImages] = useState('');
 
   const handleAddImages = (event) => {
     const image = event.target.files[0];
-    profileFormStore.changeProfileImage(image);
+    photoRegistrationFormStore.changeImage(image);
 
     const currentImageUrl = URL.createObjectURL(image);
 
     setShowImages(currentImageUrl);
   };
 
-  const handleChangeIntroduction = (event) => {
-    profileFormStore.changeIntroduction(event.target.value);
+  const handleChangeExplanation = (event) => {
+    photoRegistrationFormStore.changeExplanation(event.target.value);
   };
 
   const handleDeleteImage = () => {
@@ -31,13 +31,14 @@ export default function ProfileForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { profileImage, introduction } = profileFormStore;
+    const { image, explanation } = photoRegistrationFormStore;
 
+    console.log('1번');
     const formData = new FormData();
 
-    formData.append('multipartFile', profileImage);
+    formData.append('multipartFile', image);
 
-    await miniHomepageStore.patch(formData, introduction);
+    await photoBookStore.createPhoto(explanation);
 
     navigate(-1);
   };
@@ -49,21 +50,21 @@ export default function ProfileForm() {
           사진 등록
           <input
             id="input-photo"
+            data-testid="file-input"
             type="file"
             accept="image/*"
             onChange={handleAddImages}
           />
         </label>
-
         <label htmlFor="input-introduction">
-          미니홈피 소개
+          사진 설명
           <input
             id="input-introduction"
             type="text"
-            onChange={handleChangeIntroduction}
+            onChange={handleChangeExplanation}
           />
         </label>
-        <button type="submit">수정 완료</button>
+        <button type="submit">등록</button>
       </form>
       {showImages !== ''
         ? (

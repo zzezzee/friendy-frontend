@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import usePhotoBookStore from '../hooks/usePhotoBookStore';
-import usePhotoRegistrationFormStore from '../hooks/usePhotoRegistrationFormStore';
+import useMiniHomepageStore from '../../hooks/useMiniHomepageStore';
+import useProfileFormStore from '../../hooks/useProfileFormStore';
 
-export default function PhotoRegistrationForm() {
+export default function ProfileForm() {
   const navigate = useNavigate();
 
-  const photoRegistrationFormStore = usePhotoRegistrationFormStore();
-  const photoBookStore = usePhotoBookStore();
+  const profileFormStore = useProfileFormStore();
+  const miniHomepageStore = useMiniHomepageStore();
 
   const [showImages, setShowImages] = useState('');
 
   const handleAddImages = (event) => {
     const image = event.target.files[0];
-    photoRegistrationFormStore.changeImage(image);
+    profileFormStore.changeProfileImage(image);
 
     const currentImageUrl = URL.createObjectURL(image);
 
     setShowImages(currentImageUrl);
   };
 
-  const handleChangeExplanation = (event) => {
-    photoRegistrationFormStore.changeExplanation(event.target.value);
+  const handleChangeIntroduction = (event) => {
+    profileFormStore.changeIntroduction(event.target.value);
   };
 
   const handleDeleteImage = () => {
@@ -31,13 +31,13 @@ export default function PhotoRegistrationForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { image, explanation } = photoRegistrationFormStore;
+    const { profileImage, introduction } = profileFormStore;
 
     const formData = new FormData();
 
-    formData.append('multipartFile', image);
+    formData.append('multipartFile', profileImage);
 
-    await photoBookStore.createPhoto(formData, explanation);
+    await miniHomepageStore.patch(formData, introduction);
 
     navigate(-1);
   };
@@ -54,16 +54,15 @@ export default function PhotoRegistrationForm() {
             onChange={handleAddImages}
           />
         </label>
-
         <label htmlFor="input-introduction">
-          사진 설명
+          미니홈피 소개
           <input
             id="input-introduction"
             type="text"
-            onChange={handleChangeExplanation}
+            onChange={handleChangeIntroduction}
           />
         </label>
-        <button type="submit">등록</button>
+        <button type="submit">수정 완료</button>
       </form>
       {showImages !== ''
         ? (

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
 import GuestBook from './GuestBook';
-import PhotoBook from './PhotoBook';
+import PhotoBook from './photoBook/PhotoBook';
 
 const Container = styled.div`
   width: 100%;
@@ -21,7 +21,6 @@ const Information = styled.header`
 export default function MiniHomepage() {
   const miniHomepageStore = useMiniHomepageStore();
 
-  console.log('miniHomepage');
   const { nickname, profileImage, introduction } = miniHomepageStore;
 
   return ((
