@@ -26,4 +26,14 @@ describe('UserStore', () => {
       expect(photoBookStore.photo).toBeTruthy();
     });
   });
+
+  context('when patch photo', () => {
+    it('set photo', async () => {
+      const formData = new FormData();
+
+      await photoBookStore.editPhoto(1, formData, '사진 설명');
+
+      expect(photoBookStore.photo).toBeTruthy();
+    });
+  });
 });

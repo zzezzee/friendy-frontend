@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import MiniHomepagePage from './pages/MiniHomepagePage';
 import PhotoDetailPage from './pages/PhotoDetailPage';
+import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
 import { miniHomepageApiService } from './services/MiniHomepageApiService';
@@ -41,7 +42,7 @@ export default function App() {
     userApiService.setAccessToken(accessToken);
     photoBookApiService.setAccessToken(accessToken);
     miniHomepageApiService.setAccessToken(accessToken);
-  });
+  }, []);
 
   return ((
     <div>
@@ -57,6 +58,7 @@ export default function App() {
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/additional" element={<AdditionalPage />} />
             <Route path="/photos/write" element={<PhotoRegistrationPage />} />
+            <Route path="/photo/edit/:id" element={<PhotoEditFromPage />} />
             <Route path="/change-profile" element={<ProfileChangePage />} />
             <Route path="/:nickname/photos/:id" element={<PhotoDetailPage />} />
           </Routes>

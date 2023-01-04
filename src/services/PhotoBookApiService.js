@@ -50,6 +50,26 @@ export default class PhotoBookApiService {
     return data;
   }
 
+  async patch(id, image, explanation) {
+    const url = `${baseURL}/photo-books/${id}`;
+
+    const { data } = await axios.patch(
+      url,
+      {
+        id,
+        image,
+        explanation,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
+
   async delete(id) {
     const url = `${baseURL}/photo-books/${id}`;
 

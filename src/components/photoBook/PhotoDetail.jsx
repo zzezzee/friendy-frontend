@@ -30,11 +30,16 @@ export default function PhotoDetail() {
     navigate(-1);
   };
 
+  const handleClickEdit = async () => {
+    navigate(`/photo/edit/${id}`);
+  };
+
   return ((
     <Container>
       <Image src={photo.image} alt="사진첩 이미지" />
       <p>{photo.explanation}</p>
       <button type="button" onClick={handleClickDelete}>삭제</button>
+      <button type="button" onClick={handleClickEdit}>수정</button>
     </Container>
   ));
 }

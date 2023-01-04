@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 import usePhotoRegistrationFormStore from '../../hooks/usePhotoRegistrationFormStore';
 
-export default function PhotoRegistrationForm() {
+export default function PhotoEditForm() {
   const navigate = useNavigate();
 
   const photoRegistrationFormStore = usePhotoRegistrationFormStore();
   const photoBookStore = usePhotoBookStore();
+
+  const location = useLocation();
+  const id = parseInt(location.pathname?.split('/')[3] || '', 10);
 
   const [showImages, setShowImages] = useState('');
 
@@ -33,12 +36,11 @@ export default function PhotoRegistrationForm() {
 
     const { image, explanation } = photoRegistrationFormStore;
 
-    console.log('1번');
     const formData = new FormData();
 
     formData.append('multipartFile', image);
 
-    await photoBookStore.createPhoto(formData, explanation);
+    await photoBookStore.editPhoto(id, formData, explanation);
 
     navigate(-1);
   };
@@ -47,7 +49,7 @@ export default function PhotoRegistrationForm() {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="input-photo">
-          사진 등록
+          사진 수정
           <input
             id="input-photo"
             data-testid="file-input"
@@ -64,7 +66,7 @@ export default function PhotoRegistrationForm() {
             onChange={handleChangeExplanation}
           />
         </label>
-        <button type="submit">등록</button>
+        <button type="submit">수정</button>
       </form>
       {showImages !== ''
         ? (

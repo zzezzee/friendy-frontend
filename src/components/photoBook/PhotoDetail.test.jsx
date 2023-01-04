@@ -26,6 +26,9 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
+const deletePhotoTestFunction = jest.fn();
+const editPhotoTestFunction = jest.fn();
+
 jest.mock('../../hooks/usePhotoBookStore', () => () => ({
   photoBook: [
     {
@@ -34,7 +37,8 @@ jest.mock('../../hooks/usePhotoBookStore', () => () => ({
       explanation: '사진 설명',
     },
   ],
-  deletePhoto: jest.fn(),
+  deletePhoto: deletePhotoTestFunction,
+  editPhoto: editPhotoTestFunction,
 }));
 
 const context = describe;
@@ -67,13 +71,26 @@ describe('PhotoDetail', () => {
   });
 
   context('when delete photo', () => {
-    it('delete photo', async () => {
+    it('go to previous page', async () => {
       renderPhotoDetail();
 
       fireEvent.click(screen.getByRole('button', { name: '삭제' }));
 
       await waitFor(() => {
-        expect(navigate).toBeCalled();
+        expect(deletePhotoTestFunction).toBeCalled();
+        expect(navigate).toBeCalledWith(-1);
+      });
+    });
+  });
+
+  context('when edit photo', () => {
+    it('go to editPhotoForm', async () => {
+      renderPhotoDetail();
+
+      fireEvent.click(screen.getByRole('button', { name: '수정' }));
+
+      await waitFor(() => {
+        expect(navigate).toBeCalledWith('/photo/edit/1');
       });
     });
   });
