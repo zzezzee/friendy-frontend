@@ -14,7 +14,7 @@ export default class PhotoBookApiService {
   }
 
   async fetchPhotoBook(nickname) {
-    const url = `${baseURL}/photo-books`;
+    const url = `${baseURL}/photos`;
     const { data } = await axios.get(url, {
       params: {
         nickname,
@@ -25,14 +25,14 @@ export default class PhotoBookApiService {
   }
 
   async upload(formData) {
-    const url = `${baseURL}/upload-photo`;
+    const url = `${baseURL}/photos/upload`;
     const { data } = await axios.post(url, formData);
 
     return data;
   }
 
   async create(image, explanation) {
-    const url = `${baseURL}/photo-books`;
+    const url = `${baseURL}/photos`;
 
     const { data } = await axios.post(
       url,
@@ -51,7 +51,7 @@ export default class PhotoBookApiService {
   }
 
   async patch(id, image, explanation) {
-    const url = `${baseURL}/photo-books/${id}`;
+    const url = `${baseURL}/photos/${id}`;
 
     const { data } = await axios.patch(
       url,
@@ -71,7 +71,7 @@ export default class PhotoBookApiService {
   }
 
   async delete(id) {
-    const url = `${baseURL}/photo-books/${id}`;
+    const url = `${baseURL}/photos/${id}`;
 
     const { data } = await axios.delete(
       url,

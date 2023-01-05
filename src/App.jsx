@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
 import ExplorePage from './pages/ExplorePage';
+import GuestBookDetailPage from './pages/GuestBookDetailPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import MiniHomepagePage from './pages/MiniHomepagePage';
@@ -14,6 +15,7 @@ import PhotoDetailPage from './pages/PhotoDetailPage';
 import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
+import { guestBookApiService } from './services/GuestBookApiService';
 import { miniHomepageApiService } from './services/MiniHomepageApiService';
 import { photoBookApiService } from './services/PhotoBookApiService';
 import { userApiService } from './services/UserApiService';
@@ -41,8 +43,9 @@ export default function App() {
   useEffect(() => {
     userApiService.setAccessToken(accessToken);
     photoBookApiService.setAccessToken(accessToken);
+    guestBookApiService.setAccessToken(accessToken);
     miniHomepageApiService.setAccessToken(accessToken);
-  }, []);
+  }, [accessToken]);
 
   return ((
     <div>
@@ -61,6 +64,7 @@ export default function App() {
             <Route path="/photo/edit/:id" element={<PhotoEditFromPage />} />
             <Route path="/change-profile" element={<ProfileChangePage />} />
             <Route path="/:nickname/photos/:id" element={<PhotoDetailPage />} />
+            <Route path="/:nickname/guest-books/:id" element={<GuestBookDetailPage />} />
           </Routes>
           <div>
             <Navigator />

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
-import GuestBook from './GuestBook';
+import GuestBook from './guestBook/GuestBook';
 import PhotoBook from './photoBook/PhotoBook';
 
 const Container = styled.div`

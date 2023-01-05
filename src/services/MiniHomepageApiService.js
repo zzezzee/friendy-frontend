@@ -25,7 +25,7 @@ export default class MiniHomepageApiService {
   }
 
   async upload(formData) {
-    const url = `${baseURL}/upload`;
+    const url = `${baseURL}/miniHomepages/upload`;
     const { data } = await axios.post(url, formData);
 
     return data;

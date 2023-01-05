@@ -28,7 +28,4 @@ test('MiniHomepagePage', async () => {
   //   <ThemeProvider theme={theme}>
   //     <MiniHomepagePage />
   //   </ThemeProvider>));
-
-  // screen.getByText('사진첩');
-  // screen.getByText('방명록');
 });

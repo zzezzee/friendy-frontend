@@ -14,7 +14,7 @@ export default function Home() {
     if (accessToken) {
       navigate(`/${nickname}`);
     }
-  });
+  }, []);
 
   return ((
     <div>

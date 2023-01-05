@@ -2,7 +2,7 @@ import PhotoBookStore from './PhotoBookStore';
 
 const context = describe;
 
-describe('UserStore', () => {
+describe('PostBookStore', () => {
   let photoBookStore;
 
   beforeEach(() => {
