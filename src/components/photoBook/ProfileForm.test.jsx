@@ -25,12 +25,6 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
-const patchTestFunction = jest.fn();
-
-jest.mock('../../hooks/useMiniHomepageStore', () => () => ({
-  patch: patchTestFunction,
-}));
-
 const changeIntroductionTestFunction = jest.fn();
 const changeProfileImageTestFunction = jest.fn();
 

@@ -13,42 +13,31 @@ export default class MiniHomepageApiService {
     this.accessToken = accessToken;
   }
 
-  async fetchMiniHomepage(nickname) {
-    const url = `${baseURL}/miniHomepages`;
-    const { data } = await axios.get(url, {
-      params: {
-        nickname,
-      },
-    });
+  // async upload(formData) {
+  //   const url = `${baseURL}/miniHomepages/upload`;
+  //   const { data } = await axios.post(url, formData);
 
-    return data;
-  }
+  //   return data;
+  // }
 
-  async upload(formData) {
-    const url = `${baseURL}/miniHomepages/upload`;
-    const { data } = await axios.post(url, formData);
+  // async patch(profileImage, introduction) {
+  //   const url = `${baseURL}/miniHomepages`;
 
-    return data;
-  }
+  //   const { data } = await axios.patch(
+  //     url,
+  //     {
+  //       profileImage,
+  //       introduction,
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${this.accessToken}`,
+  //       },
+  //     },
+  //   );
 
-  async patch(profileImage, introduction) {
-    const url = `${baseURL}/miniHomepages`;
-
-    const { data } = await axios.patch(
-      url,
-      {
-        profileImage,
-        introduction,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${this.accessToken}`,
-        },
-      },
-    );
-
-    return data;
-  }
+  //   return data;
+  // }
 }
 
 export const miniHomepageApiService = new MiniHomepageApiService();

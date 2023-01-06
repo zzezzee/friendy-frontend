@@ -24,8 +24,6 @@ export default function GuestBook() {
 
   const { guestBookList } = guestBookStore;
 
-  console.log(guestBookList);
-
   return ((
     <div>
       <p>방명록</p>

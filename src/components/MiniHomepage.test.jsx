@@ -19,7 +19,7 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
-jest.mock('../hooks/useMiniHomepageStore', () => () => ({
+jest.mock('../hooks/useProfileStore', () => () => ({
   nickname: 'zzezze',
   profileImage: 'image_address',
   introduction: '미니홈피 소개',

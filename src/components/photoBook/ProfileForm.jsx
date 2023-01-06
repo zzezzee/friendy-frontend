@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useMiniHomepageStore from '../../hooks/useMiniHomepageStore';
 import useProfileFormStore from '../../hooks/useProfileFormStore';
+import useProfileStore from '../../hooks/useProfileStore';
 
 export default function ProfileForm() {
   const navigate = useNavigate();
 
   const profileFormStore = useProfileFormStore();
-  const miniHomepageStore = useMiniHomepageStore();
+  const profileStore = useProfileStore();
 
   const [showImages, setShowImages] = useState('');
 
@@ -37,7 +37,7 @@ export default function ProfileForm() {
 
     formData.append('multipartFile', profileImage);
 
-    await miniHomepageStore.patch(formData, introduction);
+    await profileStore.patch(formData, introduction);
 
     navigate(-1);
   };

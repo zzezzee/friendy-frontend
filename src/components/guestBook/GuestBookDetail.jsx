@@ -18,7 +18,6 @@ export default function GuestBookDetail({ id }) {
 
   const { guestBook } = guestBookStore;
 
-  console.log(guestBook);
   const handleClickDelete = async () => {
     await guestBookStore.deleteGuestBook(id);
 

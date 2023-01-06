@@ -1,7 +1,7 @@
-import { miniHomepageApiService } from '../services/MiniHomepageApiService';
+import { userApiService } from '../services/UserApiService';
 import Store from './Store';
 
-export default class MiniHomepageStore extends Store {
+export default class ProfileStore extends Store {
   constructor() {
     super();
 
@@ -18,10 +18,10 @@ export default class MiniHomepageStore extends Store {
     this.publish();
   }
 
-  async fetchMiniHomepage(owner) {
+  async fetchProfile(miniHomepageOwner) {
     const {
       nickname, profileImage, introduction,
-    } = await miniHomepageApiService.fetchMiniHomepage(owner);
+    } = await userApiService.fetchProfile(miniHomepageOwner);
 
     this.nickname = nickname;
     this.profileImage = profileImage;
@@ -31,12 +31,12 @@ export default class MiniHomepageStore extends Store {
   }
 
   async patch(formData, explanation) {
-    const profileImage = await miniHomepageApiService.upload(formData);
+    const profileImage = await userApiService.upload(formData);
 
-    await miniHomepageApiService.patch(profileImage, explanation);
+    await userApiService.patch(profileImage, explanation);
 
     this.publish();
   }
 }
 
-export const miniHomepageStore = new MiniHomepageStore();
+export const profileStore = new ProfileStore();

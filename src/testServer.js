@@ -31,19 +31,26 @@ const server = setupServer(
     nickname: 'zzezze',
   }))),
 
-  // MiniHomepage
-  rest.get(`${baseURL}/miniHomepages`, async (req, res, ctx) => res(ctx.json({
-    nickname: 'zzezze',
-    profileImage: 'image',
-    introduction: '미니홈피 소개입니다',
-  }))),
+  rest.get(`${baseURL}/users/profile`, async (req, res, ctx) => {
+    const param = req.url.searchParams.get('nickname');
 
-  rest.patch(`${baseURL}/miniHomepages`, async (req, res, ctx) => res(ctx.json({
+    if (param === 'zzezze') {
+      return res(ctx.json({
+        nickname: 'zzezze',
+        profileImage: 'image',
+        introduction: '미니홈피 소개입니다',
+      }));
+    }
+
+    return res.status(400);
+  }),
+
+  rest.patch(`${baseURL}/users`, async (req, res, ctx) => res(ctx.json({
     profileImage: 'image',
     explanation: '미니홈피 소개입니다',
   }))),
 
-  rest.post(`${baseURL}/miniHomepages/upload`, async (req, res, ctx) => res(ctx.json({
+  rest.post(`${baseURL}/users/upload-image`, async (req, res, ctx) => res(ctx.json({
     profileImage: 'image_address',
   }))),
 

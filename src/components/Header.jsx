@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
-import useMiniHomepageStore from '../hooks/useMiniHomepageStore';
+import useMiniHomepageStore from '../hooks/useProfileStore';
 import useUserStore from '../hooks/useUserStore';
 
 const Container = styled.div`
@@ -28,7 +28,7 @@ export default function Header() {
     miniHomepageStore.reset();
     navigate('/');
   };
-  
+
   return ((
     <Container>
       <Title>friendy</Title>
