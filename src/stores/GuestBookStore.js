@@ -25,15 +25,13 @@ export default class GuestBookStore extends Store {
     this.publish();
   }
 
-  // async createPhoto(formData, explanation) {
-  //   const image = await photoBookApiService.upload(formData);
+  async createGuestBook(nickname, content) {
+    const guestBook = await guestBookApiService.create(nickname, content);
 
-  //   const { photo } = await photoBookApiService.create(image, explanation);
+    this.guestBook = guestBook;
 
-  //   this.photo = photo;
-
-  //   this.publish();
-  // }
+    this.publish();
+  }
 
   // async editPhoto(id, formData, explanation) {
   //   const image = await photoBookApiService.upload(formData);
@@ -45,11 +43,11 @@ export default class GuestBookStore extends Store {
   //   this.publish();
   // }
 
-  // async deletePhoto(id) {
-  //   await photoBookApiService.delete(id);
+  async deleteGuestBook(id) {
+    await guestBookApiService.delete(id);
 
-  //   this.publish();
-  // }
+    this.publish();
+  }
 }
 
 export const guestBookStore = new GuestBookStore();

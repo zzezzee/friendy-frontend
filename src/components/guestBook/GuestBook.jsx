@@ -24,6 +24,8 @@ export default function GuestBook() {
 
   const { guestBookList } = guestBookStore;
 
+  console.log(guestBookList);
+
   return ((
     <div>
       <p>방명록</p>
@@ -34,7 +36,7 @@ export default function GuestBook() {
               <Item>
                 <Image src={guestBook.profileImage} alt="미니홈피 이미지" />
                 <div>
-                  <p>{guestBook.writer}</p>
+                  <p>{guestBook.nickname}</p>
                   <p>{guestBook.content}</p>
                 </div>
               </Item>
@@ -42,7 +44,7 @@ export default function GuestBook() {
           ))
           : <p>방명록을 추가해보세요!</p>}
       </List>
-      <button type="button">추가</button>
+      <Link to="/guest-books/write">추가</Link>
     </div>
   ));
 }

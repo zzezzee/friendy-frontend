@@ -15,6 +15,6 @@ export default function GuestBookDetailPage() {
   }, []);
 
   return ((
-    <GuestBookDetail />
+    <GuestBookDetail id={id} />
   ));
 }

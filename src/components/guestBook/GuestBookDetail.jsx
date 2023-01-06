@@ -12,16 +12,17 @@ const Container = styled.div`
   padding: 2em;
 `;
 
-export default function GuestBookDetail() {
+export default function GuestBookDetail({ id }) {
   const guestBookStore = useGuestBookStore();
   const navigate = useNavigate();
 
   const { guestBook } = guestBookStore;
 
+  console.log(guestBook);
   const handleClickDelete = async () => {
-    // await photoBookStore.deletePhoto(id);
+    await guestBookStore.deleteGuestBook(id);
 
-    // navigate(-1);
+    navigate(-1);
   };
 
   const handleClickEdit = async () => {
@@ -31,7 +32,7 @@ export default function GuestBookDetail() {
   return ((
     <Container>
       <Image src={guestBook.profileImage} alt="방명록 이미지" />
-      <p>{guestBook.writer}</p>
+      <p>{guestBook.nickname}</p>
       <p>{guestBook.content}</p>
       <button type="button" onClick={handleClickDelete}>삭제</button>
       <button type="button" onClick={handleClickEdit}>수정</button>

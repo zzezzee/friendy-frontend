@@ -121,6 +121,22 @@ const server = setupServer(
     profileImage: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A5%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B5.avif',
     writer: '허스키 주인1',
   }))),
+
+  rest.post(`${baseURL}/guest-books`, async (req, res, ctx) => res(ctx.json({
+    id: 1,
+    contents: '방명록 내용1',
+    username: 'zzezze',
+    profileImage: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A5%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B5.avif',
+    writer: '허스키 주인1',
+  }))),
+
+  rest.delete(`${baseURL}/guest-books/:id`, async (req, res, ctx) => res(ctx.json({
+    id: 1,
+    contents: '방명록 내용1',
+    username: 'zzezze',
+    profileImage: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A5%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B5.avif',
+    writer: '허스키 주인1',
+  }))),
 );
 
 export default server;

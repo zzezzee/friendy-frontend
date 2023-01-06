@@ -38,24 +38,24 @@ export default class GuestBookApiService {
   //   return data;
   // }
 
-  // async create(image, explanation) {
-  //   const url = `${baseURL}/photo-books`;
+  async create(nickname, content) {
+    const url = `${baseURL}/guest-books`;
 
-  //   const { data } = await axios.post(
-  //     url,
-  //     {
-  //       image,
-  //       explanation,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${this.accessToken}`,
-  //       },
-  //     },
-  //   );
+    const { data } = await axios.post(
+      url,
+      {
+        nickname,
+        content,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
 
-  //   return data;
-  // }
+    return data;
+  }
 
   // async patch(id, image, explanation) {
   //   const url = `${baseURL}/photo-books/${id}`;
@@ -77,20 +77,20 @@ export default class GuestBookApiService {
   //   return data;
   // }
 
-  // async delete(id) {
-  //   const url = `${baseURL}/photo-books/${id}`;
+  async delete(id) {
+    const url = `${baseURL}/guest-books/${id}`;
 
-  //   const { data } = await axios.delete(
-  //     url,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${this.accessToken}`,
-  //       },
-  //     },
-  //   );
+    const { data } = await axios.delete(
+      url,
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
 
-  //   return data;
-  // }
+    return data;
+  }
 }
 
 export const guestBookApiService = new GuestBookApiService();
