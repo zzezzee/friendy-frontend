@@ -41,4 +41,12 @@ describe('UserStore', () => {
       expect(userStore.nickname).toBeFalsy();
     });
   });
+
+  context('when fetch User', () => {
+    it('nickname exist', async () => {
+      await userStore.fetchUser();
+
+      expect(userStore.nickname).toBeTruthy();
+    });
+  });
 });

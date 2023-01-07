@@ -13,6 +13,16 @@ export default class UserApiService {
     this.accessToken = accessToken;
   }
 
+  async postSession({ username, password }) {
+    const url = `${baseURL}/session`;
+    const { data } = await axios.post(url, { username, password });
+
+    return {
+      accessToken: data.accessToken,
+      nickname: data.nickname,
+    };
+  }
+
   async fetchUser() {
     const url = `${baseURL}/users/me`;
     const { data } = await axios.get(url, {
@@ -24,14 +34,41 @@ export default class UserApiService {
     return data;
   }
 
-  async postSession({ username, password }) {
-    const url = `${baseURL}/session`;
-    const { data } = await axios.post(url, { username, password });
+  async fetchProfile(nickname) {
+    const url = `${baseURL}/users/profile`;
+    const { data } = await axios.get(url, {
+      params: {
+        nickname,
+      },
+    });
 
-    return {
-      accessToken: data.accessToken,
-      nickname: data.nickname,
-    };
+    return data;
+  }
+
+  async upload(formData) {
+    const url = `${baseURL}/users/upload-image`;
+    const { data } = await axios.post(url, formData);
+
+    return data;
+  }
+
+  async patch(profileImage, introduction) {
+    const url = `${baseURL}/users`;
+
+    const { data } = await axios.patch(
+      url,
+      {
+        profileImage,
+        introduction,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
   }
 }
 
