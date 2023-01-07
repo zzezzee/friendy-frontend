@@ -33,15 +33,13 @@ export default class GuestBookStore extends Store {
     this.publish();
   }
 
-  // async editPhoto(id, formData, explanation) {
-  //   const image = await photoBookApiService.upload(formData);
+  async editGuestBook(content, id) {
+    const guestBook = await guestBookApiService.patch(content, id);
 
-  //   const { photo } = await photoBookApiService.patch(id, image, explanation);
+    this.guestBook = guestBook;
 
-  //   this.photo = photo;
-
-  //   this.publish();
-  // }
+    this.publish();
+  }
 
   async deleteGuestBook(id) {
     await guestBookApiService.delete(id);

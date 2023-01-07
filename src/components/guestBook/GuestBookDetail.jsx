@@ -25,7 +25,7 @@ export default function GuestBookDetail({ id }) {
   };
 
   const handleClickEdit = async () => {
-    // navigate(`/photo/edit/${id}`);
+    navigate(`/guest-books/edit/${id}`);
   };
 
   return ((

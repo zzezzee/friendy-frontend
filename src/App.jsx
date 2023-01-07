@@ -8,6 +8,7 @@ import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
 import ExplorePage from './pages/ExplorePage';
 import GuestBookDetailPage from './pages/GuestBookDetailPage';
+import GuestBookEditFromPage from './pages/GuestBookEditFromPage';
 import GuestBookRegistrationFromPage from './pages/GuestBookRegistrationFromPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -17,7 +18,6 @@ import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationFormPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
 import { guestBookApiService } from './services/GuestBookApiService';
-import { miniHomepageApiService } from './services/MiniHomepageApiService';
 import { photoBookApiService } from './services/PhotoBookApiService';
 import { userApiService } from './services/UserApiService';
 import GlobalStyle from './styles/GlobalStyle';
@@ -45,7 +45,6 @@ export default function App() {
     userApiService.setAccessToken(accessToken);
     photoBookApiService.setAccessToken(accessToken);
     guestBookApiService.setAccessToken(accessToken);
-    miniHomepageApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return ((
@@ -66,7 +65,8 @@ export default function App() {
             <Route path="/change-profile" element={<ProfileChangePage />} />
             <Route path="/:nickname/photos/:id" element={<PhotoDetailPage />} />
             <Route path="/:nickname/guest-books/:id" element={<GuestBookDetailPage />} />
-            <Route path="/guest-books/write" element={<GuestBookRegistrationFromPage />} />
+            <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
+            <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
           </Routes>
           <div>
             <Navigator />

@@ -2,14 +2,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useGuestBookRegistrationFormStore from '../../hooks/useGuestBookRegistrationFormStore';
 import useGuestBookStore from '../../hooks/useGuestBookStore';
 
-export default function GuestBookRegistrationForm() {
+export default function GuestBookEditForm() {
   const navigate = useNavigate();
 
   const guestBookRegistrationForm = useGuestBookRegistrationFormStore();
   const guestBookStore = useGuestBookStore();
 
   const location = useLocation();
-  const nickname = location.pathname?.split('/')[1] || '';
+  const id = parseInt(location.pathname?.split('/')[3] || '', 10);
 
   const handleChangeContent = (event) => {
     guestBookRegistrationForm.changeContent(event.target.value);
@@ -20,7 +20,7 @@ export default function GuestBookRegistrationForm() {
 
     const { content } = guestBookRegistrationForm;
 
-    await guestBookStore.createGuestBook(nickname, content);
+    await guestBookStore.editGuestBook(content, id);
 
     navigate(-1);
   };
@@ -29,7 +29,7 @@ export default function GuestBookRegistrationForm() {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="input-guestBook">
-          방명록 내용
+          방명록 내용 수정
           <input
             id="input-guestBook"
             type="text"

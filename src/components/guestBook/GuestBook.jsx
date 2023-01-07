@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useGuestBookStore from '../../hooks/useGuestBookStore';
+import useProfileStore from '../../hooks/useProfileStore';
 
 const Image = styled.img`
   width: 90px;
@@ -42,7 +43,7 @@ export default function GuestBook() {
           ))
           : <p>방명록을 추가해보세요!</p>}
       </List>
-      <Link to="/guest-books/write">추가</Link>
+      <Link to="guest-books/write">추가</Link>
     </div>
   ));
 }

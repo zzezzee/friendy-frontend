@@ -31,13 +31,6 @@ export default class GuestBookApiService {
     return data;
   }
 
-  // async upload(formData) {
-  //   const url = `${baseURL}/upload-photo`;
-  //   const { data } = await axios.post(url, formData);
-
-  //   return data;
-  // }
-
   async create(nickname, content) {
     const url = `${baseURL}/guest-books`;
 
@@ -57,25 +50,24 @@ export default class GuestBookApiService {
     return data;
   }
 
-  // async patch(id, image, explanation) {
-  //   const url = `${baseURL}/photo-books/${id}`;
+  async patch(content, id) {
+    const url = `${baseURL}/guest-books/${id}`;
 
-  //   const { data } = await axios.patch(
-  //     url,
-  //     {
-  //       id,
-  //       image,
-  //       explanation,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${this.accessToken}`,
-  //       },
-  //     },
-  //   );
+    const { data } = await axios.patch(
+      url,
+      {
+        id,
+        content,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
 
-  //   return data;
-  // }
+    return data;
+  }
 
   async delete(id) {
     const url = `${baseURL}/guest-books/${id}`;
