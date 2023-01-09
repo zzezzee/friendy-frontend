@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useProfileStore from '../hooks/useProfileStore';
+import useUserStore from '../hooks/useUserStore';
 import GuestBook from './guestBook/GuestBook';
 import PhotoBook from './photoBook/PhotoBook';
 
@@ -20,6 +21,9 @@ const Information = styled.header`
 
 export default function MiniHomepage() {
   const profileStore = useProfileStore();
+  const userStore = useUserStore();
+
+  const { relationShip } = userStore;
 
   const { nickname, profileImage, introduction } = profileStore;
 
@@ -32,7 +36,9 @@ export default function MiniHomepage() {
         </Title>
         <img src={profileImage} alt="프로필사진" height="150px" />
         <p>{introduction}</p>
-        <Link to="/change-profile">수정</Link>
+        {relationShip === 'me'
+          ? <Link to="/change-profile">수정</Link>
+          : null}
         <p />
         <p>일촌: 30</p>
         <p>즐겨찾기: 30</p>

@@ -13,7 +13,7 @@ const server = setupServer(
     } = await req.json();
 
     if (username === 'username'
-    && password === 'Password123!') {
+      && password === 'Password123!') {
       return res(
         ctx.json({
           accessToken: 'ACCESS.TOKEN',
@@ -27,9 +27,18 @@ const server = setupServer(
     );
   }),
 
-  rest.get(`${baseURL}/users/me`, async (req, res, ctx) => res(ctx.json({
-    nickname: 'zzezze',
-  }))),
+  rest.get(`${baseURL}/users/me`, async (req, res, ctx) => {
+    const param = req.url.searchParams.get('currentNickname');
+
+    if (param === 'zzezze') {
+      return res(ctx.json({
+        nickname: 'zzezze',
+        relationShip: 'me',
+      }));
+    }
+
+    return res.status(400);
+  }),
 
   rest.get(`${baseURL}/users/profile`, async (req, res, ctx) => {
     const param = req.url.searchParams.get('nickname');
@@ -48,6 +57,16 @@ const server = setupServer(
   rest.patch(`${baseURL}/users`, async (req, res, ctx) => res(ctx.json({
     profileImage: 'image',
     explanation: '미니홈피 소개입니다',
+  }))),
+
+  rest.get(`${baseURL}/users`, async (req, res, ctx) => res(ctx.json({
+    users: [
+      {
+        id: 1,
+        profileImage: 'image',
+        explanation: '미니홈피 소개입니다',
+      },
+    ],
   }))),
 
   rest.post(`${baseURL}/users/upload-image`, async (req, res, ctx) => res(ctx.json({
@@ -79,12 +98,13 @@ const server = setupServer(
   }),
 
   rest.post(`${baseURL}/photos`, async (req, res, ctx) => res(ctx.json({
-    photo:
+    photo: [
       {
         id: 1,
         image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
         explanation: '사진 설명입니다',
       },
+    ],
   }))),
 
   rest.post(`${baseURL}/photos/upload`, async (req, res, ctx) => res(ctx.json({

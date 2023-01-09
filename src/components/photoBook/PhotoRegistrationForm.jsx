@@ -33,7 +33,6 @@ export default function PhotoRegistrationForm() {
 
     const { image, explanation } = photoRegistrationFormStore;
 
-    console.log('1번');
     const formData = new FormData();
 
     formData.append('multipartFile', image);

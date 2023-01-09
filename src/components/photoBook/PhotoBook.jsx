@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
+import useUserStore from '../../hooks/useUserStore';
 
 const Container = styled.div`
   padding: 1em;
@@ -19,8 +20,10 @@ const List = styled.ul`
 
 export default function PhotoBook() {
   const photoBookStore = usePhotoBookStore();
+  const userStore = useUserStore();
 
   const { photoBook } = photoBookStore;
+  const { relationShip } = userStore;
 
   if (!photoBook) {
     return <p>loading...</p>;
@@ -44,7 +47,9 @@ export default function PhotoBook() {
           ))
           : <p>사진을 추가해 주세요</p>}
       </List>
-      <Link to="/photos/write">추가</Link>
+      {relationShip === 'me'
+        ? <Link to="/photos/write">추가</Link>
+        : null}
     </Container>
   ));
 }

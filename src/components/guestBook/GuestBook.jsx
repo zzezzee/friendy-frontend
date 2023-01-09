@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useGuestBookStore from '../../hooks/useGuestBookStore';
-import useProfileStore from '../../hooks/useProfileStore';
 
 const Image = styled.img`
   width: 90px;
