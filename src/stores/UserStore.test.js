@@ -28,6 +28,7 @@ describe('UserStore', () => {
       });
 
       expect(userStore.nickname).toBeFalsy();
+      expect(userStore.relationShip).toBeFalsy();
     });
   });
 
@@ -39,14 +40,24 @@ describe('UserStore', () => {
       });
 
       expect(userStore.nickname).toBeFalsy();
+      expect(userStore.relationShip).toBeFalsy();
     });
   });
 
   context('when fetch User', () => {
     it('nickname exist', async () => {
-      await userStore.fetchUser();
+      await userStore.fetchUser('zzezze');
 
       expect(userStore.nickname).toBeTruthy();
+      expect(userStore.relationShip).toBeTruthy();
+    });
+  });
+
+  context('when fetch Users', () => {
+    it('nickname exist', async () => {
+      await userStore.fetchUsers();
+
+      expect(userStore.users).toBeTruthy();
     });
   });
 });

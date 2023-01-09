@@ -6,6 +6,10 @@ export default class UserStore extends Store {
     super();
 
     this.nickname = '';
+    this.relationShip = '';
+
+    this.users = [];
+    this.searching = false;
   }
 
   reset() {
@@ -20,10 +24,19 @@ export default class UserStore extends Store {
     this.publish();
   }
 
-  async fetchUser() {
-    const { nickname } = await userApiService.fetchUser();
+  async fetchUser(currentNickname) {
+    const { nickname, relationShip } = await userApiService.fetchUser(currentNickname);
 
     this.nickname = nickname;
+    this.relationShip = relationShip;
+
+    this.publish();
+  }
+
+  async fetchUsers() {
+    const { users } = await userApiService.fetchUsers();
+
+    this.users = users;
 
     this.publish();
   }

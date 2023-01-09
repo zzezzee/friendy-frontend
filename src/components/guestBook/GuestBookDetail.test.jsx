@@ -59,4 +59,17 @@ describe('GuestBookDetail', () => {
       screen.getByText('방명록 내용1');
     });
   });
+
+  context('when click ...', () => {
+    it('see menu', async () => {
+      renderGuestBookDetail();
+
+      fireEvent.click(screen.getByRole('button', { name: '...' }));
+
+      await waitFor(() => {
+        screen.getByRole('button', { name: '수정' });
+        screen.getByRole('button', { name: '삭제' });
+      });
+    });
+  });
 });

@@ -23,13 +23,26 @@ export default class UserApiService {
     };
   }
 
-  async fetchUser() {
+  async fetchUser(currentNickname) {
     const url = `${baseURL}/users/me`;
-    const { data } = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
+    const { data } = await axios.get(
+      url,
+      {
+        params: {
+          currentNickname,
+        },
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
       },
-    });
+    );
+
+    return data;
+  }
+
+  async fetchUsers() {
+    const url = `${baseURL}/users`;
+    const { data } = await axios.get(url);
 
     return data;
   }

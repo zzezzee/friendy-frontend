@@ -18,7 +18,7 @@ export default function MiniHomepagePage() {
   const nickname = location.pathname?.split('/')[1] || '';
 
   useEffect(() => {
-    userStore.fetchUser();
+    userStore.fetchUser(nickname);
     photoBookStore.fetchPhotoBook(nickname);
     guestBookStore.fetchGuestBookList(nickname);
     profileStore.fetchProfile(nickname);

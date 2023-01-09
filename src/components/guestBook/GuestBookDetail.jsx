@@ -1,10 +1,11 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useGuestBookStore from '../../hooks/useGuestBookStore';
 
 const Image = styled.img`
-  width: 520px;
-  height: 520px;
+  width: 100px;
+  height: 100px;
   object-fit: fill;
 `;
 
@@ -15,6 +16,8 @@ const Container = styled.div`
 export default function GuestBookDetail({ id }) {
   const guestBookStore = useGuestBookStore();
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
 
   const { guestBook } = guestBookStore;
 
@@ -28,13 +31,24 @@ export default function GuestBookDetail({ id }) {
     navigate(`/guest-books/edit/${id}`);
   };
 
+  const handleClickChangeOpen = async () => {
+    setOpen(!open);
+  };
+
   return ((
     <Container>
       <Image src={guestBook.profileImage} alt="방명록 이미지" />
       <p>{guestBook.nickname}</p>
       <p>{guestBook.content}</p>
-      <button type="button" onClick={handleClickDelete}>삭제</button>
-      <button type="button" onClick={handleClickEdit}>수정</button>
+      <button type="button" onClick={handleClickChangeOpen}>...</button>
+      {open === true
+        ? (
+          <div>
+            <button type="button" onClick={handleClickDelete}>삭제</button>
+            <button type="button" onClick={handleClickEdit}>수정</button>
+          </div>
+        )
+        : null}
       <p>여기엔 댓글이 들어가겠죠</p>
     </Container>
   ));

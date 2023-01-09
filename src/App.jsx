@@ -31,11 +31,15 @@ const Main = styled.main`
   height: calc(100vh);
   min-height: 50em;
   margin: 0 auto;
-  border: 1px solid black;
+`;
 
-  div {
-    
-  }
+const Footer = styled.footer`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50em;
+    bottom: 0em;
+    border-top: 1px solid black;
 `;
 
 export default function App() {
@@ -68,9 +72,9 @@ export default function App() {
             <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
             <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
           </Routes>
-          <div>
+          <Footer>
             <Navigator />
-          </div>
+          </Footer>
         </Main>
       </ThemeProvider>
     </div>
