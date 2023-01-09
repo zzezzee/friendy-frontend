@@ -9,6 +9,7 @@ export default class UserStore extends Store {
     this.relationShip = '';
 
     this.users = [];
+    this.searching = false;
   }
 
   reset() {

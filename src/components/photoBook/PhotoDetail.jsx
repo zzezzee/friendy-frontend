@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 
 const Image = styled.img`
-  width: 520px;
-  height: 520px;
+  width: 360px;
+  height: 360px;
   object-fit: fill;
 `;
 
 const Container = styled.div`
-  padding: 2em;
+  padding: 1em;
 `;
 
 export default function PhotoDetail() {

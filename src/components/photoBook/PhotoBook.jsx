@@ -4,18 +4,19 @@ import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 import useUserStore from '../../hooks/useUserStore';
 
 const Container = styled.div`
-  padding: 1em;
+  padding: 0em;
 `;
 
 const Image = styled.img`
-  width: 170px;
-  height: 170px;
+  width: 127px;
+  height: 127px;
   object-fit: fill;
 `;
 
 const List = styled.ul`
   display: flex;
-  gap: 1em;
+  gap: .2em;
+  flex-wrap: wrap;
 `;
 
 export default function PhotoBook() {
@@ -31,7 +32,6 @@ export default function PhotoBook() {
 
   return ((
     <Container>
-      <p>사진첩</p>
       <List>
         {photoBook.length !== 0
           ? photoBook.map((photo) => (
@@ -40,7 +40,6 @@ export default function PhotoBook() {
                 <Image
                   src={photo.image}
                   alt={`사진${photo.id}`}
-                  height="150px"
                 />
               </Link>
             </li>

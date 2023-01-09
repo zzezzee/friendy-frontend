@@ -6,6 +6,7 @@ import Explore from './Explore';
 const context = describe;
 
 jest.mock('../../hooks/useUserStore', () => () => ({
+  searching: false,
   users: [
     {
       id: 1,

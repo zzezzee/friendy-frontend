@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import useUserStore from '../hooks/useUserStore';
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  margin-top: 15em;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1em;;
+  height: 3em;
+  background-color: white;
+  border-top: 2px solid purple;
 `;
 
 const List = styled.ul`
   display: flex;
   flex-direction: row;
-
-  li {
-    margin-right: 2em;
-  }
+  justify-content: space-evenly;
 `;
 
 export default function Navigator() {

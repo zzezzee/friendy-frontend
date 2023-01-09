@@ -26,7 +26,6 @@ export default function GuestBook() {
 
   return ((
     <div>
-      <p>방명록</p>
       <List>
         {guestBookList.length !== 0
           ? guestBookList.map((guestBook) => (
