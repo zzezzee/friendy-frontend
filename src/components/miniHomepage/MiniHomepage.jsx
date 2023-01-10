@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import useFriendStore from '../../hooks/useFriendStore';
 import useUserStore from '../../hooks/useUserStore';
 import GuestBook from '../guestBook/GuestBook';
 import PhotoBook from '../photoBook/PhotoBook';

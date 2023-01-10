@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import useFriendStore from '../../hooks/useFriendStore';
 
 const Image = styled.img`
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
   object-fit: fill;
 `;
 
@@ -20,9 +21,7 @@ export default function FriendList() {
             <li key={friend.id}>
               <Link to={`/${friend.nickname}`}>
                 <Image src={friend.profileImage} alt="일촌 이미지" />
-                <p>
-                  {friend.nickname}
-                </p>
+                {friend.nickname}
               </Link>
             </li>
           ))

@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Friend from '../components/friend/Friend';
 import FriendList from '../components/friend/FriendList';
 import useFriendStore from '../hooks/useFriendStore';
 import useUserStore from '../hooks/useUserStore';
 
-export default function FriendListPage() {
+export default function FriendPage() {
   const userStore = useUserStore();
   const friendStore = useFriendStore();
 
@@ -18,6 +19,6 @@ export default function FriendListPage() {
   }, []);
 
   return ((
-    <FriendList />
+    <Friend />
   ));
 }
