@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Explore from '../components/explore/Explore';
+import FriendList from '../components/friend/FriendList';
+import useFriendStore from '../hooks/useFriendStore';
 import useUserStore from '../hooks/useUserStore';
 
-export default function ExplorePage() {
+export default function FriendListPage() {
   const userStore = useUserStore();
+  const friendStore = useFriendStore();
 
   const location = useLocation();
 
@@ -12,10 +14,10 @@ export default function ExplorePage() {
 
   useEffect(() => {
     userStore.fetchUser(nickname);
-    userStore.fetchUsers();
+    friendStore.fetchFriends(nickname);
   }, []);
 
   return ((
-    <Explore />
+    <FriendList />
   ));
 }

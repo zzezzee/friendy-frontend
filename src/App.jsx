@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
 import ExplorePage from './pages/ExplorePage';
+import FriendListPage from './pages/FriendListPage';
 import GuestBookDetailPage from './pages/GuestBookDetailPage';
 import GuestBookEditFromPage from './pages/GuestBookEditFromPage';
 import GuestBookRegistrationFromPage from './pages/GuestBookRegistrationFromPage';
@@ -17,6 +18,7 @@ import PhotoDetailPage from './pages/PhotoDetailPage';
 import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationFormPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
+import { friendApiService } from './services/FriendApiService';
 import { guestBookApiService } from './services/GuestBookApiService';
 import { photoBookApiService } from './services/PhotoBookApiService';
 import { userApiService } from './services/UserApiService';
@@ -49,6 +51,7 @@ export default function App() {
     userApiService.setAccessToken(accessToken);
     photoBookApiService.setAccessToken(accessToken);
     guestBookApiService.setAccessToken(accessToken);
+    friendApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return ((
@@ -62,7 +65,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/:nickname" element={<MiniHomepagePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/:nickname/explore" element={<ExplorePage />} />
             <Route path="/additional" element={<AdditionalPage />} />
             <Route path="/photos/write" element={<PhotoRegistrationFormPage />} />
             <Route path="/photo/edit/:id" element={<PhotoEditFromPage />} />
@@ -71,6 +74,7 @@ export default function App() {
             <Route path="/:nickname/guest-books/:id" element={<GuestBookDetailPage />} />
             <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
             <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
+            <Route path="/:nickname/friends" element={<FriendListPage />} />
           </Routes>
           <Footer>
             <Navigator />
