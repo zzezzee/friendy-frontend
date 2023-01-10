@@ -1,12 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import theme from '../styles/Theme';
+import theme from '../../styles/Theme';
 import MiniHomepage from './MiniHomepage';
 
 const navigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  // eslint-disable-next-line react/prop-types
   Link({ children, to }) {
     return (
       <a href={to}>
@@ -19,7 +18,7 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
-jest.mock('../hooks/usePhotoBookStore', () => () => ({
+jest.mock('../../hooks/usePhotoBookStore', () => () => ({
   photoBook: [
     {
       id: 1,
@@ -29,7 +28,7 @@ jest.mock('../hooks/usePhotoBookStore', () => () => ({
   ],
 }));
 
-jest.mock('../hooks/useGuestBookStore', () => () => ({
+jest.mock('../../hooks/useGuestBookStore', () => () => ({
   guestBookList: [
     {
       id: 1,
@@ -40,7 +39,7 @@ jest.mock('../hooks/useGuestBookStore', () => () => ({
   ],
 }));
 
-jest.mock('../hooks/useProfileStore', () => () => ({
+jest.mock('../../hooks/useProfileStore', () => () => ({
   nickname: 'zzezze',
   profileImage: 'image_address',
   introduction: '미니홈피 소개',
@@ -48,7 +47,7 @@ jest.mock('../hooks/useProfileStore', () => () => ({
 
 const context = describe;
 
-describe('LoginForm', () => {
+describe('MiniHomepage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

@@ -6,7 +6,7 @@ export default function AdditionalPage() {
   const userStore = useUserStore();
 
   useEffect(() => {
-    userStore.fetchUser();
+    // userStore.fetchUser();
   }, []);
 
   return ((

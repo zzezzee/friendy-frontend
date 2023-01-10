@@ -33,7 +33,7 @@ const server = setupServer(
     if (param === 'zzezze') {
       return res(ctx.json({
         nickname: 'zzezze',
-        relationShip: 'me',
+        relationship: 'me',
       }));
     }
 
@@ -164,6 +164,27 @@ const server = setupServer(
     profileImage: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A5%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B5.avif',
     writer: '허스키 주인1',
   }))),
+
+  // frined
+  rest.get(`${baseURL}/relationship`, async (req, res, ctx) => {
+    const param = req.url.searchParams.get('nickname');
+
+    if (param === 'zzezze') {
+      return res(ctx.json({
+        users: [
+          {
+            id: 1,
+            nickname: 'zzezze',
+            profileImage: 'image',
+            introduction: '미니홈피 소개입니다',
+          },
+        ],
+      }));
+    }
+
+    return res.status(400);
+  }),
+
 );
 
 export default server;

@@ -24,7 +24,7 @@ export default function PhotoBook() {
   const userStore = useUserStore();
 
   const { photoBook } = photoBookStore;
-  const { relationShip } = userStore;
+  const { relationship } = userStore;
 
   if (!photoBook) {
     return <p>loading...</p>;
@@ -46,7 +46,7 @@ export default function PhotoBook() {
           ))
           : <p>사진을 추가해 주세요</p>}
       </List>
-      {relationShip === 'me'
+      {relationship === 'me'
         ? <Link to="/photos/write">추가</Link>
         : null}
     </Container>

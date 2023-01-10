@@ -28,7 +28,7 @@ describe('UserStore', () => {
       });
 
       expect(userStore.nickname).toBeFalsy();
-      expect(userStore.relationShip).toBeFalsy();
+      expect(userStore.relationship).toBeFalsy();
     });
   });
 
@@ -40,7 +40,7 @@ describe('UserStore', () => {
       });
 
       expect(userStore.nickname).toBeFalsy();
-      expect(userStore.relationShip).toBeFalsy();
+      expect(userStore.relationship).toBeFalsy();
     });
   });
 
@@ -49,7 +49,7 @@ describe('UserStore', () => {
       await userStore.fetchUser('zzezze');
 
       expect(userStore.nickname).toBeTruthy();
-      expect(userStore.relationShip).toBeTruthy();
+      expect(userStore.relationship).toBeTruthy();
     });
   });
 
