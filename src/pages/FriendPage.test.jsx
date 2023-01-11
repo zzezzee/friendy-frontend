@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/Theme';
-import FriendListPage from './FriendListPage';
+import FriendListPage from './FriendPage';
 
 const navigate = jest.fn();
 const location = jest.fn();

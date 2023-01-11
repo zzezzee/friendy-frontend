@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
 import ExplorePage from './pages/ExplorePage';
-import FriendListPage from './pages/FriendListPage';
+import FriendPage from './pages/FriendPage';
 import GuestBookDetailPage from './pages/GuestBookDetailPage';
 import GuestBookEditFromPage from './pages/GuestBookEditFromPage';
 import GuestBookRegistrationFromPage from './pages/GuestBookRegistrationFromPage';
@@ -74,7 +74,7 @@ export default function App() {
             <Route path="/:nickname/guest-books/:id" element={<GuestBookDetailPage />} />
             <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
             <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
-            <Route path="/:nickname/friends" element={<FriendListPage />} />
+            <Route path="/:nickname/friends" element={<FriendPage />} />
           </Routes>
           <Footer>
             <Navigator />

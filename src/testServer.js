@@ -165,7 +165,7 @@ const server = setupServer(
     writer: '허스키 주인1',
   }))),
 
-  // frined
+  // relationship
   rest.get(`${baseURL}/relationship`, async (req, res, ctx) => {
     const param = req.url.searchParams.get('nickname');
 
@@ -185,6 +185,23 @@ const server = setupServer(
     return res.status(400);
   }),
 
+  // invites
+  rest.get(`${baseURL}/invitations`, async (req, res, ctx) => res(ctx.json({
+    invitationsReceived: [
+      {
+        id: 1,
+        profileImage: 'image1',
+        nickname: 'user1',
+      },
+    ],
+    invitationsSent: [
+      {
+        id: 1,
+        profileImage: 'image2',
+        nickname: 'user2',
+      },
+    ],
+  }))),
 );
 
 export default server;

@@ -64,7 +64,7 @@ describe('Navigator', () => {
     it('go to 탐색', async () => {
       renderNavigator();
 
-      expect(screen.getByText('탐색').closest('a')).toHaveAttribute('href', '/explore');
+      expect(screen.getByText('탐색').closest('a')).toHaveAttribute('href', '/zzezze/explore');
     });
   });
 

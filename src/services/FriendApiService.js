@@ -27,6 +27,21 @@ export default class FriendApiService {
 
     return data;
   }
+
+  async fetchInvitations() {
+    const url = `${baseURL}/invitations`;
+
+    const { data } = await axios.get(
+      url,
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
 }
 
 export const friendApiService = new FriendApiService();

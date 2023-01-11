@@ -16,4 +16,13 @@ describe('FriendStore', () => {
       expect(friendStore.friends).toBeTruthy();
     });
   });
+
+  context('when fetch invites', () => {
+    it('set invites', async () => {
+      await friendStore.fetchInvitations();
+
+      expect(friendStore.invitationsReceived).toBeTruthy();
+      expect(friendStore.invitationsSent).toBeTruthy();
+    });
+  });
 });
