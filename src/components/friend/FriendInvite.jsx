@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import useFriendStore from '../../hooks/useFriendStore';
+import FriendInvitations from './FriendInvitations';
 
 const Container = styled.div`
-  border: 1px solid brown;
+  border: 3px solid brown;
+  border-radius: 1em;
   margin-bottom: 1em;
 `;
 
@@ -24,6 +26,10 @@ const Button = styled.button`
 
 export default function FriendInvite() {
   const [menu, setMenu] = useState('received');
+
+  const friendStore = useFriendStore();
+
+  const { invitationsReceived, invitationsSent } = friendStore;
 
   const handleClickSeeReceived = () => {
     setMenu('received');
@@ -51,9 +57,14 @@ export default function FriendInvite() {
           보낸 일촌 신청
         </Button>
       </Menu>
-      {menu === 'received'
-        ? <p>받은 일촌 신청</p>
-        : <p>보낸 일촌 신청</p>}
+      <FriendInvitations
+        menu={menu}
+        invitations={
+          menu === 'received'
+            ? invitationsReceived
+            : invitationsSent
+        }
+      />
     </Container>
   ));
 }

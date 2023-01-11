@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
 import ExplorePage from './pages/ExplorePage';
-import FriendPage from './pages/FriendListPage';
+import FriendPage from './pages/FriendPage';
 import GuestBookDetailPage from './pages/GuestBookDetailPage';
 import GuestBookEditFromPage from './pages/GuestBookEditFromPage';
 import GuestBookRegistrationFromPage from './pages/GuestBookRegistrationFromPage';
