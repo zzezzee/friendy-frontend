@@ -31,7 +31,12 @@ export default class FriendStore extends Store {
   }
 
   async deleteInvitation(id, type) {
-    this.invitationsSent = this.invitationsSent.filter((e) => e.id !== id);
+    if (type === 'cancel') {
+      this.invitationsSent = this.invitationsSent.filter((e) => e.id !== id);
+    }
+    if (type === 'refuse') {
+      this.invitationsReceived = this.invitationsReceived.filter((e) => e.id !== id);
+    }
 
     const message = await friendApiService.deleteInvitation(id, type);
 

@@ -20,8 +20,8 @@ export default function FriendInvitations({ menu, invitations }) {
 
   };
 
-  const handleClickRefuse = () => {
-
+  const handleClickRefuse = (id) => {
+    friendStore.deleteInvitation(id, 'refuse');
   };
 
   const handleClickCancel = (id) => {
@@ -40,8 +40,8 @@ export default function FriendInvitations({ menu, invitations }) {
             {menu === 'received'
               ? (
                 <div>
-                  <button type="button" onClick={handleClickAccept}>수락</button>
-                  <button type="button" onClick={handleClickRefuse}>거절</button>
+                  <button type="button" onClick={() => handleClickAccept(invitation.id)}>수락</button>
+                  <button type="button" onClick={() => handleClickRefuse(invitation.id)}>거절</button>
                 </div>
               )
               : null}
