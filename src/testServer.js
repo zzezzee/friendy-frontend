@@ -203,9 +203,23 @@ const server = setupServer(
     ],
   }))),
 
-  rest.delete(`${baseURL}/invitations/1`, async (req, res, ctx) => res(ctx.json(
-    'Cancel invitation success',
-  ))),
+  rest.delete(`${baseURL}/invitations/1`, async (req, res, ctx) => {
+    const param = req.url.searchParams.get('type');
+
+    if (param === 'cancel') {
+      return res(ctx.json('Cancel invitation success'));
+    }
+
+    if (param === 'refuse') {
+      return res(ctx.json('Refuse invitation success'));
+    }
+
+    if (param === 'accept') {
+      return res(ctx.json('Accept invitation success'));
+    }
+
+    return res.status(400);
+  }),
 );
 
 export default server;

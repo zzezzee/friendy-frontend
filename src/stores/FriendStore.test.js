@@ -28,9 +28,17 @@ describe('FriendStore', () => {
 
   context('when cancel invitations', () => {
     it('set delete message', async () => {
-      await friendStore.deleteInvitation(1);
+      await friendStore.deleteInvitation(1, 'cancel');
 
       expect(friendStore.message).toEqual('Cancel invitation success');
+    });
+  });
+
+  context('when refuse invitations', () => {
+    it('set refuse message', async () => {
+      await friendStore.deleteInvitation(1, 'refuse');
+
+      expect(friendStore.message).toEqual('Refuse invitation success');
     });
   });
 });
