@@ -17,12 +17,20 @@ describe('FriendStore', () => {
     });
   });
 
-  context('when fetch invites', () => {
+  context('when fetch invitations', () => {
     it('set invites', async () => {
       await friendStore.fetchInvitations();
 
       expect(friendStore.invitationsReceived).toBeTruthy();
       expect(friendStore.invitationsSent).toBeTruthy();
+    });
+  });
+
+  context('when cancel invitations', () => {
+    it('set delete message', async () => {
+      await friendStore.deleteInvitation(1);
+
+      expect(friendStore.message).toEqual('Cancel invitation success');
     });
   });
 });

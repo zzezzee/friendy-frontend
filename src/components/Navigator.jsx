@@ -33,9 +33,9 @@ export default function Navigator() {
           </Link>
         </li>
         <li>
-          <a href={`/${nickname}`}>
+          <Link to={`/${nickname}`}>
             미니홈피
-          </a>
+          </Link>
         </li>
         <li>
           <Link to={`/${nickname}/explore`}>

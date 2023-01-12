@@ -9,6 +9,8 @@ export default class FriendStore extends Store {
 
     this.invitationsReceived = [];
     this.invitationsSent = [];
+
+    this.message = '';
   }
 
   async fetchFriends(nickname) {
@@ -24,6 +26,16 @@ export default class FriendStore extends Store {
 
     this.invitationsReceived = invitationsReceived;
     this.invitationsSent = invitationsSent;
+
+    this.publish();
+  }
+
+  async deleteInvitation(id, type) {
+    this.invitationsSent = this.invitationsSent.filter((e) => e.id !== id);
+
+    const message = await friendApiService.deleteInvitation(id, type);
+
+    this.message = message;
 
     this.publish();
   }
