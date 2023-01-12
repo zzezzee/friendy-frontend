@@ -27,10 +27,10 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
-const cancel = jest.fn();
+const deleteTest = jest.fn();
 
 jest.mock('../../hooks/useFriendStore', () => () => ({
-  deleteInvitation: cancel,
+  deleteInvitation: deleteTest,
 }));
 
 const context = describe;
@@ -128,7 +128,49 @@ describe('FriendInvitations', () => {
       fireEvent.click(screen.getByRole('button', { name: '취소' }));
 
       await waitFor(() => {
-        expect(cancel).toBeCalledWith(1, 'cancel');
+        expect(deleteTest).toBeCalledWith(1, 'cancel');
+      });
+    });
+  });
+
+  context('when invitationReceived refuse', () => {
+    it('don\'t see invitation', async () => {
+      const menu = 'received';
+      const invitations = [
+        {
+          id: 1,
+          profileImage: 'image_address',
+          nickname: 'user1',
+        },
+      ];
+
+      renderFriendApplicationManager(menu, invitations);
+
+      fireEvent.click(screen.getByRole('button', { name: '거절' }));
+
+      await waitFor(() => {
+        expect(deleteTest).toBeCalledWith(1, 'refuse');
+      });
+    });
+  });
+
+  context('when invitationReceived accept', () => {
+    it('don\'t see invitation', async () => {
+      const menu = 'received';
+      const invitations = [
+        {
+          id: 1,
+          profileImage: 'image_address',
+          nickname: 'user1',
+        },
+      ];
+
+      renderFriendApplicationManager(menu, invitations);
+
+      fireEvent.click(screen.getByRole('button', { name: '수락' }));
+
+      await waitFor(() => {
+        expect(deleteTest).toBeCalledWith(1, 'accept');
       });
     });
   });

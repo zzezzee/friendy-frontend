@@ -41,4 +41,12 @@ describe('FriendStore', () => {
       expect(friendStore.message).toEqual('Refuse invitation success');
     });
   });
+
+  context('when accept invitations', () => {
+    it('set accept message', async () => {
+      await friendStore.deleteInvitation(1, 'accept');
+
+      expect(friendStore.message).toEqual('Accept invitation success');
+    });
+  });
 });

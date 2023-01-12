@@ -16,8 +16,8 @@ const Image = styled.img`
 export default function FriendInvitations({ menu, invitations }) {
   const friendStore = useFriendStore();
 
-  const handleClickAccept = () => {
-
+  const handleClickAccept = (id) => {
+    friendStore.deleteInvitation(id, 'accept');
   };
 
   const handleClickRefuse = (id) => {
