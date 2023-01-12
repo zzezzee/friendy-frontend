@@ -10,6 +10,8 @@ export default class FriendStore extends Store {
     this.invitationsReceived = [];
     this.invitationsSent = [];
 
+    this.invitation = {};
+
     this.message = '';
   }
 
@@ -44,6 +46,14 @@ export default class FriendStore extends Store {
     const message = await friendApiService.deleteInvitation(id, type);
 
     this.message = message;
+
+    this.publish();
+  }
+
+  async sendInvitation(nickname) {
+    const { user: invitation } = await friendApiService.createInvitation(nickname);
+
+    this.invitation = invitation;
 
     this.publish();
   }

@@ -20,8 +20,8 @@ export default function Information({ relationship }) {
   const { nickname, profileImage, introduction } = profileStore;
   const { friends } = friendStore;
 
-  const handleClickAddFriend = () => {
-
+  const handleClickSendInvitation = () => {
+    friendStore.sendInvitation(nickname);
   };
 
   return ((
@@ -33,7 +33,7 @@ export default function Information({ relationship }) {
         </Title>
         {relationship === 'stranger'
           ? (
-            <button type="button" onClick={handleClickAddFriend}>
+            <button type="button" onClick={handleClickSendInvitation}>
               일촌 신청
             </button>
           )
