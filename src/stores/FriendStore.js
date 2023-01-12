@@ -37,6 +37,9 @@ export default class FriendStore extends Store {
     if (type === 'refuse') {
       this.invitationsReceived = this.invitationsReceived.filter((e) => e.id !== id);
     }
+    if (type === 'accept') {
+      this.invitationsReceived = this.invitationsReceived.filter((e) => e.id !== id);
+    }
 
     const message = await friendApiService.deleteInvitation(id, type);
 
