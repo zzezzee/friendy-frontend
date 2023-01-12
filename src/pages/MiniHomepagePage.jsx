@@ -24,7 +24,7 @@ export default function MiniHomepagePage() {
     guestBookStore.fetchGuestBookList(nickname);
     profileStore.fetchProfile(nickname);
     friendStore.fetchFriends(nickname);
-  }, []);
+  }, [nickname]);
 
   return ((
     <MiniHomepage />

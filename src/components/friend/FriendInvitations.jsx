@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import useFriendStore from '../../hooks/useFriendStore';
 
 const Container = styled.div`
 
@@ -13,6 +14,8 @@ const Image = styled.img`
 `;
 
 export default function FriendInvitations({ menu, invitations }) {
+  const friendStore = useFriendStore();
+
   const handleClickAccept = () => {
 
   };
@@ -21,8 +24,8 @@ export default function FriendInvitations({ menu, invitations }) {
 
   };
 
-  const handleClickCancel = () => {
-
+  const handleClickCancel = (id) => {
+    friendStore.deleteInvitation(id, 'cancel');
   };
 
   return ((
@@ -44,17 +47,17 @@ export default function FriendInvitations({ menu, invitations }) {
               : null}
             {menu === 'sent'
               ? (
-                <button type="button" onClick={handleClickCancel}>취소</button>
+                <button type="button" onClick={() => handleClickCancel(invitation.id)}>취소</button>
               )
               : null}
           </li>
         ))}
       </ul>
       {menu === 'received' && invitations.length === 0
-        ? <p> 받은 일촌신청이 없습니다.</p>
+        ? <p>받은 일촌신청이 없습니다.</p>
         : null}
       {menu === 'sent' && invitations.length === 0
-        ? <p> 보낸 일촌신청이 없습니다.</p>
+        ? <p>보낸 일촌신청이 없습니다.</p>
         : null}
     </Container>
   ));

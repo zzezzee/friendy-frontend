@@ -42,6 +42,24 @@ export default class FriendApiService {
 
     return data;
   }
+
+  async deleteInvitation(id, type) {
+    const url = `${baseURL}/invitations/${id}`;
+
+    const { data } = await axios.delete(
+      url,
+      {
+        params: {
+          type,
+        },
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
 }
 
 export const friendApiService = new FriendApiService();

@@ -1,4 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../styles/Theme';
 import FriendInvitations from './FriendInvitations';
@@ -23,6 +25,12 @@ jest.mock('react-router-dom', () => ({
   useNavigate() {
     return navigate;
   },
+}));
+
+const cancel = jest.fn();
+
+jest.mock('../../hooks/useFriendStore', () => () => ({
+  deleteInvitation: cancel,
 }));
 
 const context = describe;
@@ -101,6 +109,27 @@ describe('FriendInvitations', () => {
       renderFriendApplicationManager(menu, invitations);
 
       screen.getByText('보낸 일촌신청이 없습니다.');
+    });
+  });
+
+  context('when invitationSent cancel', () => {
+    it('don\'t see invitation', async () => {
+      const menu = 'sent';
+      const invitations = [
+        {
+          id: 1,
+          profileImage: 'image_address',
+          nickname: 'user1',
+        },
+      ];
+
+      renderFriendApplicationManager(menu, invitations);
+
+      fireEvent.click(screen.getByRole('button', { name: '취소' }));
+
+      await waitFor(() => {
+        expect(cancel).toBeCalledWith(1, 'cancel');
+      });
     });
   });
 });

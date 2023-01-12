@@ -202,6 +202,10 @@ const server = setupServer(
       },
     ],
   }))),
+
+  rest.delete(`${baseURL}/invitations/1`, async (req, res, ctx) => res(ctx.json(
+    'Cancel invitation success',
+  ))),
 );
 
 export default server;
