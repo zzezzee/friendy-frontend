@@ -203,6 +203,14 @@ const server = setupServer(
     ],
   }))),
 
+  rest.post(`${baseURL}/invitations`, async (req, res, ctx) => res(ctx.json({
+    user: {
+      id: 1,
+      profileImage: 'image',
+      nickname: 'user',
+    },
+  }))),
+
   rest.delete(`${baseURL}/invitations/1`, async (req, res, ctx) => {
     const param = req.url.searchParams.get('type');
 

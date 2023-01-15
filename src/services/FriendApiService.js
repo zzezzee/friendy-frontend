@@ -60,6 +60,25 @@ export default class FriendApiService {
 
     return data;
   }
+
+  async createInvitation(nickname) {
+    const url = `${baseURL}/invitations`;
+
+    const { data } = await axios.post(
+      url,
+      {},
+      {
+        params: {
+          nickname,
+        },
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
 }
 
 export const friendApiService = new FriendApiService();

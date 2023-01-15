@@ -49,4 +49,12 @@ describe('FriendStore', () => {
       expect(friendStore.message).toEqual('Accept invitation success');
     });
   });
+
+  context('when send invitation', () => {
+    it('set invitation', async () => {
+      await friendStore.sendInvitation('zzezze');
+
+      expect(friendStore.invitation).toBeTruthy();
+    });
+  });
 });

@@ -1,4 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../styles/Theme';
 import Information from './Information';
@@ -25,6 +27,8 @@ jest.mock('../../hooks/useProfileStore', () => () => ({
   introduction: '미니홈피 소개',
 }));
 
+const sendInvitationTestFunction = jest.fn();
+
 jest.mock('../../hooks/useFriendStore', () => () => ({
   friends: [
     {
@@ -33,6 +37,7 @@ jest.mock('../../hooks/useFriendStore', () => () => ({
       profileImage: 'image_address',
     },
   ],
+  sendInvitation: sendInvitationTestFunction,
 }));
 
 const context = describe;
@@ -42,10 +47,10 @@ describe('Information', () => {
     jest.clearAllMocks();
   });
 
-  function renderInformation() {
+  function renderInformation(relationship) {
     render((
       <ThemeProvider theme={theme}>
-        <Information />
+        <Information relationship={relationship} />
       </ThemeProvider>
     ));
   }
@@ -63,6 +68,30 @@ describe('Information', () => {
       renderInformation();
 
       screen.getByText('일촌: 1');
+    });
+  });
+
+  context('when click 일촌', () => {
+    it('일촌 목록으로 이동', async () => {
+      const relationship = 'stranger';
+
+      renderInformation(relationship);
+
+      expect(screen.getByText('일촌: 1').closest('a')).toHaveAttribute('href', 'friends');
+    });
+  });
+
+  context('when click 일촌신청', () => {
+    it('일촌신청 함수 호출', async () => {
+      const relationship = 'stranger';
+
+      renderInformation(relationship);
+
+      fireEvent.click(screen.getByRole('button', { name: '일촌 신청' }));
+
+      await waitFor(() => {
+        expect(sendInvitationTestFunction).toBeCalled();
+      });
     });
   });
 });
