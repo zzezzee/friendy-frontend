@@ -24,6 +24,14 @@ export default class PhotoBookApiService {
     return data;
   }
 
+  async fetchPhoto(id) {
+    const url = `${baseURL}/photos/${id}`;
+
+    const { data } = await axios.get(url);
+
+    return data;
+  }
+
   async upload(formData) {
     const url = `${baseURL}/photos/upload`;
     const { data } = await axios.post(url, formData);

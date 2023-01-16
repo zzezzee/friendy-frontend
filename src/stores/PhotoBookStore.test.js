@@ -27,6 +27,15 @@ describe('PostBookStore', () => {
     });
   });
 
+  context('when fetch photo', () => {
+    it('set photo', async () => {
+      await photoBookStore.fetchPhoto(1);
+
+      // expect(photoBookStore.photo).toBeTruthy();
+      expect(photoBookStore.photo).toBeTruthy();
+    });
+  });
+
   context('when patch photo', () => {
     it('set photo', async () => {
       const formData = new FormData();

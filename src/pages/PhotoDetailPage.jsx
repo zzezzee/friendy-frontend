@@ -7,13 +7,14 @@ export default function PhotoDetailPage() {
   const photoBookStore = usePhotoBookStore();
 
   const location = useLocation();
-  const nickname = location.pathname?.split('/')[1] || '';
+
+  const id = parseInt(location.pathname?.split('/')[3] || '', 10);
 
   useEffect(() => {
-    photoBookStore.fetchPhotoBook(nickname);
+    photoBookStore.fetchPhoto(id);
   }, []);
 
   return ((
-    <PhotoDetail />
+    <PhotoDetail id={id} />
   ));
 }

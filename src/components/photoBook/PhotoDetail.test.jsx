@@ -19,24 +19,19 @@ jest.mock('react-router-dom', () => ({
   useNavigate() {
     return navigate;
   },
-  useLocation() {
-    return {
-      pathname: '/zzezze/photos/1',
-    };
-  },
 }));
 
 const deletePhotoTestFunction = jest.fn();
 const editPhotoTestFunction = jest.fn();
 
 jest.mock('../../hooks/usePhotoBookStore', () => () => ({
-  photoBook: [
+  photo:
     {
       id: 1,
       image: 'image_address',
       explanation: '사진 설명',
     },
-  ],
+
   deletePhoto: deletePhotoTestFunction,
   editPhoto: editPhotoTestFunction,
 }));
@@ -51,7 +46,7 @@ describe('PhotoDetail', () => {
   function renderPhotoDetail() {
     render((
       <ThemeProvider theme={theme}>
-        <PhotoDetail />
+        <PhotoDetail id={1} />
       </ThemeProvider>
     ));
   }
