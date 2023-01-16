@@ -7,12 +7,23 @@ export default class PhotoBookStore extends Store {
 
     this.photoBook = [];
     this.photo = {};
+
+    this.comments = [];
   }
 
   async fetchPhotoBook(nickname) {
     const { photos } = await photoBookApiService.fetchPhotoBook(nickname);
 
     this.photoBook = photos;
+
+    this.publish();
+  }
+
+  async fetchPhoto(id) {
+    const { photo, comments } = await photoBookApiService.fetchPhoto(id);
+
+    this.photo = photo;
+    this.comments = comments;
 
     this.publish();
   }

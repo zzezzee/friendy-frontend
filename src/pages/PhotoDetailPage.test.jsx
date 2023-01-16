@@ -14,11 +14,16 @@ jest.mock('../hooks/usePhotoBookStore', () => () => ({
       explanation: '사진설명',
     },
   ],
-  fetchPhotoBook: jest.fn(),
+  photo:
+    {
+      id: 1,
+      image: '1234',
+      explanation: '사진설명',
+    },
+  fetchPhoto: jest.fn(),
 }));
 
 jest.mock('react-router-dom', () => ({
-  // eslint-disable-next-line react/prop-types
   Link({ children, to }) {
     return (
       <a href={to}>

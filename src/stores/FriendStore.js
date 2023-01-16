@@ -40,6 +40,8 @@ export default class FriendStore extends Store {
       this.invitationsReceived = this.invitationsReceived.filter((e) => e.id !== id);
     }
     if (type === 'accept') {
+      this.friends.push(...this.invitationsReceived.filter((e) => e.id === id));
+
       this.invitationsReceived = this.invitationsReceived.filter((e) => e.id !== id);
     }
 
