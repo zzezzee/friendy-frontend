@@ -18,6 +18,7 @@ import PhotoDetailPage from './pages/PhotoDetailPage';
 import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationFormPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
+import { commentApiService } from './services/CommentApiService';
 import { friendApiService } from './services/FriendApiService';
 import { guestBookApiService } from './services/GuestBookApiService';
 import { photoBookApiService } from './services/PhotoBookApiService';
@@ -52,6 +53,7 @@ export default function App() {
     photoBookApiService.setAccessToken(accessToken);
     guestBookApiService.setAccessToken(accessToken);
     friendApiService.setAccessToken(accessToken);
+    commentApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return ((

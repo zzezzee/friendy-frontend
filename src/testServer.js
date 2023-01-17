@@ -244,6 +244,20 @@ const server = setupServer(
 
     return res.status(400);
   }),
+
+  // Comment
+  rest.post(`${baseURL}/comments`, async (req, res, ctx) => res(ctx.json({
+    comment: {
+      id: 1,
+      profileImage: 'image',
+      nickname: 'user',
+      content: '내용',
+    },
+  }))),
+
 );
 
 export default server;
+
+
+
