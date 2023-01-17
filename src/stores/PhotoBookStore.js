@@ -1,3 +1,4 @@
+import { commentApiService } from '../services/CommentApiService';
 import { photoBookApiService } from '../services/PhotoBookApiService';
 import Store from './Store';
 
@@ -9,6 +10,7 @@ export default class PhotoBookStore extends Store {
     this.photo = {};
 
     this.comments = [];
+    this.comment = {};
   }
 
   async fetchPhotoBook(nickname) {
@@ -50,6 +52,12 @@ export default class PhotoBookStore extends Store {
 
   async deletePhoto(id) {
     await photoBookApiService.delete(id);
+
+    this.publish();
+  }
+
+  async createComment(content, id) {
+    await commentApiService.create(content, id);
 
     this.publish();
   }

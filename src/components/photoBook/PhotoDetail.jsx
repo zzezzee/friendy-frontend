@@ -42,7 +42,7 @@ export default function PhotoDetail({ id }) {
         <button type="button" onClick={handleClickDelete}>삭제</button>
         <button type="button" onClick={handleClickEdit}>수정</button>
       </Photo>
-      <Comments comments={comments} />
+      <Comments comments={comments} id={id} />
     </Container>
   ));
 }

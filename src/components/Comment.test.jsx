@@ -15,6 +15,20 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
+const changeCommentTestFunction = jest.fn();
+
+jest.mock('../hooks/useCommentFormStore', () => () => ({
+  comment: '댓글내용입니다',
+
+  changeComment: changeCommentTestFunction,
+}));
+
+const createCommentTestFunction = jest.fn();
+
+jest.mock('../hooks/usePhotoBookStore', () => () => ({
+  createComment: createCommentTestFunction,
+}));
+
 const context = describe;
 
 describe('Comments', () => {
@@ -47,6 +61,36 @@ describe('Comments', () => {
       renderComments(comments);
 
       screen.getByText('댓글 내용');
+    });
+  });
+
+  context('when change Comment', () => {
+    it('changeComment to be called', async () => {
+      renderComments();
+
+      fireEvent.change(screen.getByLabelText('댓글'), {
+        target: { value: '댓글내용입니다' },
+      });
+
+      await waitFor(() => {
+        expect(changeCommentTestFunction).toBeCalledWith('댓글내용입니다');
+      });
+    });
+  });
+
+  context('when submit Comment', () => {
+    it('submit to be called', async () => {
+      renderComments();
+
+      fireEvent.change(screen.getByLabelText('댓글'), {
+        target: { value: '댓글내용입니다' },
+      });
+
+      fireEvent.click(screen.getByRole('button', { name: '등록' }));
+
+      await waitFor(() => {
+        expect(createCommentTestFunction).toBeCalled();
+      });
     });
   });
 });
