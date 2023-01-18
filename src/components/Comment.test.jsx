@@ -28,12 +28,16 @@ jest.mock('../hooks/useCommentFormStore', () => () => ({
   changeReplyNickname: jest.fn(),
 }));
 
-const createCommentTestFunction = jest.fn();
 const fetchPhotoTestFunction = jest.fn();
 
 jest.mock('../hooks/usePhotoBookStore', () => () => ({
-  createComment: createCommentTestFunction,
   fetchPhoto: fetchPhotoTestFunction,
+}));
+
+const createCommentTestFunction = jest.fn();
+
+jest.mock('../hooks/useCommentStore', () => () => ({
+  createComment: createCommentTestFunction,
 }));
 
 const context = describe;

@@ -13,14 +13,30 @@ export default class CommentApiService {
     this.accessToken = accessToken;
   }
 
-  async create(content, id) {
+  async fetchComments(id) {
+    const url = `${baseURL}/comments`;
+
+    const { data } = await axios.get(
+      url,
+      {
+        params: {
+          id,
+        },
+      },
+    );
+
+    return data;
+  }
+
+  async create(content, id, postType) {
     const url = `${baseURL}/comments`;
 
     const { data } = await axios.post(
       url,
       {
-        photoId: id,
         content,
+        postId: id,
+        postType,
       },
       {
         headers: {
@@ -54,6 +70,7 @@ export default class CommentApiService {
       url,
       {
         content,
+        id,
       },
       {
         headers: {

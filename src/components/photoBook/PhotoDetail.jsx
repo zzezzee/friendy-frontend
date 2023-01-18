@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import useCommentStore from '../../hooks/useCommentStore';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 import Comments from '../Comment';
 
@@ -19,9 +20,12 @@ const Container = styled.div`
 
 export default function PhotoDetail({ id }) {
   const photoBookStore = usePhotoBookStore();
+  const commentStore = useCommentStore();
+
   const navigate = useNavigate();
 
-  const { photo, comments } = photoBookStore;
+  const { photo } = photoBookStore;
+  const { comments } = commentStore;
 
   const handleClickDelete = async () => {
     await photoBookStore.deletePhoto(id);
@@ -41,7 +45,7 @@ export default function PhotoDetail({ id }) {
         <button type="button" onClick={handleClickDelete}>삭제</button>
         <button type="button" onClick={handleClickEdit}>수정</button>
       </Photo>
-      <Comments comments={comments} photoId={id} />
+      <Comments comments={comments} postId={id} postType="photo" />
     </Container>
   ));
 }

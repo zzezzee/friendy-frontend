@@ -104,13 +104,6 @@ const server = setupServer(
         image: 'https://friendyimages.s3.ap-northeast-2.amazonaws.com/photo1.avif',
         explanation: '사진 설명입니다',
       },
-    comments: [
-      {
-        nickname: 'zzezze',
-        profileImage: 'image_address',
-        content: '댓글 내용',
-      },
-    ],
   }))),
 
   rest.post(`${baseURL}/photos`, async (req, res, ctx) => res(ctx.json({
@@ -246,6 +239,17 @@ const server = setupServer(
   }),
 
   // Comment
+  rest.get(`${baseURL}/comments`, async (req, res, ctx) => res(ctx.json({
+    comments: [
+      {
+        id: '1',
+        nickname: 'zzezze',
+        profileImage: 'image_address',
+        content: '댓글 내용',
+      },
+    ],
+  }))),
+
   rest.post(`${baseURL}/comments`, async (req, res, ctx) => res(ctx.json(
     '1',
   ))),

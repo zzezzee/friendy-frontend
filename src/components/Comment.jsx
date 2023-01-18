@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useCommentFormStore from '../hooks/useCommentFormStore';
+import useCommentStore from '../hooks/useCommentStore';
 import usePhotoBookStore from '../hooks/usePhotoBookStore';
 import useUserStore from '../hooks/useUserStore';
 
@@ -54,15 +55,18 @@ const ReCommentButton = styled.button`
   font-weight: 300;
 `;
 
-export default function Comments({ comments, photoId }) {
-  const photoBookStore = usePhotoBookStore();
-  const commentFormStore = useCommentFormStore();
+export default function Comments({ comments, postId, postType }) {
   const userStore = useUserStore();
+  const commentStore = useCommentStore();
+  const commentFormStore = useCommentFormStore();
 
   const [inputMode, setInputMode] = useState('comment');
 
   const { nickname } = userStore;
-  const { content, replyNickname, editCommentId } = commentFormStore;
+  const { editCommentStatus } = commentStore;
+  const {
+    content, replyNickname, editCommentId,
+  } = commentFormStore;
 
   const handleChangeContent = (event) => {
     commentFormStore.changeContent(event.target.value);
@@ -71,21 +75,25 @@ export default function Comments({ comments, photoId }) {
   const handleSubmitComment = async (event) => {
     event.preventDefault();
 
-
     if (inputMode === 'comment') {
-      await photoBookStore.createComment(content, photoId);
+      await commentStore.createComment(content, postId, postType);
     }
 
     if (inputMode === 'edit') {
-      await photoBookStore.editComment(content, editCommentId);
+      await commentStore.editComment(content, editCommentId);
+
+      if (editCommentStatus === 'successful') {
+        setInputMode('comment');
+      }
     }
 
-    await photoBookStore.fetchPhoto(photoId);
+    await commentStore.fetchComments(postId);
   };
 
   const handleClickDelete = async (commentId) => {
-    await photoBookStore.deleteComment(commentId);
-    await photoBookStore.fetchPhoto(photoId);
+    await commentStore.deleteComment(commentId);
+
+    await commentStore.fetchComments(postId);
   };
 
   const handleClickReply = (replyTo) => {
