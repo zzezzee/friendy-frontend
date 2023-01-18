@@ -13,14 +13,64 @@ export default class CommentApiService {
     this.accessToken = accessToken;
   }
 
-  async create(content, id) {
+  async fetchComments(id) {
+    const url = `${baseURL}/comments`;
+
+    const { data } = await axios.get(
+      url,
+      {
+        params: {
+          id,
+        },
+      },
+    );
+
+    return data;
+  }
+
+  async create(content, id, postType) {
     const url = `${baseURL}/comments`;
 
     const { data } = await axios.post(
       url,
       {
-        photoId: id,
         content,
+        postId: id,
+        postType,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
+
+  async delete(id) {
+    const url = `${baseURL}/comments/${id}`;
+
+    const { data } = await axios.delete(
+      url,
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
+
+  async patch(content, id) {
+    const url = `${baseURL}/comments/${id}`;
+
+    const { data } = await axios.patch(
+      url,
+      {
+        content,
+        id,
       },
       {
         headers: {

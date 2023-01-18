@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useCommentFormStore from '../hooks/useCommentFormStore';
+import useCommentStore from '../hooks/useCommentStore';
 import usePhotoBookStore from '../hooks/usePhotoBookStore';
 import useUserStore from '../hooks/useUserStore';
 
@@ -38,7 +39,7 @@ const Item = styled.li`
   }
 `;
 
-const Time = styled.p`
+const Time = styled.strong`
   display: inline;
   margin-left: 5em;
   font-size: .5em;
@@ -54,14 +55,18 @@ const ReCommentButton = styled.button`
   font-weight: 300;
 `;
 
-export default function Comments({ comments, id }) {
-  const photoBookStore = usePhotoBookStore();
-  const commentFormStore = useCommentFormStore();
+export default function Comments({ comments, postId, postType }) {
   const userStore = useUserStore();
+  const commentStore = useCommentStore();
+  const commentFormStore = useCommentFormStore();
 
-  const [reCommentTo, setReCommentTo] = useState('');
+  const [inputMode, setInputMode] = useState('comment');
 
   const { nickname } = userStore;
+  const { editCommentStatus } = commentStore;
+  const {
+    content, replyNickname, editCommentId,
+  } = commentFormStore;
 
   const handleChangeContent = (event) => {
     commentFormStore.changeContent(event.target.value);
@@ -70,26 +75,39 @@ export default function Comments({ comments, id }) {
   const handleSubmitComment = async (event) => {
     event.preventDefault();
 
-    const { content } = commentFormStore;
+    if (inputMode === 'comment') {
+      await commentStore.createComment(content, postId, postType);
+    }
 
-    await photoBookStore.createComment(content, id);
-    await photoBookStore.fetchPhoto(id);
+    if (inputMode === 'edit') {
+      await commentStore.editComment(content, editCommentId);
+
+      if (editCommentStatus === 'successful') {
+        setInputMode('comment');
+      }
+    }
+
+    await commentStore.fetchComments(postId);
   };
 
-  const handleClickReply = (commentNickname) => {
-    setReCommentTo(commentNickname);
+  const handleClickDelete = async (commentId) => {
+    await commentStore.deleteComment(commentId);
+
+    await commentStore.fetchComments(postId);
   };
 
-  const handleClickCancelReComment = () => {
-    setReCommentTo('');
+  const handleClickReply = (replyTo) => {
+    commentFormStore.changeReplyNickname(replyTo);
+    setInputMode('reply');
   };
 
-  const handleClickDelete = () => {
-
+  const handleClickEdit = (editId) => {
+    commentFormStore.changeEditCommentId(editId);
+    setInputMode('edit');
   };
 
-  const handleClickEdit = () => {
-
+  const handleClickCancel = () => {
+    setInputMode('comment');
   };
 
   return ((
@@ -116,8 +134,8 @@ export default function Comments({ comments, id }) {
                 {comment.nickname === nickname
                   ? (
                     <div>
-                      <button type="button" onClick={handleClickDelete}>삭제</button>
-                      <button type="button" onClick={handleClickEdit}>수정</button>
+                      <button type="button" onClick={() => handleClickDelete(comment.id)}>삭제</button>
+                      <button type="button" onClick={() => handleClickEdit(comment.id)}>수정</button>
                     </div>
                   )
                   : null}
@@ -127,16 +145,19 @@ export default function Comments({ comments, id }) {
           : null}
       </List>
       <Input onSubmit={handleSubmitComment}>
-        {reCommentTo
+        {inputMode === 'reply'
           ? (
-            <div>
-              <p>
-                {reCommentTo}
-                님에게 답글 남기는중
-                <button type="button" onClick={handleClickCancelReComment}>x</button>
-              </p>
-            </div>
+            <p>
+              {replyNickname}
+              님에게 답글 남기는중..
+            </p>
           )
+          : null}
+        {inputMode === 'edit'
+          ? <p>댓글을 수정중..</p>
+          : null}
+        {inputMode === 'reply' || inputMode === 'edit'
+          ? <button type="button" onClick={handleClickCancel}>x</button>
           : null}
         <label htmlFor="input-comment">
           댓글

@@ -23,6 +23,10 @@ jest.mock('../hooks/usePhotoBookStore', () => () => ({
   fetchPhoto: jest.fn(),
 }));
 
+jest.mock('../hooks/useUserStore', () => () => ({
+  fetchUser: jest.fn(),
+}));
+
 jest.mock('react-router-dom', () => ({
   Link({ children, to }) {
     return (

@@ -9,11 +9,19 @@ describe('ProfileFormStore', () => {
     commentFormStore = new CommentFormStore();
   });
 
-  context('when change comment', () => {
-    it('comment changed', () => {
-      commentFormStore.changeComment('comment');
+  context('when change content', () => {
+    it('content changed', () => {
+      commentFormStore.changeContent('content');
 
-      expect(commentFormStore.comment).toBe('comment');
+      expect(commentFormStore.content).toBe('content');
+    });
+  });
+
+  context('when change replyNickname', () => {
+    it('replyNickname changed', () => {
+      commentFormStore.changeReplyNickname('replyNickname');
+
+      expect(commentFormStore.replyNickname).toBe('replyNickname');
     });
   });
 });

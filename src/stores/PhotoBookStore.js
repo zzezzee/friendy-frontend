@@ -22,10 +22,9 @@ export default class PhotoBookStore extends Store {
   }
 
   async fetchPhoto(id) {
-    const { photo, comments } = await photoBookApiService.fetchPhoto(id);
+    const { photo } = await photoBookApiService.fetchPhoto(id);
 
     this.photo = photo;
-    this.comments = comments;
 
     this.publish();
   }
@@ -58,6 +57,18 @@ export default class PhotoBookStore extends Store {
 
   async createComment(content, id) {
     await commentApiService.create(content, id);
+
+    this.publish();
+  }
+
+  async deleteComment(id) {
+    await commentApiService.delete(id);
+
+    this.publish();
+  }
+
+  async editComment(content, id) {
+    await commentApiService.patch(content, id);
 
     this.publish();
   }
