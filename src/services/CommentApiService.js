@@ -31,6 +31,39 @@ export default class CommentApiService {
 
     return data;
   }
+
+  async delete(id) {
+    const url = `${baseURL}/comments/${id}`;
+
+    const { data } = await axios.delete(
+      url,
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
+
+  async patch(content, id) {
+    const url = `${baseURL}/comments/${id}`;
+
+    const { data } = await axios.patch(
+      url,
+      {
+        content,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
 }
 
 export const commentApiService = new CommentApiService();

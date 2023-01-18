@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 import Comments from '../Comment';
-import PhotoComments from '../Comment';
 
 const Photo = styled.div`
   margin-bottom: 2em;
@@ -42,7 +41,7 @@ export default function PhotoDetail({ id }) {
         <button type="button" onClick={handleClickDelete}>삭제</button>
         <button type="button" onClick={handleClickEdit}>수정</button>
       </Photo>
-      <Comments comments={comments} id={id} />
+      <Comments comments={comments} photoId={id} />
     </Container>
   ));
 }

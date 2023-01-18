@@ -246,18 +246,17 @@ const server = setupServer(
   }),
 
   // Comment
-  rest.post(`${baseURL}/comments`, async (req, res, ctx) => res(ctx.json({
-    comment: {
-      id: 1,
-      profileImage: 'image',
-      nickname: 'user',
-      content: '내용',
-    },
-  }))),
+  rest.post(`${baseURL}/comments`, async (req, res, ctx) => res(ctx.json(
+    '1',
+  ))),
 
+  rest.delete(`${baseURL}/comments/1`, async (req, res, ctx) => res(ctx.json(
+    '1',
+  ))),
+
+  rest.patch(`${baseURL}/comments/1`, async (req, res, ctx) => res(ctx.json(
+    '1',
+  ))),
 );
 
 export default server;
-
-
-

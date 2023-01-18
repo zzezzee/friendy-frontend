@@ -61,6 +61,18 @@ export default class PhotoBookStore extends Store {
 
     this.publish();
   }
+
+  async deleteComment(id) {
+    await commentApiService.delete(id);
+
+    this.publish();
+  }
+
+  async editComment(content, id) {
+    await commentApiService.patch(content, id);
+
+    this.publish();
+  }
 }
 
 export const photoBookStore = new PhotoBookStore();

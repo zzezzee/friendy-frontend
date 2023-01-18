@@ -15,18 +15,25 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
-const changeCommentTestFunction = jest.fn();
+jest.mock('../hooks/useUserStore', () => () => ({
+  nickname: 'zzezze',
+}));
+
+const changeContentTestFunction = jest.fn();
 
 jest.mock('../hooks/useCommentFormStore', () => () => ({
-  comment: '댓글내용입니다',
+  content: '댓글내용입니다',
 
-  changeComment: changeCommentTestFunction,
+  changeContent: changeContentTestFunction,
+  changeReplyNickname: jest.fn(),
 }));
 
 const createCommentTestFunction = jest.fn();
+const fetchPhotoTestFunction = jest.fn();
 
 jest.mock('../hooks/usePhotoBookStore', () => () => ({
   createComment: createCommentTestFunction,
+  fetchPhoto: fetchPhotoTestFunction,
 }));
 
 const context = describe;
@@ -36,11 +43,12 @@ describe('Comments', () => {
     jest.clearAllMocks();
   });
 
-  function renderComments(comments) {
+  function renderComments(comments, id = 1) {
     render((
       <ThemeProvider theme={theme}>
         <Comments
           comments={comments}
+          id={id}
         />
       </ThemeProvider>
     ));
@@ -66,14 +74,24 @@ describe('Comments', () => {
 
   context('when change Comment', () => {
     it('changeComment to be called', async () => {
-      renderComments();
+      const comments = [
+        {
+          id: 1,
+          profileImage: 'image_address',
+          nickname: 'user1',
+          content: '댓글 내용',
+          createdAt: '2022-01-34',
+        },
+      ];
+
+      renderComments(comments);
 
       fireEvent.change(screen.getByLabelText('댓글'), {
         target: { value: '댓글내용입니다' },
       });
 
       await waitFor(() => {
-        expect(changeCommentTestFunction).toBeCalledWith('댓글내용입니다');
+        expect(changeContentTestFunction).toBeCalledWith('댓글내용입니다');
       });
     });
   });
@@ -90,6 +108,28 @@ describe('Comments', () => {
 
       await waitFor(() => {
         expect(createCommentTestFunction).toBeCalled();
+      });
+    });
+  });
+
+  context('when change InputMode reply', () => {
+    it('see comments', async () => {
+      const comments = [
+        {
+          id: 1,
+          profileImage: 'image_address',
+          nickname: 'user1',
+          content: '댓글 내용',
+          createdAt: '2022-01-34',
+        },
+      ];
+
+      renderComments(comments);
+
+      fireEvent.click(screen.getByRole('button', { name: '답글달기' }));
+
+      await waitFor(() => {
+        screen.getByText(/님에게 답글 남기는중../);
       });
     });
   });

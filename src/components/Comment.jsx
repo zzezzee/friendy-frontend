@@ -38,7 +38,7 @@ const Item = styled.li`
   }
 `;
 
-const Time = styled.p`
+const Time = styled.strong`
   display: inline;
   margin-left: 5em;
   font-size: .5em;
@@ -54,14 +54,15 @@ const ReCommentButton = styled.button`
   font-weight: 300;
 `;
 
-export default function Comments({ comments, id }) {
+export default function Comments({ comments, photoId }) {
   const photoBookStore = usePhotoBookStore();
   const commentFormStore = useCommentFormStore();
   const userStore = useUserStore();
 
-  const [reCommentTo, setReCommentTo] = useState('');
+  const [inputMode, setInputMode] = useState('comment');
 
   const { nickname } = userStore;
+  const { content, replyNickname, editCommentId } = commentFormStore;
 
   const handleChangeContent = (event) => {
     commentFormStore.changeContent(event.target.value);
@@ -70,26 +71,35 @@ export default function Comments({ comments, id }) {
   const handleSubmitComment = async (event) => {
     event.preventDefault();
 
-    const { content } = commentFormStore;
 
-    await photoBookStore.createComment(content, id);
-    await photoBookStore.fetchPhoto(id);
+    if (inputMode === 'comment') {
+      await photoBookStore.createComment(content, photoId);
+    }
+
+    if (inputMode === 'edit') {
+      await photoBookStore.editComment(content, editCommentId);
+    }
+
+    await photoBookStore.fetchPhoto(photoId);
   };
 
-  const handleClickReply = (commentNickname) => {
-    setReCommentTo(commentNickname);
+  const handleClickDelete = async (commentId) => {
+    await photoBookStore.deleteComment(commentId);
+    await photoBookStore.fetchPhoto(photoId);
   };
 
-  const handleClickCancelReComment = () => {
-    setReCommentTo('');
+  const handleClickReply = (replyTo) => {
+    commentFormStore.changeReplyNickname(replyTo);
+    setInputMode('reply');
   };
 
-  const handleClickDelete = () => {
-
+  const handleClickEdit = (editId) => {
+    commentFormStore.changeEditCommentId(editId);
+    setInputMode('edit');
   };
 
-  const handleClickEdit = () => {
-
+  const handleClickCancel = () => {
+    setInputMode('comment');
   };
 
   return ((
@@ -116,8 +126,8 @@ export default function Comments({ comments, id }) {
                 {comment.nickname === nickname
                   ? (
                     <div>
-                      <button type="button" onClick={handleClickDelete}>삭제</button>
-                      <button type="button" onClick={handleClickEdit}>수정</button>
+                      <button type="button" onClick={() => handleClickDelete(comment.id)}>삭제</button>
+                      <button type="button" onClick={() => handleClickEdit(comment.id)}>수정</button>
                     </div>
                   )
                   : null}
@@ -127,16 +137,19 @@ export default function Comments({ comments, id }) {
           : null}
       </List>
       <Input onSubmit={handleSubmitComment}>
-        {reCommentTo
+        {inputMode === 'reply'
           ? (
-            <div>
-              <p>
-                {reCommentTo}
-                님에게 답글 남기는중
-                <button type="button" onClick={handleClickCancelReComment}>x</button>
-              </p>
-            </div>
+            <p>
+              {replyNickname}
+              님에게 답글 남기는중..
+            </p>
           )
+          : null}
+        {inputMode === 'edit'
+          ? <p>댓글을 수정중..</p>
+          : null}
+        {inputMode === 'reply' || inputMode === 'edit'
+          ? <button type="button" onClick={handleClickCancel}>x</button>
           : null}
         <label htmlFor="input-comment">
           댓글
