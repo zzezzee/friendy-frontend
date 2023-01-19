@@ -45,6 +45,7 @@ const ParentComment = styled.ul`
 
 const ReplyComment = styled.div`
   display: flex;
+  flex-direction: column;
   margin-left: 1em;
   padding: .5em;
   gap: .2em;
@@ -57,7 +58,7 @@ const ReplyComment = styled.div`
     margin-right: .5em;
   }
 
-  li{
+  #reComment{
     display: flex;
   }
 
@@ -120,7 +121,7 @@ export default function Comments({ comments, postId, postType }) {
       }
     }
 
-    if (inputMode === 'reComment') {
+    if (inputMode === 'reply') {
       await commentStore.createReComment(content, postId, postType, parentId);
     }
 
@@ -184,7 +185,7 @@ export default function Comments({ comments, postId, postType }) {
               <div>
                 <ReplyComment>
                   {comment.reComments.map((reComment) => (
-                    <li key={reComment.id}>
+                    <div id="reComment" key={reComment.id}>
                       <Link to={`/${reComment.nickname}`}>
                         <Image src={reComment.profileImage} alt="프로필이미지" />
                       </Link>
@@ -203,7 +204,7 @@ export default function Comments({ comments, postId, postType }) {
                           )
                           : null}
                       </div>
-                    </li>
+                    </div>
                   ))}
                 </ReplyComment>
               </div>

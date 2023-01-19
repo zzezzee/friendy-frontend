@@ -48,6 +48,27 @@ export default class CommentApiService {
     return data;
   }
 
+  async createReComment(content, id, postType, parentId) {
+    const url = `${baseURL}/comments/reply`;
+
+    const { data } = await axios.post(
+      url,
+      {
+        content,
+        postId: id,
+        postType,
+        parentId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
+
   async delete(id) {
     const url = `${baseURL}/comments/${id}`;
 
