@@ -6,6 +6,7 @@ export default class CommentFormStore extends Store {
     this.content = '';
     this.replyNickname = '';
     this.editCommentId = '';
+    this.parentId = '';
   }
 
   changeContent(content) {
@@ -22,6 +23,12 @@ export default class CommentFormStore extends Store {
 
   changeEditCommentId(editCommentId) {
     this.editCommentId = editCommentId;
+
+    this.publish();
+  }
+
+  changeParentId(parentId) {
+    this.parentId = parentId;
 
     this.publish();
   }

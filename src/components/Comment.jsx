@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useCommentFormStore from '../hooks/useCommentFormStore';
 import useCommentStore from '../hooks/useCommentStore';
-import usePhotoBookStore from '../hooks/usePhotoBookStore';
 import useUserStore from '../hooks/useUserStore';
 
 const Container = styled.div`
@@ -25,8 +24,42 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: flex;
+  flex-direction: column;
+`;
+
+const ParentComment = styled.ul`
+  display: flex;
   padding: .5em;
   gap: .2em;
+
+  #nickname {
+    font-size: .9em;
+    margin-bottom: .4em;
+  }
+
+  #content {
+    font-weight: 400;
+    margin-bottom: .2em;
+  }
+`;
+
+const ReplyComment = styled.div`
+  display: flex;
+  margin-left: 1em;
+  padding: .5em;
+  gap: .2em;
+
+
+  button {
+    all:unset;
+    font-size: 0.7em;
+    font-weight: 300;
+    margin-right: .5em;
+  }
+
+  li{
+    display: flex;
+  }
 
   #nickname {
     font-size: .9em;
@@ -65,7 +98,7 @@ export default function Comments({ comments, postId, postType }) {
   const { nickname } = userStore;
   const { editCommentStatus } = commentStore;
   const {
-    content, replyNickname, editCommentId,
+    content, replyNickname, editCommentId, parentId,
   } = commentFormStore;
 
   const handleChangeContent = (event) => {
@@ -87,6 +120,10 @@ export default function Comments({ comments, postId, postType }) {
       }
     }
 
+    if (inputMode === 'reComment') {
+      await commentStore.createReComment(content, postId, postType, parentId);
+    }
+
     await commentStore.fetchComments(postId);
   };
 
@@ -96,8 +133,10 @@ export default function Comments({ comments, postId, postType }) {
     await commentStore.fetchComments(postId);
   };
 
-  const handleClickReply = (replyTo) => {
+  const handleClickReply = (replyTo, commentId) => {
     commentFormStore.changeReplyNickname(replyTo);
+    commentFormStore.changeParentId(commentId);
+
     setInputMode('reply');
   };
 
@@ -116,29 +155,57 @@ export default function Comments({ comments, postId, postType }) {
         {comments !== undefined
           ? comments.map((comment) => (
             <Item key={comment.id}>
-              <Link to={`/${comment.nickname}`}>
-                <Image src={comment.profileImage} alt="프로필이미지" />
-              </Link>
+              <ParentComment>
+                <Link to={`/${comment.nickname}`}>
+                  <Image src={comment.profileImage} alt="프로필이미지" />
+                </Link>
+                <div>
+                  <p id="nickname">
+                    {comment.nickname}
+                    <Time>{comment.createdAt}</Time>
+                  </p>
+                  <p id="content">{comment.content}</p>
+                  <ReCommentButton
+                    type="button"
+                    onClick={() => handleClickReply(comment.nickname, comment.id)}
+                  >
+                    답글달기
+                  </ReCommentButton>
+                  {comment.nickname === nickname
+                    ? (
+                      <div>
+                        <button type="button" onClick={() => handleClickDelete(comment.id)}>삭제</button>
+                        <button type="button" onClick={() => handleClickEdit(comment.id)}>수정</button>
+                      </div>
+                    )
+                    : null}
+                </div>
+              </ParentComment>
               <div>
-                <p id="nickname">
-                  {comment.nickname}
-                  <Time>{comment.createdAt}</Time>
-                </p>
-                <p id="content">{comment.content}</p>
-                <ReCommentButton
-                  type="button"
-                  onClick={() => handleClickReply(comment.nickname)}
-                >
-                  답글달기
-                </ReCommentButton>
-                {comment.nickname === nickname
-                  ? (
-                    <div>
-                      <button type="button" onClick={() => handleClickDelete(comment.id)}>삭제</button>
-                      <button type="button" onClick={() => handleClickEdit(comment.id)}>수정</button>
-                    </div>
-                  )
-                  : null}
+                <ReplyComment>
+                  {comment.reComments.map((reComment) => (
+                    <li key={reComment.id}>
+                      <Link to={`/${reComment.nickname}`}>
+                        <Image src={reComment.profileImage} alt="프로필이미지" />
+                      </Link>
+                      <div>
+                        <p id="nickname">
+                          {reComment.nickname}
+                          <Time>{reComment.createdAt}</Time>
+                        </p>
+                        <p id="content">{reComment.content}</p>
+                        {reComment.nickname === nickname
+                          ? (
+                            <div>
+                              <button type="button" onClick={() => handleClickDelete(reComment.id)}>삭제</button>
+                              <button type="button" onClick={() => handleClickEdit(reComment.id)}>수정</button>
+                            </div>
+                          )
+                          : null}
+                      </div>
+                    </li>
+                  ))}
+                </ReplyComment>
               </div>
             </Item>
           ))

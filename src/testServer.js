@@ -246,6 +246,14 @@ const server = setupServer(
         nickname: 'zzezze',
         profileImage: 'image_address',
         content: '댓글 내용',
+        reComments: [
+          {
+            id: '2',
+            nickname: 'zzezze',
+            profileImage: 'image_address',
+            content: '대댓글 내용2',
+          },
+        ],
       },
     ],
   }))),
