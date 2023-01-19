@@ -26,6 +26,7 @@ jest.mock('../hooks/useCommentFormStore', () => () => ({
 
   changeContent: changeContentTestFunction,
   changeReplyNickname: jest.fn(),
+  changeParentId: jest.fn(),
 }));
 
 const createCommentTestFunction = jest.fn();
@@ -65,6 +66,7 @@ describe('Comments', () => {
           nickname: 'user1',
           content: '댓글 내용',
           createdAt: '2022-01-34',
+          reComments: [],
         },
       ];
 
@@ -83,6 +85,7 @@ describe('Comments', () => {
           nickname: 'user1',
           content: '댓글 내용',
           createdAt: '2022-01-34',
+          reComments: [],
         },
       ];
 
@@ -123,6 +126,7 @@ describe('Comments', () => {
           nickname: 'user1',
           content: '댓글 내용',
           createdAt: '2022-01-34',
+          reComments: [],
         },
       ];
 

@@ -8,18 +8,29 @@ export default class CommentStore extends Store {
     this.comments = [];
 
     this.editCommentStatus = '';
+    this.fetchCommentsStatus = '';
   }
 
   async fetchComments(id) {
-    const { comments } = await commentApiService.fetchComments(id);
+    try {
+      const { comments } = await commentApiService.fetchComments(id);
 
-    this.comments = comments;
+      this.comments = comments;
 
-    this.publish();
+      this.changeFetchCommentsStatus('successful');
+    } catch (e) {
+      this.changeFetchCommentsStatus('failed');
+    }
   }
 
   async createComment(content, id, postType) {
     await commentApiService.create(content, id, postType);
+
+    this.publish();
+  }
+
+  async createReComment(content, id, postType, parentId) {
+    await commentApiService.createReComment(content, id, postType, parentId);
 
     this.publish();
   }
@@ -43,6 +54,15 @@ export default class CommentStore extends Store {
   changeEditCommentStatus(status) {
     this.editCommentStatus = status;
     this.publish();
+  }
+
+  changeFetchCommentsStatus(status) {
+    this.fetchCommentStatus = status;
+    this.publish();
+  }
+
+  get isEditCommentStatusSuccessful() {
+    return this.editCommentStatus === 'successful';
   }
 }
 
