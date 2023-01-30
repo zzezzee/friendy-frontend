@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import useCommentStore from '../../hooks/useCommentStore';
 import useGuestBookStore from '../../hooks/useGuestBookStore';
+import Comments from '../Comment';
 
 const Image = styled.img`
   width: 100px;
@@ -15,11 +17,14 @@ const Container = styled.div`
 
 export default function GuestBookDetail({ id }) {
   const guestBookStore = useGuestBookStore();
+  const commentStore = useCommentStore();
+
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
 
   const { guestBook } = guestBookStore;
+  const { comments } = commentStore;
 
   const handleClickDelete = async () => {
     await guestBookStore.deleteGuestBook(id);
@@ -49,7 +54,7 @@ export default function GuestBookDetail({ id }) {
           </div>
         )
         : null}
-      <p>여기엔 댓글이 들어가겠죠</p>
+      <Comments comments={comments} postId={id} postType="guestBook" />
     </Container>
   ));
 }

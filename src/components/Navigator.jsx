@@ -29,7 +29,7 @@ export default function Navigator() {
       <List>
         <li>
           <Link to="/">
-            홈
+            모아보기
           </Link>
         </li>
         <li>

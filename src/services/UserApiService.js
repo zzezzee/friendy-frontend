@@ -42,7 +42,14 @@ export default class UserApiService {
 
   async fetchUsers() {
     const url = `${baseURL}/users`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(
+      url,
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
 
     return data;
   }
