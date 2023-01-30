@@ -6,6 +6,8 @@ export default function Explore() {
 
   const { users, searching } = userStore;
 
+  console.log(users);
+
   const handleSubmit = () => {
 
   };
