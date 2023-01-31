@@ -6,6 +6,8 @@ import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
+import ChatRoomListPage from './pages/ChatRoomListPage';
+import CollectionPage from './pages/CollectionPage';
 import ExplorePage from './pages/ExplorePage';
 import FriendPage from './pages/FriendPage';
 import GuestBookDetailPage from './pages/GuestBookDetailPage';
@@ -18,6 +20,7 @@ import PhotoDetailPage from './pages/PhotoDetailPage';
 import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationFormPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
+import { chatRoomApiService } from './services/ChatRoomApiService';
 import { commentApiService } from './services/CommentApiService';
 import { friendApiService } from './services/FriendApiService';
 import { guestBookApiService } from './services/GuestBookApiService';
@@ -54,6 +57,7 @@ export default function App() {
     guestBookApiService.setAccessToken(accessToken);
     friendApiService.setAccessToken(accessToken);
     commentApiService.setAccessToken(accessToken);
+    chatRoomApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return ((
@@ -77,6 +81,8 @@ export default function App() {
             <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
             <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
             <Route path="/:nickname/friends" element={<FriendPage />} />
+            <Route path="/:nickname/collections" element={<CollectionPage />} />
+            <Route path="/:nickname/collections/chat-rooms" element={<ChatRoomListPage />} />
           </Routes>
           <Footer>
             <Navigator />

@@ -37,18 +37,18 @@ describe('Navigator', () => {
     it('see navigator', async () => {
       renderNavigator();
 
-      screen.getByText('홈');
+      screen.getByText('모아보기');
       screen.getByText('미니홈피');
       screen.getByText('탐색');
       screen.getByText('더보기');
     });
   });
 
-  context('when click 홈', () => {
-    it('go to 홈', async () => {
+  context('when click 모아보기', () => {
+    it('go to 모아보기', async () => {
       renderNavigator();
 
-      expect(screen.getByText('홈').closest('a')).toHaveAttribute('href', '/');
+      expect(screen.getByText('모아보기').closest('a')).toHaveAttribute('href', '/zzezze/collections');
     });
   });
 
