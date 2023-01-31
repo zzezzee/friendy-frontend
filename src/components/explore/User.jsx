@@ -7,7 +7,6 @@ const Image = styled.img`
 `;
 
 export default function User({ user }) {
-  console.log(user);
   return ((
     <div>
       <a href={`/${user.nickname}`}>
@@ -19,7 +18,7 @@ export default function User({ user }) {
       </a>
       <p>
         함께아는친구:
-        {user.friendsTogether.length}
+        {user.friendsTogether.length || 0}
         명
       </p>
     </div>

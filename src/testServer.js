@@ -269,6 +269,15 @@ const server = setupServer(
   rest.patch(`${baseURL}/comments/1`, async (req, res, ctx) => res(ctx.json(
     '1',
   ))),
+
+  // chat-rooms
+  rest.get(`${baseURL}/chat-rooms`, async (req, res, ctx) => res(ctx.json({
+    chatRooms: [
+      {
+        id: '1',
+      },
+    ],
+  }))),
 );
 
 export default server;

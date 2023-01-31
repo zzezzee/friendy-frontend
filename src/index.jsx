@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import { chatRoomApiService } from './services/ChatRoomApiService';
 import { commentApiService } from './services/CommentApiService';
 import { friendApiService } from './services/FriendApiService';
 import { guestBookApiService } from './services/GuestBookApiService';
@@ -15,6 +16,7 @@ photoBookApiService.setAccessToken(accessToken);
 guestBookApiService.setAccessToken(accessToken);
 friendApiService.setAccessToken(accessToken);
 commentApiService.setAccessToken(accessToken);
+chatRoomApiService.setAccessToken(accessToken);
 
 const container = document.getElementById('app');
 const root = ReactDOM.createRoot(container);

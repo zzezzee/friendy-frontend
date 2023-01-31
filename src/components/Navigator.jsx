@@ -28,7 +28,7 @@ export default function Navigator() {
     <Container>
       <List>
         <li>
-          <Link to="/">
+          <Link to={`/${nickname}/collections`}>
             모아보기
           </Link>
         </li>

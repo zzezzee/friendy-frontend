@@ -21,7 +21,6 @@ const Button = styled.button`
   border: none;
   font-size: 1em;
   border-bottom:${(props) => (props.selected ? '3px solid purple' : 'none')};
-  
 `;
 
 export default function MiniHomepage() {
