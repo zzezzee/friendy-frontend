@@ -1,10 +1,9 @@
-/* eslint-disable class-methods-use-this */
 import axios from 'axios';
 import config from '../config';
 
 const baseURL = config.apiBaseURL;
 
-export default class ChatRoomApiService {
+export default class ChatApiService {
   constructor() {
     this.accessToken = '';
   }
@@ -13,12 +12,15 @@ export default class ChatRoomApiService {
     this.accessToken = accessToken;
   }
 
-  async fetchChatRooms() {
-    const url = `${baseURL}/chat-rooms`;
+  async fetchChats(chatRoomId) {
+    const url = `${baseURL}/chats`;
 
     const { data } = await axios.get(
       url,
       {
+        params: {
+          chatRoomId,
+        },
         headers: {
           Authorization: `Bearer ${this.accessToken}`,
         },
@@ -29,4 +31,4 @@ export default class ChatRoomApiService {
   }
 }
 
-export const chatRoomApiService = new ChatRoomApiService();
+export const chatApiService = new ChatApiService();

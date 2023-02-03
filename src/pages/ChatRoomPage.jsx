@@ -1,22 +1,24 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ChatRoomList from '../components/collection/ChatRoomList';
+import ChatRoom from '../components/collection/ChatRoom';
+import useChatStore from '../hooks/useChatStore';
 import useUserStore from '../hooks/useUserStore';
-import { chatRoomStore } from '../stores/ChatRoomStore';
 
-export default function ChatRoomListPage() {
+export default function ChatRoomPage() {
   const userStore = useUserStore();
+  const chatStore = useChatStore();
 
   const location = useLocation();
 
   const nickname = location.pathname?.split('/')[1] || '';
+  const chatRoomId = location.pathname?.split('/')[4] || '';
 
   useEffect(() => {
     userStore.fetchUser(nickname);
-    chatRoomStore.fetchChatRooms();
+    chatStore.fetchChats(chatRoomId);
   }, []);
 
   return ((
-    <ChatRoomList />
+    <ChatRoom chatRoomId={chatRoomId} />
   ));
 }

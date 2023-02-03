@@ -8,8 +8,6 @@ export default class ChatRoomStore extends Store {
     this.chatRooms = [];
     this.chatRoom = [];
 
-    this.chats = [];
-
     this.status = '';
   }
 
