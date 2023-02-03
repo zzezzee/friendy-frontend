@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Navigator from './components/Navigator';
 import AdditionalPage from './pages/AdditionalPage';
 import ChatRoomListPage from './pages/ChatRoomListPage';
+import ChatRoomPage from './pages/ChatRoomPage';
 import CollectionPage from './pages/CollectionPage';
 import ExplorePage from './pages/ExplorePage';
 import FriendPage from './pages/FriendPage';
@@ -20,6 +21,7 @@ import PhotoDetailPage from './pages/PhotoDetailPage';
 import PhotoEditFromPage from './pages/PhotoEditFromPage';
 import PhotoRegistrationFormPage from './pages/PhotoRegistrationFromPage';
 import ProfileChangePage from './pages/ProfileChangePage';
+import { chatApiService } from './services/ChatApiService';
 import { chatRoomApiService } from './services/ChatRoomApiService';
 import { commentApiService } from './services/CommentApiService';
 import { friendApiService } from './services/FriendApiService';
@@ -58,6 +60,7 @@ export default function App() {
     friendApiService.setAccessToken(accessToken);
     commentApiService.setAccessToken(accessToken);
     chatRoomApiService.setAccessToken(accessToken);
+    chatApiService.setAccessToken(accessToken);
   }, [accessToken]);
 
   return ((
@@ -83,6 +86,7 @@ export default function App() {
             <Route path="/:nickname/friends" element={<FriendPage />} />
             <Route path="/:nickname/collections" element={<CollectionPage />} />
             <Route path="/:nickname/collections/chat-rooms" element={<ChatRoomListPage />} />
+            <Route path="/:nickname/collections/chat-rooms/:id" element={<ChatRoomPage />} />
           </Routes>
           <Footer>
             <Navigator />

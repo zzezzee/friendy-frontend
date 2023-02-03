@@ -28,8 +28,8 @@ export default function ChatRoomList() {
               <Image src={chatRoom.profileImage} alt="프로필사진" />
               <div>
                 <p>{chatRoom.nickname}</p>
-                <p>최근 채팅 입니다</p>
-                <p>최근 채팅 날짜</p>
+                <p>{chatRoom.recentChat}</p>
+                <p>{chatRoom.recentChatCreatedAt}</p>
               </div>
             </Item>
           </Link>
