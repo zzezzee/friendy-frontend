@@ -44,17 +44,19 @@ export default function Information({ relationship }) {
       </div>
       <Image src={profileImage} alt="프로필사진" />
       <p>{introduction}</p>
-      {relationship === 'me'
-        ? <Link to="/change-profile">프로필 수정</Link>
-        : null}
       <p>
-      <Link to="friends">
-        일촌:
-        {' '}
-        {friends
-          ? friends.length
-          : 0}
-      </Link>
+        {relationship === 'me'
+          ? <Link to="/change-profile">프로필 수정</Link>
+          : null}
+      </p>
+      <p>
+        <Link to="friends">
+          일촌:
+          {' '}
+          {friends
+            ? friends.length
+            : 0}
+        </Link>
       </p>
       <p>즐겨찾기: 30</p>
     </div>
