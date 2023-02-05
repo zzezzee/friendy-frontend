@@ -9,6 +9,8 @@ export default class PhotoBookStore extends Store {
     this.photoBook = [];
     this.photo = {};
 
+    this.friendsPhotos = [];
+
     this.comments = [];
     this.comment = {};
   }
@@ -45,6 +47,16 @@ export default class PhotoBookStore extends Store {
     const { photo } = await photoBookApiService.patch(id, image, explanation);
 
     this.photo = photo;
+
+    this.publish();
+  }
+
+  async fetchFriendsPhotos() {
+    const { friendsPhotos } = await photoBookApiService.fetchFriendsPhotos();
+
+    friendsPhotos.sort((a, b) => b.photo.createdAt.localeCompare(a.photo.createdAt));
+
+    this.friendsPhotos = friendsPhotos;
 
     this.publish();
   }

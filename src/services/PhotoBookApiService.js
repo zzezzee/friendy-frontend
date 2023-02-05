@@ -92,6 +92,21 @@ export default class PhotoBookApiService {
 
     return data;
   }
+
+  async fetchFriendsPhotos() {
+    const url = `${baseURL}/photos/friends`;
+
+    const { data } = await axios.get(
+      url,
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
 }
 
 export const photoBookApiService = new PhotoBookApiService();
