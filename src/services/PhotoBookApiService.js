@@ -93,6 +93,22 @@ export default class PhotoBookApiService {
     return data;
   }
 
+  async patchLike(id) {
+    const url = `${baseURL}/likes?photoId=${id}`;
+
+    const { data } = await axios.patch(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      },
+    );
+
+    return data;
+  }
+
   async fetchFriendsPhotos() {
     const url = `${baseURL}/photos/friends`;
 

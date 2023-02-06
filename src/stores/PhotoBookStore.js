@@ -8,6 +8,7 @@ export default class PhotoBookStore extends Store {
 
     this.photoBook = [];
     this.photo = {};
+    this.likes = [];
 
     this.friendsPhotos = [];
 
@@ -24,9 +25,10 @@ export default class PhotoBookStore extends Store {
   }
 
   async fetchPhoto(id) {
-    const { photo } = await photoBookApiService.fetchPhoto(id);
+    const { photo, likes } = await photoBookApiService.fetchPhoto(id);
 
     this.photo = photo;
+    this.likes = likes;
 
     this.publish();
   }
@@ -63,6 +65,12 @@ export default class PhotoBookStore extends Store {
 
   async deletePhoto(id) {
     await photoBookApiService.delete(id);
+
+    this.publish();
+  }
+
+  async likePhoto(id) {
+    await photoBookApiService.patchLike(id);
 
     this.publish();
   }

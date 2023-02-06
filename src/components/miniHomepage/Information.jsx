@@ -44,7 +44,7 @@ export default function Information({ relationship }) {
       </div>
       <Image src={profileImage} alt="프로필사진" />
       <p>{introduction}</p>
-      <p>
+      <p> 
         {relationship === 'me'
           ? <Link to="/change-profile">프로필 수정</Link>
           : null}
@@ -58,7 +58,6 @@ export default function Information({ relationship }) {
             : 0}
         </Link>
       </p>
-      <p>즐겨찾기: 30</p>
     </div>
   ));
 }
