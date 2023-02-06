@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import useCommentFormStore from '../hooks/useCommentFormStore';
 import useCommentStore from '../hooks/useCommentStore';
 import useUserStore from '../hooks/useUserStore';
+import dateFormat from '../utils/dateFormat';
 
 const Container = styled.div`
   padding: 0em;
@@ -163,7 +164,7 @@ export default function Comments({ comments, postId, postType }) {
                 <div>
                   <p id="nickname">
                     {comment.nickname}
-                    <Time>{comment.createdAt}</Time>
+                    <Time>{dateFormat(comment.createdAt)}</Time>
                   </p>
                   <p id="content">{comment.content}</p>
                   <ReCommentButton
@@ -192,7 +193,7 @@ export default function Comments({ comments, postId, postType }) {
                       <div>
                         <p id="nickname">
                           {reComment.nickname}
-                          <Time>{reComment.createdAt}</Time>
+                          <Time>{dateFormat(reComment.createdAt)}</Time>
                         </p>
                         <p id="content">{reComment.content}</p>
                         {reComment.nickname === nickname

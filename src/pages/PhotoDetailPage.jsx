@@ -22,6 +22,6 @@ export default function PhotoDetailPage() {
   }, []);
 
   return ((
-    <PhotoDetail id={id} />
+    <PhotoDetail id={id} currentNickname={nickname} />
   ));
 }

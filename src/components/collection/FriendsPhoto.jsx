@@ -1,6 +1,8 @@
+import { logDOM } from '@testing-library/dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
+import dateFormat from '../../utils/dateFormat';
 
 const Image = styled.img`
   width: 40px;
@@ -19,6 +21,11 @@ export default function FriendsPhoto() {
 
   const { friendsPhotos } = photoBookStore;
 
+  const handleClickLike = async (id) => {
+    await photoBookStore.likePhoto(id);
+    photoBookStore.fetchFriendsPhotos();
+  };
+
   if (friendsPhotos === undefined) {
     return ((
       <p>Loading..</p>
@@ -36,9 +43,19 @@ export default function FriendsPhoto() {
             </Link>
             <Link to={`/${friendPhoto.nickname}/photos/${friendPhoto.photo.id}`}>
               <Photo src={friendPhoto.photo.image} alt="프로필이미지" />
-              <p>{friendPhoto.photo.explanation}</p>
-              <p>{friendPhoto.photo.createdAt}</p>
             </Link>
+            <div>
+              <p>
+                <button type="button" onClick={() => handleClickLike(friendPhoto.photo.id)}>좋아요</button>
+                {friendPhoto.likeCount}
+              </p>
+              <p>
+                댓글
+                {friendPhoto.commentsCount}
+              </p>
+              <p>{dateFormat(friendPhoto.photo.createdAt)}</p>
+            </div>
+            <p>{friendPhoto.photo.explanation}</p>
           </li>
         ))}
       </ul>
