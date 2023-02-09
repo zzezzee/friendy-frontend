@@ -16,6 +16,8 @@ export default function Notification() {
 
   const { notifications, unCheckedNotifications } = notificationStore;
 
+  console.log(notifications);
+
   const { nickname } = userStore;
 
   const handleClickDelete = (id) => {
@@ -32,7 +34,8 @@ export default function Notification() {
   const handleClickDeleteChecked = () => {
   };
 
-  const handleClickDeleteAll = () => {
+  const handleClickDeleteAll = async () => {
+    await notificationStore.deleteAll();
   };
 
   return ((
@@ -49,35 +52,94 @@ export default function Notification() {
         {notifications.map((notification) => (
           <div key={notification.id}>
             <li>
-              <Link
-                to={`/${nickname}/photos/${notification.photoId}`}
-                onClick={() => handleClickCheck(notification.id)}
-              >
-                <Image src={notification.image} alt="게시물 이미지" />
-                {notification.type === 'photoComment'
-                  ? (
-                    <p>
-                      {notification.nickname}
-                      님이 사진에 댓글을 남겼습니다
-                    </p>
-                  )
+              {notification.type === 'photoComment'
+                ? (
+                  <div>
+                    <Link
+                      to={`/${nickname}/photos/${notification.photoId}`}
+                      onClick={() => handleClickCheck(notification.id)}
+                    >
+                      <Image src={notification.image} alt="게시물 이미지" />
+                      <p>
+                        {notification.nickname}
+                        님이 사진에 댓글을 남겼습니다
+                      </p>
+                    </Link>
+                  </div>
+                )
+                : null}
+              {notification.type === 'GuestBookComment'
+                ? (
+                  <div>
+                    <Link
+                      to={`/${nickname}/guest-books/${notification.photoId}`}
+                      onClick={() => handleClickCheck(notification.id)}
+                    >
+                      <Image src={notification.image} alt="게시물 이미지" />
+                      <p>
+                        {notification.nickname}
+                        님이 방명록을 남겼습니다
+                        {' '}
+                      </p>
+                    </Link>
+                  </div>
+                )
+                : null}
+              {notification.type === 'Like'
+                ? (
+                  <div>
+                    <Link
+                      to={`/${nickname}/photos/${notification.photoId}`}
+                      onClick={() => handleClickCheck(notification.id)}
+                    >
+                      <Image src={notification.image} alt="게시물 이미지" />
+                      <p>
+                        {notification.nickname}
+                        님이 게시물에 좋아요를 남겼습니다.
+                      </p>
+                    </Link>
+                  </div>
+                )
+                : null}
+              {notification.type === 'SendInvitation'
+                ? (
+                  <div>
+                    <Link
+                      to={`/${nickname}/friends`}
+                      onClick={() => handleClickCheck(notification.id)}
+                    >
+                      <Image src={notification.profileImage} alt="프로필 이미지" />
+                      <p>
+                        {notification.nickname}
+                        님이 일촌신청을 보냈습니다.
+                      </p>
+                    </Link>
+                  </div>
+                )
+                : null}
+              {notification.type === 'AcceptInvitation'
+                ? (
+                  <div>
+                    <Link
+                      to={`/${nickname}/friends`}
+                      onClick={() => handleClickCheck(notification.id)}
+                    >
+                      <Image src={notification.profileImage} alt="프로필 이미지" />
+                      <p>
+                        {notification.nickname}
+                        님과 일촌이 되었습니다.
+                      </p>
+                    </Link>
+                  </div>
+                )
+                : null}
+              <p>{notification.content}</p>
+              <p>{dateFormat(notification.createdAt)}</p>
+              <div>
+                {notification.checked
+                  ? <div>확인된 알림</div>
                   : null}
-                {notification.type === 'Like'
-                  ? (
-                    <p>
-                      {notification.nickname}
-                      님이 게시물에 좋아요를 남겼습니다.
-                    </p>
-                  )
-                  : null}
-                <p>{notification.content}</p>
-                <p>{dateFormat(notification.createdAt)}</p>
-                <div>
-                  {notification.checked
-                    ? <div>확인된 알림</div>
-                    : null}
-                </div>
-              </Link>
+              </div>
             </li>
             <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
           </div>

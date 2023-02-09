@@ -15,7 +15,7 @@ const Container = styled.div`
   padding: 2em;
 `;
 
-export default function GuestBookDetail({ id }) {
+export default function GuestBookDetail({ id, currentNickname }) {
   const guestBookStore = useGuestBookStore();
   const commentStore = useCommentStore();
 
@@ -54,7 +54,7 @@ export default function GuestBookDetail({ id }) {
           </div>
         )
         : null}
-      <Comments comments={comments} postId={id} postType="guestBook" />
+      <Comments comments={comments} postId={id} postType="guestBook" miniHomepageOwner={currentNickname} />
     </Container>
   ));
 }

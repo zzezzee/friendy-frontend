@@ -38,6 +38,7 @@ export default class NotificationStore extends Store {
     const {
       photoCommentNotifications,
       likeNotifications,
+      invitationNotifications,
     } = await notificationApiService.fetchNotifications();
 
     photoCommentNotifications.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -45,14 +46,22 @@ export default class NotificationStore extends Store {
     this.photoCommentNotifications = photoCommentNotifications;
     this.likeNotifications = likeNotifications;
 
-    this.notifications = [...photoCommentNotifications,
-      ...likeNotifications];
+    this.notifications = [
+      ...photoCommentNotifications,
+      ...likeNotifications,
+      ...invitationNotifications];
 
     this.notifications.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
     this.unCheckedNotifications = this.notifications.filter((notification) => (
       notification.checked === false
     ));
+
+    this.publish();
+  }
+
+  async deleteAll() {
+    
 
     this.publish();
   }

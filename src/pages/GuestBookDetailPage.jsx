@@ -11,6 +11,7 @@ export default function GuestBookDetailPage() {
   const location = useLocation();
 
   const id = parseInt(location.pathname?.split('/')[3] || '', 10);
+  const nickname = location.pathname?.split('/')[1] || '';
 
   useEffect(() => {
     guestBookStore.fetchGuestBook(id);
@@ -18,6 +19,6 @@ export default function GuestBookDetailPage() {
   }, []);
 
   return ((
-    <GuestBookDetail id={id} />
+    <GuestBookDetail id={id} currentNickname={nickname} />
   ));
 }
