@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
 import useMiniHomepageStore from '../hooks/useProfileStore';
@@ -6,7 +6,6 @@ import useUserStore from '../hooks/useUserStore';
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
   font-weight: 700;
   width: 100%;
   height: 2em;
@@ -24,6 +23,8 @@ export default function Header() {
   const userStore = useUserStore();
   const miniHomepageStore = useMiniHomepageStore();
 
+  const { nickname } = userStore;
+
   const handleLogout = () => {
     setAccessToken('');
     userStore.reset();
@@ -34,6 +35,14 @@ export default function Header() {
   return ((
     <Container>
       <Title>friendy</Title>
+      {accessToken
+        ? (
+          <div>
+            <Link to={`/${nickname}/notifications`}>알림</Link>
+            <Link to={`/${nickname}/chat-rooms`}>채팅</Link>
+          </div>
+        )
+        : null}
       <button type="button" onClick={handleLogout}>로그아웃</button>
     </Container>
   ));
