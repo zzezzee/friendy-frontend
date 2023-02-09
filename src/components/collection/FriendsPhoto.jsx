@@ -23,7 +23,7 @@ export default function FriendsPhoto() {
 
   const handleClickLike = async (id) => {
     await photoBookStore.likePhoto(id);
-    photoBookStore.fetchFriendsPhotos();
+    await photoBookStore.fetchFriendsPhotos();
   };
 
   if (friendsPhotos === undefined) {

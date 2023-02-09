@@ -11,7 +11,7 @@ export default function ChatRoomPage() {
   const location = useLocation();
 
   const nickname = location.pathname?.split('/')[1] || '';
-  const chatRoomId = location.pathname?.split('/')[4] || '';
+  const chatRoomId = location.pathname?.split('/')[3] || '';
 
   useEffect(() => {
     userStore.fetchUser(nickname);

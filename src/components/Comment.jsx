@@ -90,7 +90,7 @@ const ReCommentButton = styled.button`
   font-weight: 300;
 `;
 
-export default function Comments({ comments, postId, postType }) {
+export default function Comments({ comments, postId, postType, miniHomepageOwner }) {
   const userStore = useUserStore();
   const commentStore = useCommentStore();
   const commentFormStore = useCommentFormStore();
@@ -111,7 +111,7 @@ export default function Comments({ comments, postId, postType }) {
     event.preventDefault();
 
     if (inputMode === 'comment') {
-      await commentStore.createComment(content, postId, postType);
+      await commentStore.createComment(content, postId, postType, miniHomepageOwner);
     }
 
     if (inputMode === 'edit') {
