@@ -23,8 +23,8 @@ export default class CommentStore extends Store {
     }
   }
 
-  async createComment(content, id, postType) {
-    await commentApiService.create(content, id, postType);
+  async createComment(content, id, postType, miniHomepageOwner) {
+    await commentApiService.create(content, id, postType, miniHomepageOwner);
 
     this.publish();
   }

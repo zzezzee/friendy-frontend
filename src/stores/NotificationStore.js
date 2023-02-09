@@ -9,7 +9,9 @@ export default class NotificationStore extends Store {
     this.sseEvents = null;
 
     this.notifications = [];
-    this.notification = {};
+
+    this.photoCommentNotifications = [];
+    this.likeNotifications = [];
 
     this.unCheckedNotifications = [];
 
@@ -33,13 +35,22 @@ export default class NotificationStore extends Store {
   }
 
   async fetchNotifications() {
-    const { photoCommentNotifications } = await notificationApiService.fetchNotifications();
+    const {
+      photoCommentNotifications,
+      likeNotifications,
+    } = await notificationApiService.fetchNotifications();
 
     photoCommentNotifications.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-    this.notifications = photoCommentNotifications;
+    this.photoCommentNotifications = photoCommentNotifications;
+    this.likeNotifications = likeNotifications;
 
-    this.unCheckedNotifications = photoCommentNotifications.filter((notification) => (
+    this.notifications = [...photoCommentNotifications,
+      ...likeNotifications];
+
+    this.notifications.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+    this.unCheckedNotifications = this.notifications.filter((notification) => (
       notification.checked === false
     ));
 

@@ -28,7 +28,7 @@ export default class CommentApiService {
     return data;
   }
 
-  async create(content, id, postType) {
+  async create(content, id, postType, miniHomepageOwner) {
     const url = `${baseURL}/comments`;
 
     const { data } = await axios.post(
@@ -37,6 +37,7 @@ export default class CommentApiService {
         content,
         postId: id,
         postType,
+        miniHomepageOwner,
       },
       {
         headers: {

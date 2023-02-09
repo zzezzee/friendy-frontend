@@ -47,34 +47,41 @@ export default function Notification() {
       </div>
       <ul>
         {notifications.map((notification) => (
-          notification.type === 'photoComment'
-            ? (
-              <div key={notification.id}>
-                <li>
-                  <Link
-                    to={`/${nickname}/photos/${notification.photoId}`}
-                    onClick={() => handleClickCheck(notification.id)}
-                  >
-                    <Image src={notification.image} alt="게시물 이미지" />
+          <div key={notification.id}>
+            <li>
+              <Link
+                to={`/${nickname}/photos/${notification.photoId}`}
+                onClick={() => handleClickCheck(notification.id)}
+              >
+                <Image src={notification.image} alt="게시물 이미지" />
+                {notification.type === 'photoComment'
+                  ? (
                     <p>
                       {notification.nickname}
                       님이 사진에 댓글을 남겼습니다
                     </p>
-                    <p>{notification.content}</p>
-                    <p>{dateFormat(notification.createdAt)}</p>
-                    <div>
-                      {notification.checked
-                        ? <div>확인된 알림</div>
-                        : null}
-                    </div>
-                  </Link>
-                </li>
-                <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
-              </div>
-            )
-            : null
+                  )
+                  : null}
+                {notification.type === 'Like'
+                  ? (
+                    <p>
+                      {notification.nickname}
+                      님이 게시물에 좋아요를 남겼습니다.
+                    </p>
+                  )
+                  : null}
+                <p>{notification.content}</p>
+                <p>{dateFormat(notification.createdAt)}</p>
+                <div>
+                  {notification.checked
+                    ? <div>확인된 알림</div>
+                    : null}
+                </div>
+              </Link>
+            </li>
+            <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
+          </div>
         ))}
-
       </ul>
     </div>
   ));

@@ -65,7 +65,7 @@ export default function PhotoDetail({ id, currentNickname }) {
           )
           : null}
       </Photo>
-      <Comments comments={comments} postId={id} postType="photo" />
+      <Comments comments={comments} postId={id} postType="photo" miniHomepageOwner={currentNickname} />
     </Container>
   ));
 }

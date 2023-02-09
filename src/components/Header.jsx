@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
+import useNotificationStore from '../hooks/useNotificationStore';
 import useMiniHomepageStore from '../hooks/useProfileStore';
 import useUserStore from '../hooks/useUserStore';
 
@@ -20,8 +21,12 @@ const Title = styled.h1`
 export default function Header() {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
   const navigate = useNavigate();
+
   const userStore = useUserStore();
   const miniHomepageStore = useMiniHomepageStore();
+  const notificationStore = useNotificationStore();
+
+  const { unCheckedNotifications } = notificationStore;
 
   const { nickname } = userStore;
 
@@ -38,8 +43,13 @@ export default function Header() {
       {accessToken
         ? (
           <div>
-            <Link to={`/${nickname}/notifications`}>알림</Link>
-            <Link to={`/${nickname}/chat-rooms`}>채팅</Link>
+            <Link to={`/${nickname}/notifications`}>
+              알림
+              {' '}
+              {unCheckedNotifications.length}
+            </Link>
+
+            <Link to={`/${nickname}/chat-rooms`}> 채팅</Link>
           </div>
         )
         : null}
