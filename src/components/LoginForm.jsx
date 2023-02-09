@@ -1,12 +1,15 @@
+import { EventSourcePolyfill } from 'event-source-polyfill';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 import useLoginFormStore from '../hooks/useLoginFormStore';
+import useNotificationStore from '../hooks/useNotificationStore';
 import useUserStore from '../hooks/useUserStore';
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const loginFormStore = useLoginFormStore();
   const userStore = useUserStore();
+  const notificationStore = useNotificationStore();
 
   const [, setAccessToken] = useLocalStorage('accessToken', '');
 

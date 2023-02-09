@@ -43,7 +43,7 @@ export default function Navigator() {
           </Link>
         </li>
         <li>
-          <Link to="/additional">
+          <Link to={`/${nickname}/additional`}>
             더보기
           </Link>
         </li>

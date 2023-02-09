@@ -6,6 +6,7 @@ import { chatRoomApiService } from './services/ChatRoomApiService';
 import { commentApiService } from './services/CommentApiService';
 import { friendApiService } from './services/FriendApiService';
 import { guestBookApiService } from './services/GuestBookApiService';
+import { notificationApiService } from './services/NotificationApiService';
 import { photoBookApiService } from './services/PhotoBookApiService';
 import { userApiService } from './services/UserApiService';
 
@@ -19,6 +20,7 @@ friendApiService.setAccessToken(accessToken);
 commentApiService.setAccessToken(accessToken);
 chatRoomApiService.setAccessToken(accessToken);
 chatApiService.setAccessToken(accessToken);
+notificationApiService.setAccessToken(accessToken);
 
 const container = document.getElementById('app');
 const root = ReactDOM.createRoot(container);

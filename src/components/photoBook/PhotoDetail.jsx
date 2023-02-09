@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useCommentStore from '../../hooks/useCommentStore';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
+import useStore from '../../hooks/useStore';
 import useUserStore from '../../hooks/useUserStore';
 import dateFormat from '../../utils/dateFormat';
 import Comments from '../Comment';
@@ -30,7 +31,7 @@ export default function PhotoDetail({ id, currentNickname }) {
 
   const { photo, likes } = photoBookStore;
   const { comments } = commentStore;
-  const { nickname } = commentStore;
+  const { nickname } = userStore;
 
   const handleClickDelete = async () => {
     await photoBookStore.deletePhoto(id);

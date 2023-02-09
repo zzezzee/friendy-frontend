@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import Additional from '../components/Additional';
+import Notification from '../components/Notification';
 import useUserStore from '../hooks/useUserStore';
 
 export default function AdditionalPage() {
   const userStore = useUserStore();
 
   useEffect(() => {
-    // userStore.fetchUser();
+    userStore.fetchUser();
   }, []);
 
   return ((
-    <Additional />
+    <Notification />
   ));
 }
