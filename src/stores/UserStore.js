@@ -36,8 +36,6 @@ export default class UserStore extends Store {
   async fetchUsers() {
     const { users } = await userApiService.fetchUsers();
 
-    console.log(`data${users}`);
-
     this.users = users;
 
     this.publish();
