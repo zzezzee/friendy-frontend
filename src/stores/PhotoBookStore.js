@@ -56,7 +56,6 @@ export default class PhotoBookStore extends Store {
   async fetchFriendsPhotos() {
     const { friendsPhotos } = await photoBookApiService.fetchFriendsPhotos();
 
-    console.log(friendsPhotos);
     friendsPhotos.sort((a, b) => b.photo.createdAt.localeCompare(a.photo.createdAt));
 
     this.friendsPhotos = friendsPhotos;

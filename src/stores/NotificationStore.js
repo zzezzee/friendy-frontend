@@ -10,9 +10,6 @@ export default class NotificationStore extends Store {
 
     this.notifications = [];
 
-    this.photoCommentNotifications = [];
-    this.likeNotifications = [];
-
     this.unCheckedNotifications = [];
 
     this.status = '';
@@ -43,9 +40,6 @@ export default class NotificationStore extends Store {
 
     photoCommentNotifications.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-    this.photoCommentNotifications = photoCommentNotifications;
-    this.likeNotifications = likeNotifications;
-
     this.notifications = [
       ...photoCommentNotifications,
       ...likeNotifications,
@@ -61,13 +55,44 @@ export default class NotificationStore extends Store {
   }
 
   async deleteAll() {
-    
+    await notificationApiService.deleteAll();
+
+    this.notifications = [];
+    this.unCheckedNotifications = [];
+
+    this.publish();
+  } 
+  
+  async deleteAllChecked() {
+    await notificationApiService.deleteAllChecked();
+
+    this.notifications = this.notifications.filter((e) => !e.checked);
+
+    this.unCheckedNotifications = [];
 
     this.publish();
   }
 
-  async addNotification(notification) {
-    this.notification = notification;
+    async delete(id) {
+    await notificationApiService.delete(id);
+
+    this.notifications = this.notifications.filter((e) => e.id !== id);
+
+    this.publish();
+  }
+
+  async checkAll() {
+    await notificationApiService.checkAll();
+
+    this.notifications.forEach(notification => (
+      notification.checked = true,
+    ));
+
+    this.publish();
+  }
+
+  async check(id) {
+    await notificationApiService.check(id);
 
     this.publish();
   }

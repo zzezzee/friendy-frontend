@@ -16,22 +16,22 @@ export default function Notification() {
 
   const { notifications, unCheckedNotifications } = notificationStore;
 
-  console.log(notifications);
-
   const { nickname } = userStore;
 
-  const handleClickDelete = (id) => {
-    console.log(`delete notification id = ${id}`);
+  const handleClickCheck = async (id) => {
+    await notificationStore.check(id);
   };
 
-  const handleClickCheck = (id) => {
-    console.log(`check notification id = ${id}`);
+  const handleClickCheckAll = async () => {
+    await notificationStore.checkAll();
   };
 
-  const handleClickCheckAll = () => {
+  const handleClickDeleteChecked = async () => {
+    await notificationStore.deleteAllChecked();
   };
 
-  const handleClickDeleteChecked = () => {
+  const handleClickDelete = async (id) => {
+    await notificationStore.delete(id);
   };
 
   const handleClickDeleteAll = async () => {
