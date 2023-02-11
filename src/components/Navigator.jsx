@@ -1,53 +1,75 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import navigationItems from '../constrants/bottomNav';
 import useUserStore from '../hooks/useUserStore';
 
-const Container = styled.div`
+const ListWrapper = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 390px;
+  padding: 15px 15px 25px 15px;
+
   position: fixed;
-  left: 0;
-  right: 0;
   bottom: 0;
-  padding: 1em;;
-  height: 3em;
-  background-color: white;
-  border-top: 2px solid purple;
+  z-index: 1;
+
+  border-top: 1px solid ${(({ theme }) => theme.colors.border)};
+  background-color: ${(({ theme }) => theme.colors.background)};
 `;
 
-const List = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+const ItemWrapper = styled.li`
+  width: 80px;
+
+  text-align: center;
+`;
+
+const StyledLink = styled(Link)`
+
+`;
+
+const IconWrapper = styled.div`
+  width: 22px;
+  height: 22px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const TitleWrapper = styled.div`
+  font-size: .9em;
+  margin-top: 8px;
+
+  span {
+    font-weight: ${((props) => (props.selected ? 800 : 400))};
+    color: ${((props) => (props.selected ? props.theme.colors.secondary : props.theme.textColors.default))}
+  }
 `;
 
 export default function Navigator() {
+  const location = useLocation();
+  const { pathname } = location;
+
   const userStore = useUserStore();
 
   const { nickname } = userStore;
 
+  const NAV_ITEM = navigationItems(nickname);
+
   return ((
-    <Container>
-      <List>
-        <li>
-          <Link to={`/${nickname}/collections`}>
-            모아보기
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${nickname}`}>
-            미니홈피
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${nickname}/explore`}>
-            탐색
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${nickname}/additional`}>
-            더보기
-          </Link>
-        </li>
-      </List>
-    </Container>
+    <ListWrapper>
+      {NAV_ITEM.map((item) => (
+        <ItemWrapper key={item.id}>
+          <StyledLink to={item.path}>
+            <TitleWrapper selected={pathname === item.path}>
+              <span>{item.name}</span>
+            </TitleWrapper>
+          </StyledLink>
+        </ItemWrapper>
+      ))}
+    </ListWrapper>
   ));
 }

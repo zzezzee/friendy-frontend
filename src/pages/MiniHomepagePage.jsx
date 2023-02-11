@@ -6,6 +6,7 @@ import useProfileStore from '../hooks/useProfileStore';
 import usePhotoBookStore from '../hooks/usePhotoBookStore';
 import useUserStore from '../hooks/useUserStore';
 import useFriendStore from '../hooks/useFriendStore';
+import Layout from '../layouts/Layout';
 
 export default function MiniHomepagePage() {
   const userStore = useUserStore();
@@ -27,6 +28,8 @@ export default function MiniHomepagePage() {
   }, [nickname]);
 
   return ((
-    <MiniHomepage />
+    <Layout header bottomNav>
+      <MiniHomepage />
+    </Layout>
   ));
 }

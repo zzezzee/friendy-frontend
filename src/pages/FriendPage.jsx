@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Friend from '../components/friend/Friend';
 import useFriendStore from '../hooks/useFriendStore';
 import useUserStore from '../hooks/useUserStore';
+import Layout from '../layouts/Layout';
 
 export default function FriendPage() {
   const userStore = useUserStore();
@@ -19,6 +20,9 @@ export default function FriendPage() {
   }, []);
 
   return ((
-    <Friend />
+    <Layout header bottomNav>
+      <Friend />
+    </Layout>
+
   ));
 }

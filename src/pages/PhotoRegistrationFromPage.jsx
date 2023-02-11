@@ -1,7 +1,11 @@
 import PhotoRegistrationForm from '../components/photoBook/PhotoRegistrationForm';
+import Layout from '../layouts/Layout';
 
 export default function PhotoRegistrationFromPage() {
   return ((
-    <PhotoRegistrationForm />
+    <Layout header bottomNav>
+      <PhotoRegistrationForm />
+    </Layout>
+
   ));
 }

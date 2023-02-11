@@ -1,7 +1,11 @@
 import ProfileForm from '../components/photoBook/ProfileForm';
+import Layout from '../layouts/Layout';
 
 export default function ProfileChangePage() {
   return ((
-    <ProfileForm />
+    <Layout header bottomNav>
+      <ProfileForm />
+    </Layout>
+
   ));
 }

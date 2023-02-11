@@ -1,7 +1,11 @@
 import GuestBookRegistrationForm from '../components/guestBook/GuestBookRegistrationForm';
+import Layout from '../layouts/Layout';
 
 export default function GuestBookRegistrationFromPage() {
   return ((
-    <GuestBookRegistrationForm />
+    <Layout header bottomNav>
+      <GuestBookRegistrationForm />
+    </Layout>
+
   ));
 }

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import GuestBookDetail from '../components/guestBook/GuestBookDetail';
 import useCommentStore from '../hooks/useCommentStore';
 import useGuestBookStore from '../hooks/useGuestBookStore';
+import Layout from '../layouts/Layout';
 
 export default function GuestBookDetailPage() {
   const guestBookStore = useGuestBookStore();
@@ -19,6 +20,9 @@ export default function GuestBookDetailPage() {
   }, []);
 
   return ((
-    <GuestBookDetail id={id} currentNickname={nickname} />
+    <Layout header bottomNav>
+      <GuestBookDetail id={id} currentNickname={nickname} />
+    </Layout>
+
   ));
 }

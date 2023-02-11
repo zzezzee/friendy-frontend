@@ -1,6 +1,7 @@
 import { logDOM } from '@testing-library/dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { LikeOff, LikeOn } from '../../assets/common';
 import useCommentStore from '../../hooks/useCommentStore';
 import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 import useStore from '../../hooks/useStore';
@@ -33,6 +34,8 @@ export default function PhotoDetail({ id, currentNickname }) {
   const { comments } = commentStore;
   const { nickname } = userStore;
 
+  console.log(likes);
+
   const handleClickDelete = async () => {
     await photoBookStore.deletePhoto(id);
 
@@ -48,12 +51,20 @@ export default function PhotoDetail({ id, currentNickname }) {
     navigate(`/photo/edit/${id}`);
   };
 
+  const isActive = () => (
+    likes.filter((like) => (like.nickname === nickname)).length === 1
+      ? LikeOn
+      : LikeOff
+  );
+
   return ((
     <Container>
       <Photo>
         <Image src={photo.image} alt="사진첩 이미지" />
-        <button type="button" onClick={handleClickLike}>좋아요</button>
-        <p>{likes.length}</p>
+        <button type="button" onClick={() => handleClickLike()}>
+          <img src={isActive(photo)} alt="좋아요 버튼" />
+          <span>{likes.length}</span>
+        </button>
         <p>{photo.explanation}</p>
         <p>{dateFormat(photo.createdAt)}</p>
         {currentNickname === nickname

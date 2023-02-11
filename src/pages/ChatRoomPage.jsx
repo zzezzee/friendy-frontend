@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ChatRoom from '../components/collection/ChatRoom';
 import useChatStore from '../hooks/useChatStore';
 import useUserStore from '../hooks/useUserStore';
+import Layout from '../layouts/Layout';
 
 export default function ChatRoomPage() {
   const userStore = useUserStore();
@@ -19,6 +20,9 @@ export default function ChatRoomPage() {
   }, []);
 
   return ((
-    <ChatRoom chatRoomId={chatRoomId} />
+    <Layout header bottomNav>
+      <ChatRoom chatRoomId={chatRoomId} />
+    </Layout>
+
   ));
 }
