@@ -4,21 +4,18 @@ import User from './User';
 export default function Explore() {
   const userStore = useUserStore();
 
-  const { users, searching } = userStore;
+  const { users, filteredUsers, searching } = userStore;
 
-  const handleSubmit = () => {
-
+  const handleChangeInput = (event) => {
+    userStore.filterUsersWithNickname(event.target.value);
   };
 
   return ((
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="input-user">
-          검색
-          <input id="input-user" type="text" />
-        </label>
-        <button type="submit">검색</button>
-      </form>
+      <label htmlFor="input-user">
+        검색
+        <input id="input-user" type="text" onChange={handleChangeInput} />
+      </label>
       <ul>
         {searching === false
           ? users.map((user) => (
@@ -26,6 +23,16 @@ export default function Explore() {
               <User user={user} />
             </li>
           ))
+          : null}
+        {searching === true
+          ? filteredUsers.map((user) => (
+            <li key={user.id}>
+              <User user={user} />
+            </li>
+          ))
+          : null}
+        {filteredUsers.length === 0
+          ? <p>검색 결과가 없습니다</p>
           : null}
       </ul>
     </div>

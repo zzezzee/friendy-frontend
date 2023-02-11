@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { userApiService } from '../services/UserApiService';
 import Store from './Store';
 
@@ -9,6 +10,8 @@ export default class UserStore extends Store {
     this.relationship = '';
 
     this.users = [];
+
+    this.filteredUsers = [];
     this.searching = false;
   }
 
@@ -53,6 +56,19 @@ export default class UserStore extends Store {
     } catch (e) {
       return '';
     }
+  }
+
+  filterUsersWithNickname(nickname) {
+    nickname.length === 0
+      ? this.searching = false
+      : this.searching = true;
+
+    this.filteredUsers = this.users.filter((user) => (
+      user.nickname.includes(nickname)
+    ));
+
+    this.publish();
+    console.log(this.searching);
   }
 }
 
