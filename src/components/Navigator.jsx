@@ -16,7 +16,7 @@ const ListWrapper = styled.ul`
   z-index: 1;
 
   border-top: 1px solid ${(({ theme }) => theme.colors.border)};
-  background-color: ${(({ theme }) => theme.colors.background)};
+  background-color: white;
 `;
 
 const ItemWrapper = styled.li`

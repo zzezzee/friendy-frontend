@@ -7,8 +7,7 @@ import useUserStore from '../../hooks/useUserStore';
 
 const Container = styled.div`
   height: 100%;
-  background-color: white;
-  padding: .1em;
+  background-color: ${(({ theme }) => theme.colors.border)};
 `;
 
 const Post = styled.li`

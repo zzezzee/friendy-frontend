@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: ${(({ theme }) => theme.textColors.default)};
     text-decoration: none;
+    padding:0;
   }
   
   input {

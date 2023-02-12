@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useCommentFormStore from '../hooks/useCommentFormStore';
@@ -7,7 +7,9 @@ import useUserStore from '../hooks/useUserStore';
 import dateFormat from '../utils/dateFormat';
 
 const Container = styled.div`
-  padding: 0em;
+  padding: 0;
+
+  width: 390px;
 `;
 
 const Image = styled.img`
@@ -81,7 +83,7 @@ const Time = styled.strong`
 `;
 
 const Input = styled.form`
-  padding: 3em;
+  /* padding: 3em; */
 `;
 
 const ReCommentButton = styled.button`
@@ -90,7 +92,64 @@ const ReCommentButton = styled.button`
   font-weight: 300;
 `;
 
-export default function Comments({ comments, postId, postType, miniHomepageOwner }) {
+const InputCommentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+
+  padding: .5em;
+  width: 390px;
+
+  background-color: #F7F9FA;
+
+  bottom: 64px;
+
+  input{
+    width: 330px;
+    padding: .5em;
+    border-radius: 1em;
+  }
+
+  button {
+    text-align: center;
+    font-size: 1em;
+  }
+
+  button:last-child{
+    padding-left: .6em
+  }
+`;
+
+const Menu = styled.div`
+  display: flex;
+
+  div{
+  button{
+    font-size: 0.7em;
+    font-weight: 300;
+
+    margin-left: .5em;
+  }
+  }
+`;
+
+const InputType = styled.div`
+  display: flex;
+  /* justify-content: ; */
+  button{
+    padding: .2em .6em;
+    background-color: lightgray;
+    margin-bottom: .3em;
+    border-radius: .5em;
+    font-size: 0.7em;
+  }
+`;
+
+export default function Comments({
+  comments, postId, postType, miniHomepageOwner,
+}) {
+  const messagesEndRef = useRef();
+
   const userStore = useUserStore();
   const commentStore = useCommentStore();
   const commentFormStore = useCommentFormStore();
@@ -105,6 +164,10 @@ export default function Comments({ comments, postId, postType, miniHomepageOwner
 
   const handleChangeContent = (event) => {
     commentFormStore.changeContent(event.target.value);
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleSubmitComment = async (event) => {
@@ -124,9 +187,13 @@ export default function Comments({ comments, postId, postType, miniHomepageOwner
 
     if (inputMode === 'reply') {
       await commentStore.createReComment(content, postId, postType, parentId);
+
+      setInputMode('comment');
     }
 
     await commentStore.fetchComments(postId);
+    commentFormStore.reset();
+    scrollToBottom();
   };
 
   const handleClickDelete = async (commentId) => {
@@ -156,7 +223,7 @@ export default function Comments({ comments, postId, postType, miniHomepageOwner
       <List>
         {comments !== undefined
           ? comments.map((comment) => (
-            <Item key={comment.id}>
+            <Item key={comment.id} ref={messagesEndRef}>
               <ParentComment>
                 <Link to={`/${comment.nickname}`}>
                   <Image src={comment.profileImage} alt="프로필이미지" />
@@ -167,24 +234,26 @@ export default function Comments({ comments, postId, postType, miniHomepageOwner
                     <Time>{dateFormat(comment.createdAt)}</Time>
                   </p>
                   <p id="content">{comment.content}</p>
-                  <ReCommentButton
-                    type="button"
-                    onClick={() => handleClickReply(comment.nickname, comment.id)}
-                  >
-                    답글달기
-                  </ReCommentButton>
-                  {comment.nickname === nickname
-                    ? (
-                      <div>
-                        <button type="button" onClick={() => handleClickDelete(comment.id)}>삭제</button>
-                        <button type="button" onClick={() => handleClickEdit(comment.id)}>수정</button>
-                      </div>
-                    )
-                    : null}
+                  <Menu>
+                    <ReCommentButton
+                      type="button"
+                      onClick={() => handleClickReply(comment.nickname, comment.id)}
+                    >
+                      답글달기
+                    </ReCommentButton>
+                    {comment.nickname === nickname
+                      ? (
+                        <div>
+                          <button type="button" onClick={() => handleClickEdit(comment.id)}>수정</button>
+                          <button type="button" onClick={() => handleClickDelete(comment.id)}>삭제</button>
+                        </div>
+                      )
+                      : null}
+                  </Menu>
                 </div>
               </ParentComment>
               <div>
-                <ReplyComment>
+                <ReplyComment ref={messagesEndRef}>
                   {comment.reComments.map((reComment) => (
                     <div id="reComment" key={reComment.id}>
                       <Link to={`/${reComment.nickname}`}>
@@ -199,8 +268,8 @@ export default function Comments({ comments, postId, postType, miniHomepageOwner
                         {reComment.nickname === nickname
                           ? (
                             <div>
-                              <button type="button" onClick={() => handleClickDelete(reComment.id)}>삭제</button>
                               <button type="button" onClick={() => handleClickEdit(reComment.id)}>수정</button>
+                              <button type="button" onClick={() => handleClickDelete(reComment.id)}>삭제</button>
                             </div>
                           )
                           : null}
@@ -214,29 +283,35 @@ export default function Comments({ comments, postId, postType, miniHomepageOwner
           : null}
       </List>
       <Input onSubmit={handleSubmitComment}>
-        {inputMode === 'reply'
-          ? (
-            <p>
-              {replyNickname}
-              님에게 답글 남기는중..
-            </p>
-          )
-          : null}
-        {inputMode === 'edit'
-          ? <p>댓글을 수정중..</p>
-          : null}
-        {inputMode === 'reply' || inputMode === 'edit'
-          ? <button type="button" onClick={handleClickCancel}>x</button>
-          : null}
-        <label htmlFor="input-comment">
-          댓글
-          <input
-            type="text"
-            id="input-comment"
-            onChange={handleChangeContent}
-          />
-        </label>
-        <button type="submit">등록</button>
+        <InputCommentBox>
+          <InputType>
+            {inputMode === 'edit'
+              ? <p>댓글을 수정중..</p>
+              : null}
+            {inputMode === 'reply'
+              ? (
+                <p>
+                  {replyNickname}
+                  님에게 답글 남기는중..
+                </p>
+              )
+              : null}
+            {inputMode === 'reply' || inputMode === 'edit'
+              ? <button type="button" onClick={handleClickCancel}>취소</button>
+              : null}
+          </InputType>
+          <div>
+            <label htmlFor="input-comment">
+              <input
+                type="text"
+                id="input-comment"
+                onChange={handleChangeContent}
+                value={content}
+              />
+            </label>
+            <button type="submit">게시</button>
+          </div>
+        </InputCommentBox>
       </Input>
     </Container>
   ));

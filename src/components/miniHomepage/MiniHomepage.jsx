@@ -14,13 +14,31 @@ const Menu = styled.div`
   justify-content: space-evenly;
   padding: .5em;
 
+  width: 100%;
+`;
+
+const ButtonBox = styled.div`
+  width: 100%;
+  text-align: center;
+
+  padding: .5em;
+  border-bottom:${(props) => (props.selected ? '3px solid #FAD15B' : 'none')};
+`;
+
+const Content = styled.div`
+  margin-top: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 10, 0.3);
+
+  border-radius: 1em;
 `;
 
 const Button = styled.button`
   background-color: white;
   border: none;
-  font-size: 1em;
-  border-bottom:${(props) => (props.selected ? '3px solid purple' : 'none')};
+  font-size: .9em;
+  font-weight: 500;
 `;
 
 export default function MiniHomepage() {
@@ -41,25 +59,30 @@ export default function MiniHomepage() {
   return ((
     <Container>
       <Information relationship={relationship} />
-      <Menu>
-        <Button
-          type="button"
-          onClick={handleClickSeePhotoBook}
-          selected={menu === 'photoBook'}
-        >
-          사진첩
-        </Button>
-        <Button
-          type="button"
-          onClick={handleClickSeeGuestBook}
-          selected={menu === 'guestBook'}
-        >
-          방명록
-        </Button>
-      </Menu>
-      {menu === 'photoBook'
-        ? <PhotoBook />
-        : <GuestBook />}
+      <Content>
+        <Menu>
+          <ButtonBox selected={menu === 'photoBook'}>
+            <Button
+              type="button"
+              onClick={handleClickSeePhotoBook}
+              selected={menu === 'photoBook'}
+            >
+              사진첩
+            </Button>
+          </ButtonBox>
+          <ButtonBox selected={menu === 'guestBook'}>
+            <Button
+              type="button"
+              onClick={handleClickSeeGuestBook}
+            >
+              방명록
+            </Button>
+          </ButtonBox>
+        </Menu>
+        {menu === 'photoBook'
+          ? <PhotoBook />
+          : <GuestBook />}
+      </Content>
     </Container>
   ));
 }

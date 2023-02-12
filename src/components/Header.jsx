@@ -19,6 +19,15 @@ const Container = styled.div`
 
 const Menu = styled.div`
   display: flex;
+
+  div {
+    display: flex;
+    margin-right: .3em;
+
+    div{
+      margin-top: .2em;
+    }
+  }
 `;
 
 const LogoWrapper = styled.h1`
@@ -27,7 +36,7 @@ const LogoWrapper = styled.h1`
 `;
 
 const IconWrapper = styled.h1`
-  width: 40px;
+  width: 20px;
   height: 19px;
 `;
 
@@ -66,7 +75,6 @@ export default function Header() {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
 
   const userStore = useUserStore();
-  const miniHomepageStore = useMiniHomepageStore();
   const notificationStore = useNotificationStore();
 
   const { unCheckedNotifications } = notificationStore;
@@ -83,13 +91,15 @@ export default function Header() {
       {accessToken
         ? (
           <Menu>
-            <IconWrapper>
-              <NotificationLink to={`/${nickname}/notifications`}>
-                알림
-              </NotificationLink>
-            </IconWrapper>
             <div>
-              {unCheckedNotifications.length}
+              <IconWrapper>
+                <NotificationLink to={`/${nickname}/notifications`}>
+                  알림
+                </NotificationLink>
+              </IconWrapper>
+              <div>
+                {unCheckedNotifications.length}
+              </div>
             </div>
             <IconWrapper>
               <ChatLink to={`/${nickname}/chat-rooms`}> 채팅</ChatLink>

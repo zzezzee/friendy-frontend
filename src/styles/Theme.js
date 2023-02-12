@@ -1,6 +1,5 @@
 const theme = {
   colors: {
-    background: '#FFFFFF',
     inputBackground: '#F5F5F5',
     buttonBackground: '#F7F7F7',
     cardBackground: '#F7F7F7',
@@ -10,6 +9,7 @@ const theme = {
     border: '#E0E0E0',
     miniBorder: '#CCCCCC',
     postBackGround: '#B9B9B9',
+    background: '#F7F9FA',
   },
   textColors: {
     default: '#222222',
@@ -20,6 +20,7 @@ const theme = {
     purple: '#A351FB',
     lightGray: '#A8A8A8',
     white: '#F7F7F7',
+
   },
 
   spacing: {

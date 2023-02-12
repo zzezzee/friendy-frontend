@@ -16,7 +16,6 @@ const Menu = styled.div`
   height: 30px;
 
 
-  /* border: 1px solid red; */
   button {
     border: 1px solid gray;
     border-radius: .5em;
