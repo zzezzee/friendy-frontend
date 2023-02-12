@@ -4,13 +4,37 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
   body {
-    font-size: ${((props) => props.theme.size.default)};
+    color: ${(({ theme }) => theme.textColors.default)};
+    background-color: ${(({ theme }) => theme.colors.dimmed)};
+    font-size: 16px;
   }
   
   a {
+    color: ${(({ theme }) => theme.textColors.default)};
     text-decoration: none;
+    padding:0;
   }
+  
+  input {
+    border: none;
+
+    :focus {
+      outline: none;
+    }
+  }
+
+  button {
+    background: inherit;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    overflow:visible;
+    cursor:pointer;
+  }
+
 `;
 
 export default GlobalStyle;

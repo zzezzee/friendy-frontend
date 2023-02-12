@@ -34,25 +34,6 @@ import { userApiService } from './services/UserApiService';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 600px;
-  height: calc(100vh);
-  min-height: 50em;
-  margin: 0 auto;
-`;
-
-const Footer = styled.footer`
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 50em;
-    bottom: 0em;
-    border-top: 1px solid black;
-`;
-
 export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
 
@@ -75,34 +56,28 @@ export default function App() {
 
   return ((
     <div>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{ ...theme }}>
         <Reset />
         <GlobalStyle />
-        <Header />
-        <Main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/:nickname" element={<MiniHomepagePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/:nickname/explore" element={<ExplorePage />} />
-            <Route path="/:nickname/additional" element={<AdditionalPage />} />
-            <Route path="/photos/write" element={<PhotoRegistrationFormPage />} />
-            <Route path="/photo/edit/:id" element={<PhotoEditFromPage />} />
-            <Route path="/change-profile" element={<ProfileChangePage />} />
-            <Route path="/:nickname/photos/:id" element={<PhotoDetailPage />} />
-            <Route path="/:nickname/guest-books/:id" element={<GuestBookDetailPage />} />
-            <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
-            <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
-            <Route path="/:nickname/friends" element={<FriendPage />} />
-            <Route path="/:nickname/collections" element={<CollectionPage />} />
-            <Route path="/:nickname/chat-rooms" element={<ChatRoomListPage />} />
-            <Route path="/:nickname/chat-rooms/:id" element={<ChatRoomPage />} />
-            <Route path="/:nickname/notifications" element={<NotificationPage />} />
-          </Routes>
-          <Footer>
-            <Navigator />
-          </Footer>
-        </Main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/:nickname" element={<MiniHomepagePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/:nickname/explore" element={<ExplorePage />} />
+          <Route path="/:nickname/additional" element={<AdditionalPage />} />
+          <Route path="/photos/write" element={<PhotoRegistrationFormPage />} />
+          <Route path="/photo/edit/:id" element={<PhotoEditFromPage />} />
+          <Route path="/change-profile" element={<ProfileChangePage />} />
+          <Route path="/:nickname/photos/:id" element={<PhotoDetailPage />} />
+          <Route path="/:nickname/guest-books/:id" element={<GuestBookDetailPage />} />
+          <Route path="/:nickname/guest-books/write" element={<GuestBookRegistrationFromPage />} />
+          <Route path="/guest-books/edit/:id" element={<GuestBookEditFromPage />} />
+          <Route path="/:nickname/friends" element={<FriendPage />} />
+          <Route path="/:nickname/collections" element={<CollectionPage />} />
+          <Route path="/:nickname/chat-rooms" element={<ChatRoomListPage />} />
+          <Route path="/:nickname/chat-rooms/:id" element={<ChatRoomPage />} />
+          <Route path="/:nickname/notifications" element={<NotificationPage />} />
+        </Routes>
       </ThemeProvider>
     </div>
   ));

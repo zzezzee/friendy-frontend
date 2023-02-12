@@ -32,6 +32,12 @@ export default class CommentFormStore extends Store {
 
     this.publish();
   }
+
+  reset() {
+    this.content = '';
+
+    this.publish();
+  }
 }
 
 export const commentFormStore = new CommentFormStore();

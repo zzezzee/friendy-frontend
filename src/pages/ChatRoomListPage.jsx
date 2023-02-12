@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ChatRoomList from '../components/collection/ChatRoomList';
 import useUserStore from '../hooks/useUserStore';
+import Layout from '../layouts/Layout';
 import { chatRoomStore } from '../stores/ChatRoomStore';
 
 export default function ChatRoomListPage() {
@@ -17,6 +18,9 @@ export default function ChatRoomListPage() {
   }, []);
 
   return ((
-    <ChatRoomList />
+    <Layout header bottomNav>
+      <ChatRoomList />
+    </Layout>
+
   ));
 }

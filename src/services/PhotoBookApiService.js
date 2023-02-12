@@ -121,6 +121,8 @@ export default class PhotoBookApiService {
       },
     );
 
+    console.log(data);
+
     return data;
   }
 }

@@ -4,12 +4,14 @@ import usePhotoBookStore from '../../hooks/usePhotoBookStore';
 import useUserStore from '../../hooks/useUserStore';
 
 const Container = styled.div`
-  padding: 0em;
+
 `;
 
 const Image = styled.img`
   width: 127px;
   height: 127px;
+
+  border-radius: .3em;
   object-fit: fill;
 `;
 
@@ -17,6 +19,22 @@ const List = styled.ul`
   display: flex;
   gap: .2em;
   flex-wrap: wrap;
+
+
+`;
+
+const AddButton = styled.div`
+  text-align: right;
+
+  a {
+    border: 1px solid #EAEAEC;
+    padding: .3em .5em;
+    margin-right: 1em;
+    font-size: .8em;
+    font-weight: 400;
+    background-color: #fff2cc;
+    border-radius: 1em;
+  }
 `;
 
 export default function PhotoBook() {
@@ -44,11 +62,13 @@ export default function PhotoBook() {
               </Link>
             </li>
           ))
-          : <p>사진을 추가해 주세요</p>}
+          : null}
       </List>
-      {relationship === 'me'
-        ? <Link to="/photos/write">추가</Link>
-        : null}
+      <AddButton>
+        {relationship === 'me'
+          ? <Link to="/photos/write">사진 추가</Link>
+          : null}
+      </AddButton>
     </Container>
   ));
 }

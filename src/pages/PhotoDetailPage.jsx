@@ -4,6 +4,7 @@ import PhotoDetail from '../components/photoBook/PhotoDetail';
 import useCommentStore from '../hooks/useCommentStore';
 import usePhotoBookStore from '../hooks/usePhotoBookStore';
 import useUserStore from '../hooks/useUserStore';
+import Layout from '../layouts/Layout';
 
 export default function PhotoDetailPage() {
   const photoBookStore = usePhotoBookStore();
@@ -22,6 +23,9 @@ export default function PhotoDetailPage() {
   }, []);
 
   return ((
-    <PhotoDetail id={id} currentNickname={nickname} />
+    <Layout header bottomNav>
+      <PhotoDetail id={id} currentNickname={nickname} />
+    </Layout>
+
   ));
 }

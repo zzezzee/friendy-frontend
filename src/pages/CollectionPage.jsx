@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Collection from '../components/collection/Collection';
 import usePhotoBookStore from '../hooks/usePhotoBookStore';
 import useUserStore from '../hooks/useUserStore';
+import Layout from '../layouts/Layout';
 
 export default function CollectionPage() {
   const userStore = useUserStore();
@@ -18,6 +19,8 @@ export default function CollectionPage() {
   }, []);
 
   return ((
-    <Collection />
+    <Layout header bottomNav>
+      <Collection />
+    </Layout>
   ));
 }
