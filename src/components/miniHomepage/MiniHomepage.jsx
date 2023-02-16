@@ -43,7 +43,7 @@ const Button = styled.button`
 
 export default function MiniHomepage() {
   const userStore = useUserStore();
-
+  
   const [menu, setMenu] = useState('photoBook');
 
   const { relationship } = userStore;

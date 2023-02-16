@@ -6,11 +6,11 @@ export default class PhotoBookStore extends Store {
   constructor() {
     super();
 
-    this.photoBook = [];
-    this.photo = {};
+    this.photoBook = null;
+    this.photo = null;
     this.likes = [];
 
-    this.friendsPhotos = [];
+    this.friendsPhotos = null;
 
     this.comments = [];
     this.comment = {};

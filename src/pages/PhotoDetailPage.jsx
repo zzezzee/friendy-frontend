@@ -26,6 +26,5 @@ export default function PhotoDetailPage() {
     <Layout header bottomNav>
       <PhotoDetail id={id} currentNickname={nickname} />
     </Layout>
-
   ));
 }

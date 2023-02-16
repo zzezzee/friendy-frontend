@@ -15,6 +15,8 @@ export default function MiniHomepagePage() {
   const profileStore = useProfileStore();
   const friendStore = useFriendStore();
 
+  const { photos } = photoBookStore;
+
   const location = useLocation();
 
   const nickname = location.pathname?.split('/')[1] || '';

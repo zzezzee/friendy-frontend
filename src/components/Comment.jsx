@@ -8,8 +8,8 @@ import dateFormat from '../utils/dateFormat';
 
 const Container = styled.div`
   padding: 0;
-
   width: 390px;
+  padding-bottom: 65px;
 `;
 
 const Image = styled.img`

@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import useChatStore from '../../hooks/useChatStore';
 import useFriendStore from '../../hooks/useFriendStore';
 import useProfileStore from '../../hooks/useProfileStore';
 import useUserStore from '../../hooks/useUserStore';
@@ -79,6 +80,9 @@ export default function Information({ relationship }) {
   const profileStore = useProfileStore();
   const friendStore = useFriendStore();
   const userStore = useUserStore();
+  const chatStore = useChatStore();
+
+  const navigate = useNavigate();
 
   const { nickname, profileImage, introduction } = profileStore;
   const { friends } = friendStore;
@@ -88,10 +92,15 @@ export default function Information({ relationship }) {
     await userStore.fetchUser(nickname);
   };
 
-  const handleClickSendChat = async () => {
-    // await friendStore.sendInvitation(nickname);
-    // await userStore.fetchUser(nickname);
+  const handleClickCreateChatRoom = async () => {
+    // const id = await chatStore.createChatRoom();
+
+    navigate(`/${nickname}/chat-rooms/1`);
   };
+
+  // if (!nickname) {
+  //   return <p>불러오는 중입니다..</p>;
+  // }
 
   return ((
     <Container>
@@ -117,11 +126,15 @@ export default function Information({ relationship }) {
               </p>
             )
             : null}
-          <p>
-            <button type="button" onClick={handleClickSendChat}>
-              채팅
-            </button>
-          </p>
+          {relationship !== 'me'
+            ? (
+              <p>
+                <button type="button" onClick={handleClickCreateChatRoom}>
+                  채팅
+                </button>
+              </p>
+            )
+            : null}
         </Menu>
         <Content>
           <Image src={profileImage} alt="프로필사진" />

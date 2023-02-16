@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import Navigator from './components/Navigator';
 import useNotificationStore from './hooks/useNotificationStore';
+import useUserStore from './hooks/useUserStore';
 import AdditionalPage from './pages/AdditionalPage';
 import ChatRoomListPage from './pages/ChatRoomListPage';
 import ChatRoomPage from './pages/ChatRoomPage';
@@ -38,6 +39,15 @@ export default function App() {
   const [accessToken] = useLocalStorage('accessToken', '');
 
   const notificationStore = useNotificationStore();
+  const userStore = useUserStore();
+  const location = useLocation();
+
+  const nickname = location.pathname?.split('/')[1] || '';
+
+  useEffect(() => {
+    userStore.fetchUser(nickname);
+    notificationStore.fetchNotifications();
+  }, []);
 
   useEffect(() => {
     userApiService.setAccessToken(accessToken);

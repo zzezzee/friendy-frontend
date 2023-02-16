@@ -6,6 +6,17 @@ import { MainPhoto } from '../assets/common';
 import { Logo } from '../assets/header';
 import useUserStore from '../hooks/useUserStore';
 
+const Container = styled.div`
+  flex-direction: flex;
+  align-items: center;
+
+  p{
+    text-align: center;
+    margin-top: 2.5em;
+    font-size: .7em;
+  }
+`;
+
 const LogoWrapper = styled.h1`
   width: 200px;
   height: 150px;
@@ -28,6 +39,17 @@ const Photo = styled.img`
   object-fit: fill;
 `;
 
+const StyledLink = styled(Link)`
+    align-self: center;
+    border: 1px solid #EAEAEC;
+    padding: .5em 11em;
+    font-size: .9em;
+    font-weight: 600;
+    background-color: #fff2cc;
+    border-radius: 2em;
+    margin-left: 1em;
+`;
+
 export default function Home() {
   const navigate = useNavigate();
   const userStore = useUserStore();
@@ -42,14 +64,15 @@ export default function Home() {
   }, []);
 
   return ((
-    <div>
+    <Container>
       <LogoWrapper>
         <HomeLink to="/">
           Friendy
         </HomeLink>
       </LogoWrapper>
       <Photo src={MainPhoto} alt="" />
-      <Link to="/login">로그인</Link>
-    </div>
+      <StyledLink to="/login">로그인</StyledLink>
+      <p>회원가입</p>
+    </Container>
   ));
 }

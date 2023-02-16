@@ -94,6 +94,10 @@ export default function PhotoDetail({ id, currentNickname }) {
       : LikeOff
   );
 
+  if (!photo) {
+    return (<p>불러오는 중입니다..</p>);
+  }
+
   return ((
     <Container>
       <Photo>
