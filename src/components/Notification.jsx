@@ -6,24 +6,24 @@ import dateFormat from '../utils/dateFormat';
 
 const Container = styled.div`
   height: 100%;
-
 `;
 
 const Menu = styled.div`
   display: grid;
+  grid-gap: .21em;
   grid-template-columns: repeat(3, 1fr);
-
+  background-color: white;
   height: 30px;
 
 
   button {
-    border: 1px solid gray;
+    box-shadow: .1px .1px .1px .3px rgba(0, 0, 0.3, 0.3);
     border-radius: .5em;
   }
 `;
 
 const Item = styled.li`
-  background-color: white;
+  background-color:${(props) => (props.checked ? '#dcdcdc' : 'white')};
   border-radius: 1em;
   margin-bottom: .2em;
 
@@ -33,10 +33,12 @@ const Item = styled.li`
 
 const StyledLink = styled(Link)`
   display: flex;
+  justify-content: space-between;
 
-  div {
-    display: flex;
-    flex-direction: column;
+  button{
+    align-self: flex-start;
+    font-weight: 300;
+    font-size: .7em;
   }
 `;
 
@@ -46,8 +48,32 @@ const Image = styled.img`
 
   border-radius: 1em;
 
-
   object-fit: fill;
+`;
+
+const Content = styled.div`
+  display: flex;
+  color:${(props) => (props.checked ? 'gray' : 'black')};
+
+  div {
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: .3em;
+    margin-left: .3em;
+
+    p:first-child{
+      font-size: .8em;
+      font-weight: 500;
+      margin-bottom: 1em;
+    }
+    p:nth-child(2){
+      font-size: .9em;
+      margin-bottom: 1em;
+    }
+    p:last-child{
+      font-size: .6em;
+    }
+  }
 `;
 
 export default function Notification() {
@@ -88,21 +114,25 @@ export default function Notification() {
       <ul>
         {notifications.map((notification) => (
           <div key={notification.id}>
-            <Item>
+            <Item checked={notification.checked === true}>
               {notification.type === 'photoComment'
                 ? (
                   <StyledLink
                     to={`/${nickname}/photos/${notification.photoId}`}
                     onClick={() => handleClickCheck(notification.id)}
                   >
-                    <Image src={notification.image} alt="게시물 이미지" />
-                    <div>
-                      <p>
-                        {notification.nickname}
-                        님이 사진에 댓글을 남겼습니다
-                      </p>
-                      <p>{notification.content}</p>
-                    </div>
+                    <Content checked={notification.checked === true}>
+                      <Image src={notification.image} alt="게시물 이미지" />
+                      <div>
+                        <p>
+                          {notification.nickname}
+                          님이 사진에 댓글을 남겼습니다
+                        </p>
+                        <p>{notification.content}</p>
+                        <p>{dateFormat(notification.createdAt)}</p>
+                      </div>
+                    </Content>
+                    <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
                   </StyledLink>
                 )
                 : null}
@@ -112,12 +142,18 @@ export default function Notification() {
                     to={`/${nickname}/guest-books/${notification.photoId}`}
                     onClick={() => handleClickCheck(notification.id)}
                   >
-                    <Image src={notification.image} alt="게시물 이미지" />
-                    <p>
-                      {notification.nickname}
-                      님이 방명록을 남겼습니다
-                      {' '}
-                    </p>
+                    <Content checked={notification.checked === true}>
+                      <Image src={notification.image} alt="게시물 이미지" />
+                      <div>
+                        <p>
+                          {notification.nickname}
+                          님이 방명록을 남겼습니다
+                          {' '}
+                        </p>
+                        <p>{dateFormat(notification.createdAt)}</p>
+                      </div>
+                    </Content>
+                    <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
                   </StyledLink>
                 )
                 : null}
@@ -127,44 +163,60 @@ export default function Notification() {
                     to={`/${nickname}/photos/${notification.photoId}`}
                     onClick={() => handleClickCheck(notification.id)}
                   >
-                    <Image src={notification.image} alt="게시물 이미지" />
-                    <p>
-                      {notification.nickname}
-                      님이 게시물에 좋아요를 남겼습니다.
-                    </p>
+                    <Content checked={notification.checked === true}>
+                      <Image src={notification.image} alt="게시물 이미지" />
+                      <div>
+                        <p>
+                          {notification.nickname}
+                          님이 게시물에 좋아요를 남겼습니다.
+                        </p>
+                        <p>{dateFormat(notification.createdAt)}</p>
+                      </div>
+                    </Content>
+                    <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
                   </StyledLink>
                 )
                 : null}
               {notification.type === 'SendInvitation'
                 ? (
-                  <Link
+                  <StyledLink
                     to={`/${nickname}/friends`}
                     onClick={() => handleClickCheck(notification.id)}
                   >
-                    <Image src={notification.profileImage} alt="프로필 이미지" />
-                    <p>
-                      {notification.nickname}
-                      님이 일촌신청을 보냈습니다.
-                    </p>
-                  </Link>
+                    <Content checked={notification.checked === true}>
+                      <Image src={notification.profileImage} alt="프로필 이미지" />
+                      <div>
+                        <p>
+                          {notification.nickname}
+                          님이 일촌신청을 보냈습니다.
+                        </p>
+                        <p>{dateFormat(notification.createdAt)}</p>
+                      </div>
+                    </Content>
+                    <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
+                  </StyledLink>
                 )
                 : null}
               {notification.type === 'AcceptInvitation'
                 ? (
-                  <Link
+                  <StyledLink
                     to={`/${nickname}/friends`}
                     onClick={() => handleClickCheck(notification.id)}
                   >
-                    <Image src={notification.profileImage} alt="프로필 이미지" />
-                    <p>
-                      {notification.nickname}
-                      님과 일촌이 되었습니다.
-                    </p>
-                  </Link>
+                    <Content checked={notification.checked === true}>
+                      <Image src={notification.profileImage} alt="프로필 이미지" />
+                      <div>
+                        <p>
+                          {notification.nickname}
+                          님과 일촌이 되었습니다.
+                        </p>
+                        <p>{dateFormat(notification.createdAt)}</p>
+                      </div>
+                    </Content>
+                    <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
+                  </StyledLink>
                 )
                 : null}
-              <p>{dateFormat(notification.createdAt)}</p>
-              <button type="button" onClick={() => handleClickDelete(notification.id)}>X</button>
             </Item>
           </div>
         ))}

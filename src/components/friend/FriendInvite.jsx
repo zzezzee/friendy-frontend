@@ -4,24 +4,31 @@ import useFriendStore from '../../hooks/useFriendStore';
 import FriendInvitations from './FriendInvitations';
 
 const Container = styled.div`
-  border: 3px solid brown;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 10, 0.3);
+
   border-radius: 1em;
   margin-bottom: 1em;
+  width: 100%;
+
 `;
 
 const Menu = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding: .5em;
+  width: 100%;
 
 `;
 
-const Button = styled.button`
-  background-color: white;
-  border: none;
-  font-size: 1em;
-  font-weight: 600;
-  border-bottom:${(props) => (props.selected ? '3px solid purple' : 'none')};
+const ButtonBox = styled.button`
+  width: 100%;
+  text-align: center;
+
+  padding: .5em;
+  border-bottom:${(props) => (props.selected ? '3px solid #FAD15B' : 'none')};
+
+  font-weight: 500;
 `;
 
 export default function FriendInvite() {
@@ -42,20 +49,20 @@ export default function FriendInvite() {
   return ((
     <Container>
       <Menu>
-        <Button
+        <ButtonBox
           type="button"
           onClick={handleClickSeeReceived}
           selected={menu === 'received'}
         >
           받은 일촌 신청
-        </Button>
-        <Button
+        </ButtonBox>
+        <ButtonBox
           type="button"
           onClick={handleClickSeeSent}
           selected={menu === 'sent'}
         >
           보낸 일촌 신청
-        </Button>
+        </ButtonBox>
       </Menu>
       <FriendInvitations
         menu={menu}

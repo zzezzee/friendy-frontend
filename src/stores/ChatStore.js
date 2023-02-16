@@ -44,6 +44,10 @@ export default class ChatStore extends Store {
     });
   }
 
+  reset() {
+    this.messageToSend = '';
+  }
+
   connect({
     chatRoomId,
   }) {

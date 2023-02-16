@@ -64,10 +64,10 @@ const Content = styled.div`
   flex-direction: column;
 
   p:nth-child(1) {
-    font-size: .8em;
+    font-size: .7em;
   }
   p:nth-child(2) {
-    font-size: 1.2em;
+    font-size: 1em;
     padding: .7em 0em;
   }
 `;
@@ -84,18 +84,15 @@ export default function FriendsPhoto() {
     await photoBookStore.fetchFriendsPhotos();
   };
 
-  if (friendsPhotos === undefined) {
-    return ((
-      <p>Loading..</p>
-    ));
-  }
-
   const isActive = (friendPhoto) => (
     friendPhoto.likers.includes(nickname)
       ? LikeOn
       : LikeOff
   );
 
+  if (!friendsPhotos) {
+    return (<p>불러오는 중입니다..</p>);
+  }
   return ((
     <Container>
       <ul>

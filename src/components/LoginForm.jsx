@@ -1,9 +1,50 @@
-import { EventSourcePolyfill } from 'event-source-polyfill';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
 import useLoginFormStore from '../hooks/useLoginFormStore';
 import useNotificationStore from '../hooks/useNotificationStore';
 import useUserStore from '../hooks/useUserStore';
+
+const Container = styled.div`
+  height: 90%;
+
+  h1 {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 700;
+    margin-top: 3em;
+  }
+
+  p{    
+    text-align: center;
+    margin-top: 2.5em;
+    font-size: .7em;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
+
+  input{
+    border: 1px solid gray;
+    padding: 2em 2.5em;
+    margin: 1em 3em;
+
+    border-radius: 1em;
+  }
+
+  button {
+    align-self: center;
+    border: 1px solid #EAEAEC;
+    padding: .5em 9em;
+    font-size: .9em;
+    font-weight: 600;
+    background-color: # ;
+    border-radius: 2em;
+  }
+`;
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -40,9 +81,9 @@ export default function LoginForm() {
   };
 
   return ((
-    <div>
+    <Container>
       <h1>LOGIN</h1>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input
           id="input-username"
           type="text"
@@ -63,8 +104,8 @@ export default function LoginForm() {
           ? loginFormStore.errors
           : null}
         <button type="submit">로그인</button>
-      </form>
-      <a href="/">회원가입</a>
-    </div>
+      </Form>
+      <p>회원가입</p>
+    </Container>
   ));
 }
